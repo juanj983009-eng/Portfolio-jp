@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -76,38 +76,47 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       style={{ zIndex: index + 10 }}
     >
       <motion.div
-        // Scroll-driven spring transforms — 100% solid opacity at all times (no transparency)
+        // Scroll-driven spring transforms — 100% solid opacity at all times with GPU paint isolation
         style={{
           scale,
           y,
           willChange: "transform",
           transformOrigin: "top center",
+          contain: "paint layout",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden",
         }}
         onClick={() => onOpen(project)}
-        className="group relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-black shadow-2xl hover:border-zinc-700 transition-colors duration-500 transform-gpu"
+        className="group relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-black shadow-2xl hover:border-zinc-700 transition-colors duration-500 transform-gpu will-change-transform"
       >
-        {/* 1. FULL-BLEED COVER IMAGE (High Performance Next.js Image Optimization) */}
-        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
+        {/* 1. FULL-BLEED COVER IMAGE (High Performance Immediate Preloading) */}
+        <div
+          className="absolute inset-0 w-full h-full z-0 overflow-hidden"
+          style={{
+            contain: "paint layout",
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+          }}
+        >
           <Image
             src={imgSrc}
             alt={project.title}
             fill
-            priority={index === 0}
-            loading={index === 0 ? "eager" : "lazy"}
-            quality={75}
+            priority={true}
+            quality={70}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             onError={() => setImgSrc(`/projects/${project.slug}/cover.jpg`)}
-            className="object-cover object-center rounded-2xl transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-center rounded-2xl transition-transform duration-500 transform-gpu group-hover:scale-105"
           />
         </div>
 
-        {/* 2. OVERLAY — hidden at rest, revealed on hover */}
+        {/* 2. OVERLAY — hidden at rest, revealed on hover (backdrop-blur disabled on mobile for 60/120 FPS) */}
         <div
           className="
             absolute inset-0 z-10 flex flex-col justify-between h-full
             min-h-[380px] sm:min-h-[460px] md:min-h-[500px]
             p-5 sm:p-8 md:p-10 box-border
-            bg-gradient-to-b from-black/85 via-black/40 to-black/95 backdrop-blur-sm
+            bg-gradient-to-b from-black/85 via-black/40 to-black/95 backdrop-blur-none sm:backdrop-blur-sm
             opacity-0 pointer-events-none translate-y-4
             group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
             transition-all duration-300 ease-in-out
@@ -121,7 +130,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {/* TOP BLOCK */}
           <div className="flex-1 flex flex-col gap-4 relative z-10">
             <div className="space-y-3 max-w-[70%]">
-              <span className="inline-block px-3 py-1 rounded-lg bg-zinc-950/80 backdrop-blur-md text-zinc-300 border border-white/10 font-mono text-xs font-medium uppercase tracking-widest">
+              <span className="inline-block px-3 py-1 rounded-lg bg-zinc-950/80 backdrop-blur-none sm:backdrop-blur-md text-zinc-300 border border-white/10 font-mono text-xs font-medium uppercase tracking-widest">
                 {project.category}
               </span>
 
@@ -145,7 +154,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 return (
                   <span
                     key={tech}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-950/80 backdrop-blur-md border border-white/10 text-xs font-mono font-medium text-zinc-200"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-950/80 backdrop-blur-none sm:backdrop-blur-md border border-white/10 text-xs font-mono font-medium text-zinc-200"
                   >
                     <IconComponent className={`w-4 h-4 ${config.color}`} />
                     <span>{tech}</span>
@@ -220,14 +229,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 // ─── SECTION ──────────────────────────────────────────────────────────────────
 export const ProjectsSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { language, t } = useLanguage();
-  // Outer scroll-track: tall enough so each card has ~100vh of scroll real-estate
   const containerRef = useRef<HTMLDivElement>(null);
   const total = PROJECTS.length;
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <>
-      <section id="projects" className="w-full pt-8">
+      <section id="projects" className="w-full pt-6 md:pt-8">
 
         {/* SECTION HEADER */}
         <div className="flex flex-col items-center justify-center text-center w-full max-w-6xl mx-auto px-4 mb-6 md:mb-8 select-none">
@@ -247,15 +263,14 @@ export const ProjectsSection: React.FC = () => {
           <div className="w-full border-b border-zinc-800/80 mt-6" />
         </div>
 
-        {/* SCROLL TRACK — gives each card ~100vh of scroll room */}
+        {/* SCROLL TRACK — responsive height: auto on mobile (<768px), 100vh per card on desktop (>=768px) */}
         <div
           ref={containerRef}
-          className="relative w-full max-w-6xl mx-auto pb-20"
-          // height = 100vh per card, measured in px via inline style for SSR safety
-          style={{ minHeight: `${total * 100}vh` }}
+          className="relative w-full max-w-6xl mx-auto pb-4 md:pb-20"
+          style={isMobile ? undefined : { minHeight: `${total * 100}vh` }}
         >
-          {/* Cards stack inside — space-y drives the scroll spacing between sticky anchors */}
-          <div className="space-y-[10vh] sm:space-y-[12vh] md:space-y-[14vh] pt-8">
+          {/* Cards stack inside — responsive vertical spacing */}
+          <div className="space-y-8 sm:space-y-12 md:space-y-[14vh] pt-4 md:pt-8">
             {PROJECTS.map((project, index) => (
               <ProjectCard
                 key={project.id}

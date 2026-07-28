@@ -63,10 +63,10 @@ export default function Home() {
         </div>
 
         {/* NARRATIVE CONNECTOR DIVIDER */}
-        <div className="w-full flex items-center justify-center gap-4 py-8 text-zinc-700 font-mono text-xs uppercase tracking-widest select-none">
-          <div className="h-[1px] w-20 md:w-32 bg-zinc-800/80" />
-          <span>END OF SHOWCASE // NEXT: CORE CAPABILITIES</span>
-          <div className="h-[1px] w-20 md:w-32 bg-zinc-800/80" />
+        <div className="w-full flex items-center justify-center gap-4 py-6 md:py-8 mt-4 md:mt-0 text-zinc-700 font-mono text-xs uppercase tracking-widest select-none">
+          <div className="h-[1px] w-16 sm:w-20 md:w-32 bg-zinc-800/80" />
+          <span className="text-[10px] sm:text-xs text-center">END OF SHOWCASE // NEXT: CORE CAPABILITIES</span>
+          <div className="h-[1px] w-16 sm:w-20 md:w-32 bg-zinc-800/80" />
         </div>
 
         {/* SECTION 02: 3D DECK TECH STACK & CAPABILITIES (Full-Bleed Sticky Track) */}
