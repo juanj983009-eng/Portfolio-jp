@@ -76,12 +76,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       style={{ zIndex: index + 10 }}
     >
       <motion.div
-        // Entrance animation (once)
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-        // Scroll-driven spring transforms — opacity ALWAYS 1 (solid occlusion)
+        // Scroll-driven spring transforms — 100% solid opacity at all times (no transparency)
         style={{
           scale,
           y,

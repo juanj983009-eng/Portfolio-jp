@@ -202,7 +202,7 @@ export const BookACallCard: React.FC = () => {
           <span className="text-xs font-sans font-bold tracking-widest text-[#FF4D00] uppercase mb-4 block relative z-10">
             {t.bookModal.bookCallBtn}
           </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight mb-6 leading-tight relative z-10 font-sans break-words max-w-full px-2">
+          <h2 className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight mb-6 leading-tight relative z-10 font-sans break-words max-w-full px-2">
             <span>{t.bookModal.readyTitle.main}</span>
             <span className="text-[#FF4D00] block sm:inline">{t.bookModal.readyTitle.highlight}</span>
           </h2>
