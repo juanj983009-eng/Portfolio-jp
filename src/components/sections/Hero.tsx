@@ -80,7 +80,7 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden select-none"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden overflow-x-hidden select-none"
     >
       {/* ── LAYER 0 (Background z-0): INFINITE MARQUEE POSITIONED AT TOP-42% ── */}
       <div className="absolute top-[42%] -translate-y-1/2 left-0 right-0 w-full overflow-hidden z-0 pointer-events-none select-none">
@@ -105,14 +105,14 @@ export const Hero: React.FC = () => {
       <div className="absolute bottom-10 right-1/3 w-96 h-96 bg-emerald-500/5 rounded-full blur-[160px] pointer-events-none z-0" />
 
       {/* MAIN CONTAINER */}
-      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl px-2 sm:px-4">
         
         {/* Top Status Tag — Brutalist Industrial Editorial */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-zinc-400 mb-8 select-none"
+          className="inline-flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400 mb-6 sm:mb-8 select-none"
         >
           <span className="flex items-center gap-2 px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-zinc-200">
             <span className="w-2 h-2 rounded-full bg-[#FF4D00] animate-pulse" />
@@ -123,7 +123,7 @@ export const Hero: React.FC = () => {
         </motion.div>
 
         {/* ── 3D PERSPECTIVE CANVAS (perspective: 1200px) ── */}
-        <div className="relative flex items-center justify-center [perspective:1200px] my-4 z-10">
+        <div className="relative flex items-center justify-center [perspective:1200px] my-2 sm:my-4 z-10 w-full">
 
           {/* ── STACK LAYER 2 (Deepest Rear Layer, -z-20, soft lagging spring) ── */}
           <motion.div
@@ -135,7 +135,7 @@ export const Hero: React.FC = () => {
               rotateZ: -6,
               transformStyle: "preserve-3d",
             }}
-            className="absolute w-[290px] sm:w-[350px] aspect-[3/4] rounded-3xl border border-zinc-800/50 bg-zinc-950/60 shadow-2xl pointer-events-none -z-20 style-gpu -translate-x-3 translate-y-1.5 backdrop-blur-sm"
+            className="absolute w-[240px] xs:w-[270px] sm:w-[350px] aspect-[3/4] rounded-3xl border border-zinc-800/50 bg-zinc-950/60 shadow-2xl pointer-events-none -z-20 style-gpu -translate-x-3 translate-y-1.5 backdrop-blur-sm"
           />
 
           {/* ── STACK LAYER 1 (Middle Rear Layer, -z-10, intermediate spring) ── */}
@@ -148,7 +148,7 @@ export const Hero: React.FC = () => {
               rotateZ: -3,
               transformStyle: "preserve-3d",
             }}
-            className="absolute w-[290px] sm:w-[350px] aspect-[3/4] rounded-3xl border border-zinc-800/80 bg-zinc-900/80 shadow-xl pointer-events-none -z-10 style-gpu -translate-x-1.5 translate-y-0.5 backdrop-blur-md"
+            className="absolute w-[240px] xs:w-[270px] sm:w-[350px] aspect-[3/4] rounded-3xl border border-zinc-800/80 bg-zinc-900/80 shadow-xl pointer-events-none -z-10 style-gpu -translate-x-1.5 translate-y-0.5 backdrop-blur-md"
           />
 
           {/* ── MAIN FRONT PROFILE CARD (Layer z-10, fast direct spring, 3D tilt) ── */}
@@ -169,7 +169,7 @@ export const Hero: React.FC = () => {
               stiffness: 150,
               damping: 15,
             }}
-            className="relative w-[290px] sm:w-[350px] aspect-[3/4] rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-[-15px_15px_30px_rgba(0,0,0,0.8),-5px_5px_0px_rgba(255,255,255,0.05)] cursor-pointer backdrop-blur-md group style-gpu [transform-style:preserve-3d]"
+            className="relative w-[240px] xs:w-[270px] sm:w-[350px] aspect-[3/4] rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-950 shadow-[-15px_15px_30px_rgba(0,0,0,0.8),-5px_5px_0px_rgba(255,255,255,0.05)] cursor-pointer backdrop-blur-md group style-gpu [transform-style:preserve-3d]"
           >
             {/* FULL-BLEED PORTRAIT PHOTO (100% COVER) */}
             {!avatarError ? (
@@ -212,7 +212,7 @@ export const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="space-y-4 text-center mt-8 z-20"
+          className="space-y-3 sm:space-y-4 text-center mt-6 sm:mt-8 z-20 w-full px-2 sm:px-4"
         >
           <h2 className="font-sans font-bold tracking-tight uppercase text-lg sm:text-xl text-center mt-6">
             <span className="text-white">{t.hero.heroTitle.main}</span>
@@ -223,7 +223,7 @@ export const Hero: React.FC = () => {
           </p>
 
           {/* Action CTAs (Brutalist Industrial Buttons) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 w-full px-2 sm:px-0">
             <Link
               href="/projects"
               className="px-6 py-3.5 bg-[#FF4D00] hover:bg-[#e04400] text-black font-mono font-bold text-xs md:text-sm uppercase tracking-wider rounded-lg transition-all duration-200 flex items-center justify-center gap-2.5 shadow-lg shadow-[#FF4D00]/10 cursor-pointer w-full sm:w-auto"

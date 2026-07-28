@@ -50,10 +50,10 @@ export const Navbar: React.FC = () => {
           {/* 3. Derecha: i18n inline + Contacto */}
           <div className="flex items-center gap-5">
             {/* Selector de idioma compacto */}
-            <div className="flex items-center gap-0.5 text-xs font-mono bg-black/40 backdrop-blur-sm border border-zinc-800/80 rounded-full px-2.5 py-1 select-none">
+            <div className="flex items-center gap-0.5 text-[10px] sm:text-xs font-mono bg-black/40 backdrop-blur-sm border border-zinc-800/80 rounded-full px-2 py-0.5 sm:px-2.5 sm:py-1 select-none">
               <button
                 onClick={() => setLanguage("es")}
-                className={`px-1.5 py-0.5 rounded-full transition-all duration-200 font-bold ${
+                className={`px-1 sm:px-1.5 py-0.5 rounded-full transition-all duration-200 font-bold ${
                   language === "es"
                     ? "bg-[#FF4D00] text-white"
                     : "text-zinc-400 hover:text-white"
@@ -64,7 +64,7 @@ export const Navbar: React.FC = () => {
               <span className="text-zinc-700 px-0.5">|</span>
               <button
                 onClick={() => setLanguage("en")}
-                className={`px-1.5 py-0.5 rounded-full transition-all duration-200 font-bold ${
+                className={`px-1 sm:px-1.5 py-0.5 rounded-full transition-all duration-200 font-bold ${
                   language === "en"
                     ? "bg-[#FF4D00] text-white"
                     : "text-zinc-400 hover:text-white"

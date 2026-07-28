@@ -146,7 +146,7 @@ const CardItem: React.FC<{ card: StackCardData; index: number; smoothProgress: M
           delay: index * 0.2,
         },
       }}
-      className="absolute w-[260px] h-[390px] max-h-[58vh] rounded-3xl style-gpu will-change-transform select-none cursor-pointer shadow-[0_16px_48px_rgba(0,0,0,0.9)]"
+      className="absolute w-[200px] sm:w-[260px] h-[300px] sm:h-[390px] max-h-[50vh] sm:max-h-[58vh] rounded-3xl style-gpu will-change-transform select-none cursor-pointer shadow-[0_16px_48px_rgba(0,0,0,0.9)]"
     >
       {/* ── CARA TRASERA (REVERSO ORNAMENTAL)
            Padded black container so the ornament pattern breathes and
@@ -269,9 +269,9 @@ export const TechStackSection: React.FC = () => {
         {/* Section Header — floating subtly at the very top (top-4/top-6), z-30 */}
         <motion.div
           style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
-          className="absolute top-4 md:top-6 left-0 right-0 z-30 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center text-center select-none pointer-events-none"
+          className="absolute top-16 sm:top-4 md:top-6 left-0 right-0 z-30 w-full max-w-7xl mx-auto px-4 md:px-12 flex flex-col items-center justify-center text-center select-none pointer-events-none"
         >
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight uppercase leading-tight text-center font-sans mb-3">
+          <h2 className="text-xl sm:text-3xl md:text-6xl font-extrabold tracking-tight uppercase leading-tight text-center font-sans mb-1 sm:mb-3">
             <span className="text-white">
               {(t.techStackTitle || t.techStack?.title)?.main}
             </span>
@@ -287,7 +287,7 @@ export const TechStackSection: React.FC = () => {
 
         {/* 3D Cards Deck — Centered with top clearance for floating header */}
         <div
-          className="absolute inset-0 pt-24 md:pt-32 z-20 flex items-center justify-center pointer-events-none"
+          className="absolute inset-0 pt-20 sm:pt-24 md:pt-32 z-20 flex items-center justify-center pointer-events-none"
           style={{ perspective: "1200px" }}
         >
           {STACK_CARDS.map((card, index) => (

@@ -34,11 +34,11 @@ export const ProjectsSection: React.FC = () => {
 
   return (
     <>
-      <section id="projects" className="space-y-12 pt-8">
+      <section id="projects" className="space-y-12 pt-8 overflow-x-hidden w-full">
 
         {/* SECTION HEADER — Compact & Scaled */}
-        <div className="flex flex-col items-center justify-center text-center w-full max-w-6xl mx-auto px-4 md:px-0 mb-6 md:mb-8 select-none">
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight uppercase leading-tight text-center font-sans">
+        <div className="flex flex-col items-center justify-center text-center w-full max-w-6xl mx-auto px-4 mb-6 md:mb-8 select-none">
+          <h2 className="text-2xl sm:text-4xl md:text-6xl font-extrabold tracking-tight uppercase leading-tight text-center font-sans break-words">
             <span className="text-white">{(t.projectsTitle || t.projects?.title)?.main}</span>
             <span className="text-[#FF4D00]">{(t.projectsTitle || t.projects?.title)?.highlight}</span>
           </h2>
@@ -56,7 +56,7 @@ export const ProjectsSection: React.FC = () => {
             return (
               <div
                 key={project.id}
-                className="sticky top-24 md:top-28 w-full"
+                className="sticky top-20 sm:top-24 md:top-28 w-full"
                 style={{ zIndex: index + 10 }}
               >
                 <motion.div
@@ -65,7 +65,7 @@ export const ProjectsSection: React.FC = () => {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                   onClick={() => setSelectedProject(project)}
-                  className="group relative w-full min-h-[460px] md:min-h-[500px] rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-zinc-950 shadow-2xl hover:border-zinc-700 transition-colors duration-500"
+                  className="group relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-zinc-950 shadow-2xl hover:border-zinc-700 transition-colors duration-500"
                 >
                   {/* 1. FULL-BLEED COVER IMAGE (100% COVER AT REST — MAXIMUM SHARPNESS) */}
                   <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
@@ -75,7 +75,7 @@ export const ProjectsSection: React.FC = () => {
                   {/* 2. OVERLAY CONTAINER (HIDDEN AT REST, REVEALED FLUIDLY ON HOVER) */}
                   <div
                     className="
-                      absolute inset-0 z-10 flex flex-col justify-between h-full min-h-[460px] md:min-h-[500px] p-8 md:p-10 box-border
+                      absolute inset-0 z-10 flex flex-col justify-between h-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] p-5 sm:p-8 md:p-10 box-border
                       bg-gradient-to-b from-black/85 via-black/40 to-black/95 backdrop-blur-sm
                       opacity-0 pointer-events-none translate-y-4
                       group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
@@ -128,7 +128,7 @@ export const ProjectsSection: React.FC = () => {
                     </div>
 
                     {/* BOTTOM BLOCK: Metrics + Clean CTA Button */}
-                    <div className="mt-auto pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10">
+                    <div className="mt-auto pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 relative z-10">
                       {/* Operational Metrics */}
                       <div className="flex items-center space-x-6">
                         {project.metrics.throughput && (

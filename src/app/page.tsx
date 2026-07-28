@@ -44,12 +44,12 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#050505] text-zinc-200 bg-cad-grid relative selection:bg-orange-500/20 selection:text-orange-400">
+    <div className="min-h-screen bg-[#050505] text-zinc-200 bg-cad-grid relative overflow-x-hidden selection:bg-orange-500/20 selection:text-orange-400">
       {/* Sticky Header Navbar */}
       <Navbar />
 
       {/* Main Content Workspace Container - Sticky-Friendly Root (No overflow-x-hidden) */}
-      <main className="w-full min-h-screen bg-black text-white relative pt-24 space-y-16 md:space-y-20">
+      <main className="w-full min-h-screen bg-black text-white relative pt-16 sm:pt-20 space-y-12 md:space-y-20 overflow-x-hidden">
 
         {/* HERO SECTION */}
         <Hero />
