@@ -55,19 +55,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const cardFraction = 1 / total;
   const cardStart  = index * cardFraction;
   const cardEnd    = cardStart + cardFraction;
+
   // Scale: card shrinks as the next card slides over it
-  // Only cards before the last one shrink; last card stays full-scale
   const scaleOutput = index < total - 1 ? [1, 0.92] : [1, 1];
   const rawScale = useTransform(smoothProgress, [cardStart, cardEnd], scaleOutput);
   const scale = useSpring(rawScale, SPRING_CFG);
-
-  // Opacity: previous cards fade slightly as they stack behind
-  const rawOpacity = useTransform(
-    smoothProgress,
-    [cardStart, cardEnd],
-    index < total - 1 ? [1, 0.7] : [1, 1]
-  );
-  const opacity = useSpring(rawOpacity, SPRING_CFG);
 
   // Parallax Y nudge: subtle upward drift as card is buried
   const rawY = useTransform(
@@ -89,16 +81,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-        // Scroll-driven spring transforms
+        // Scroll-driven spring transforms — opacity ALWAYS 1 (solid occlusion)
         style={{
           scale,
-          opacity,
           y,
-          willChange: "transform, opacity",
+          willChange: "transform",
           transformOrigin: "top center",
         }}
         onClick={() => onOpen(project)}
-        className="group relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-zinc-950 shadow-2xl hover:border-zinc-700 transition-colors duration-500 transform-gpu"
+        className="group relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-black shadow-2xl hover:border-zinc-700 transition-colors duration-500 transform-gpu"
       >
         {/* 1. FULL-BLEED COVER IMAGE */}
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
