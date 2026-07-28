@@ -86,15 +86,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         onClick={() => onOpen(project)}
         className="group relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden border border-zinc-800/80 cursor-pointer bg-black shadow-2xl hover:border-zinc-700 transition-colors duration-500 transform-gpu"
       >
-        {/* 1. FULL-BLEED COVER IMAGE */}
+        {/* 1. FULL-BLEED COVER IMAGE (High Performance Next.js Image Optimization) */}
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
           <Image
             src={imgSrc}
             alt={project.title}
             fill
-            sizes="(max-width: 1200px) 100vw, 1200px"
+            priority={index === 0}
+            loading={index === 0 ? "eager" : "lazy"}
+            quality={75}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             onError={() => setImgSrc(`/projects/${project.slug}/cover.jpg`)}
-            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            className="object-cover object-center rounded-2xl transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 

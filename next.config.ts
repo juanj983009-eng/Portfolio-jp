@@ -40,6 +40,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60,
+  },
 
   /** Apply security headers to every route */
   async headers() {
