@@ -80,7 +80,7 @@ export const Hero: React.FC = () => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden overflow-x-hidden select-none"
+      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden select-none"
     >
       {/* ── LAYER 0 (Background z-0): INFINITE MARQUEE POSITIONED AT TOP-42% ── */}
       <div className="absolute top-[42%] -translate-y-1/2 left-0 right-0 w-full overflow-hidden z-0 pointer-events-none select-none">

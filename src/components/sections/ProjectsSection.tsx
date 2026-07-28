@@ -34,7 +34,7 @@ export const ProjectsSection: React.FC = () => {
 
   return (
     <>
-      <section id="projects" className="space-y-12 pt-8 overflow-x-hidden w-full">
+      <section id="projects" className="space-y-12 pt-8 w-full">
 
         {/* SECTION HEADER — Compact & Scaled */}
         <div className="flex flex-col items-center justify-center text-center w-full max-w-6xl mx-auto px-4 mb-6 md:mb-8 select-none">
