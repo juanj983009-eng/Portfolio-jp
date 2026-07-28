@@ -181,9 +181,9 @@ export const BookACallCard: React.FC = () => {
 
   return (
     <>
-      <section className="relative max-w-5xl mx-auto px-6 md:px-12 py-20">
+      <section className="relative max-w-5xl mx-auto px-4 sm:px-6 md:px-12 py-12 sm:py-20">
         {/* Frosted Glass Container with ambient glows */}
-        <div className="relative overflow-hidden rounded-[2rem] bg-zinc-950/40 backdrop-blur-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] p-12 md:p-16 text-center group">
+        <div className="relative overflow-hidden rounded-[2rem] bg-zinc-950/40 backdrop-blur-3xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] px-4 py-8 sm:px-12 sm:py-16 text-center group">
           {/* Background Ambient Light Orbs (Behind the Glass) */}
           <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-blue-600/30 rounded-full blur-[100px] pointer-events-none -z-10" />
           <div className="absolute -top-10 left-1/4 w-80 h-80 bg-orange-600/15 rounded-full blur-[90px] pointer-events-none -z-10" />
@@ -202,9 +202,9 @@ export const BookACallCard: React.FC = () => {
           <span className="text-xs font-sans font-bold tracking-widest text-[#FF4D00] uppercase mb-4 block relative z-10">
             {t.bookModal.bookCallBtn}
           </span>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase mb-6 leading-tight relative z-10 font-sans">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight mb-6 leading-tight relative z-10 font-sans break-words max-w-full px-2">
             <span>{t.bookModal.readyTitle.main}</span>
-            <span className="text-[#FF4D00]">{t.bookModal.readyTitle.highlight}</span>
+            <span className="text-[#FF4D00] block sm:inline">{t.bookModal.readyTitle.highlight}</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8 relative z-10 font-sans font-medium">
             {t.bookModal.readyDesc}

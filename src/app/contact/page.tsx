@@ -82,9 +82,9 @@ export default function ContactPage() {
           {/* ── LEFT COLUMN: INFO & BOOK A CALL ── */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
-              <h1 className="font-sans font-black text-4xl sm:text-5xl md:text-6xl text-white uppercase tracking-tighter leading-tight">
+              <h1 className="font-sans font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-tight break-words max-w-full px-2">
                 <span>{t.contact.title.main}</span>
-                <span className="text-[#FF4D00]">{t.contact.title.highlight}</span>
+                <span className="text-[#FF4D00] block sm:inline">{t.contact.title.highlight}</span>
               </h1>
               <p className="font-mono text-xs text-zinc-400 leading-relaxed uppercase tracking-wider">
                 {t.contact.description}
