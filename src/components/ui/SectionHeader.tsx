@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export interface SectionHeaderProps {
   number: string;
   category: string;
-  title: string;
+  title: string | { main: string; highlight: string };
   highlightTitle?: string;
   subtitle?: string;
   count?: string;
@@ -22,6 +22,9 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   count,
   className = "",
 }) => {
+  const mainTitleText = typeof title === "string" ? title : title.main;
+  const highlightText = typeof title === "string" ? highlightTitle : title.highlight;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -39,8 +42,8 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
 
           {/* Main Title (Pure White Brutalist Block with optional #FF4D00 highlight) */}
           <h2 className="text-white font-black text-3xl md:text-5xl lg:text-6xl tracking-tight uppercase leading-none font-sans">
-            {title}{" "}
-            {highlightTitle && <span className="text-[#FF4D00]">{highlightTitle}</span>}
+            <span>{mainTitleText}</span>{" "}
+            {highlightText && <span className="text-[#FF4D00]">{highlightText}</span>}
           </h2>
 
           {/* Subtitle Description */}

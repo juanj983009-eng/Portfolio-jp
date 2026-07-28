@@ -6,11 +6,12 @@ import BookACallCard from "@/components/sections/BookACallCard";
 import Footer from "@/components/sections/Footer";
 import TechAccordionSection from "@/components/sections/TechAccordionSection";
 import CertificationsSection from "@/components/sections/CertificationsSection";
-
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AboutProfileCard: React.FC = () => {
   const [avatarError, setAvatarError] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div className="relative w-full h-full min-h-[440px] aspect-[4/5] rounded-3xl overflow-hidden border border-zinc-800 bg-zinc-950 flex flex-col justify-between p-8 shadow-2xl group">
@@ -45,7 +46,7 @@ const AboutProfileCard: React.FC = () => {
           JUAN PARRA
         </h3>
         <p className="font-mono text-xs text-zinc-300 font-medium uppercase tracking-wider leading-relaxed">
-          SENIOR FULLSTACK &amp; DATA ARCHITECT BASED IN PERU
+          {t.hero.heroRole}
         </p>
       </div>
     </div>
@@ -53,6 +54,8 @@ const AboutProfileCard: React.FC = () => {
 };
 
 export default function AboutPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-black text-white selection:bg-orange-500/20 selection:text-orange-400 select-none relative overflow-x-hidden">
       {/* Sticky Header Navbar */}
@@ -68,7 +71,7 @@ export default function AboutPage() {
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs uppercase tracking-widest text-[#FF4D00] font-bold">
-                  // BIOGRAPHY
+                  {t.about.biographyTag}
                 </span>
                 <span className="h-px w-12 bg-zinc-800" />
                 <span className="font-mono text-xs uppercase tracking-widest text-zinc-500">
@@ -77,11 +80,11 @@ export default function AboutPage() {
               </div>
 
               <p className="text-xl md:text-3xl font-sans tracking-tight text-zinc-200 leading-relaxed font-light">
-                I am a Senior Lead Software Architect &amp; Data Engineer with over 8 years of experience designing high-throughput distributed systems, real-time telemetry ingestion pipelines, and fault-tolerant event-driven microservices.
+                {t.about.biographyLead}
               </p>
 
               <p className="text-sm font-sans font-medium text-zinc-400 leading-relaxed">
-                Based in Lima, PE (UTC-5), I specialize in combining robust backend engineering (Java Spring Boot, Go, Python) with modern reactive frontend interfaces (React 19, Next.js 15, React Flow) and high-speed columnar database analytics (DuckDB, Cassandra, PostgreSQL).
+                {t.about.biographyBody}
               </p>
             </div>
 
@@ -89,11 +92,11 @@ export default function AboutPage() {
             <div className="flex flex-wrap gap-3 mt-8">
               <div className="flex items-center gap-2 px-3.5 py-2 bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 uppercase tracking-wider rounded-md">
                 <span className="text-[#FF4D00] font-bold">8+</span>
-                <span>YEARS EXPERIENCE</span>
+                <span>{t.about.yearsExp}</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-2 bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 uppercase tracking-wider rounded-md">
                 <span className="text-[#FF4D00] font-bold">09</span>
-                <span>PRODUCTION SYSTEMS</span>
+                <span>{t.about.prodSystems}</span>
               </div>
             </div>
           </div>
@@ -116,10 +119,11 @@ export default function AboutPage() {
                 // EXPERIENCE &amp; TRACK RECORD
               </span>
               <h2 className="text-3xl md:text-5xl font-black uppercase text-white font-sans tracking-tight leading-none">
-                CAREER TIMELINE
+                <span>{t.about.careerTitle.main}</span>
+                <span className="text-[#FF4D00]">{t.about.careerTitle.highlight}</span>
               </h2>
               <p className="font-mono text-xs text-zinc-400 max-w-xs uppercase tracking-wider leading-relaxed pt-2">
-                Proven history architecting fault-tolerant distributed networks and high-load web systems.
+                {t.about.careerDesc}
               </p>
             </div>
           </div>
@@ -136,19 +140,19 @@ export default function AboutPage() {
                 {/* Role Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                   <span className="font-mono text-xs text-[#FF4D00] uppercase font-bold tracking-widest">
-                    LEAD SOFTWARE ARCHITECT / SENIOR FULLSTACK
+                    {t.about.role1Title}
                   </span>
                   <span className="font-mono text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-md uppercase tracking-wider self-start sm:self-auto">
-                    2021 — PRESENT
+                    {t.about.role1Date}
                   </span>
                 </div>
 
                 <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tight mb-3 font-sans">
-                  DISTRIBUTED SYSTEMS LAB
+                  {t.about.role1Company}
                 </h3>
 
                 <p className="text-zinc-300 font-sans font-normal text-sm md:text-base leading-relaxed mb-4">
-                  Architected high-throughput telemetry ingestion pipelines, Kafka event streaming meshes, and Next.js 15 enterprise dashboards serving over 5,000 requests per second with 99.99% uptime.
+                  {t.about.role1Desc}
                 </p>
 
                 {/* Tech Badges */}
@@ -169,19 +173,19 @@ export default function AboutPage() {
                 {/* Role Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                   <span className="font-mono text-xs text-zinc-400 uppercase font-bold tracking-widest">
-                    DATA ENGINEER / BACKEND ARCHITECT
+                    {t.about.role2Title}
                   </span>
                   <span className="font-mono text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-md uppercase tracking-wider self-start sm:self-auto">
-                    2018 — 2021
+                    {t.about.role2Date}
                   </span>
                 </div>
 
                 <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tight mb-3 font-sans">
-                  ENTERPRISE SOLUTIONS
+                  {t.about.role2Company}
                 </h3>
 
                 <p className="text-zinc-300 font-sans font-normal text-sm md:text-base leading-relaxed mb-4">
-                  Designed industrial OEE shift monitoring systems, Cassandra wide-column data structures, and OAuth2 Keycloak Zero-Trust authentication microservices.
+                  {t.about.role2Desc}
                 </p>
 
                 {/* Tech Badges */}

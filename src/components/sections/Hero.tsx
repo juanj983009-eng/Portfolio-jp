@@ -11,11 +11,13 @@ import {
   useScroll,
 } from "framer-motion";
 import { ArrowUpRight, Calendar, Code2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [avatarError, setAvatarError] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setMounted(true);
@@ -114,7 +116,7 @@ export const Hero: React.FC = () => {
         >
           <span className="flex items-center gap-2 px-2.5 py-1 bg-zinc-900 border border-zinc-800 rounded-md text-zinc-200">
             <span className="w-2 h-2 rounded-full bg-[#FF4D00] animate-pulse" />
-            <span className="font-bold">AVAILABLE FOR LEAD ROLES</span>
+            <span className="font-bold">{t.hero.badge}</span>
           </span>
           <span className="text-zinc-600">·</span>
           <span className="text-zinc-400">LIMA, PE (UTC-5)</span>
@@ -212,9 +214,13 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="space-y-4 text-center mt-8 z-20"
         >
-          <h2 className="font-sans font-bold tracking-tight uppercase text-lg sm:text-xl text-white text-center mt-6">
-            SENIOR FULLSTACK &amp; DATA ARCHITECT BASED IN PERU
+          <h2 className="font-sans font-bold tracking-tight uppercase text-lg sm:text-xl text-center mt-6">
+            <span className="text-white">{t.hero.heroTitle.main}</span>
+            <span className="text-[#FF4D00]">{t.hero.heroTitle.highlight}</span>
           </h2>
+          <p className="font-sans text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto uppercase tracking-wider leading-relaxed">
+            {t.hero.description}
+          </p>
 
           {/* Action CTAs (Brutalist Industrial Buttons) */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
@@ -222,7 +228,7 @@ export const Hero: React.FC = () => {
               href="/projects"
               className="px-6 py-3.5 bg-[#FF4D00] hover:bg-[#e04400] text-black font-mono font-bold text-xs md:text-sm uppercase tracking-wider rounded-lg transition-all duration-200 flex items-center justify-center gap-2.5 shadow-lg shadow-[#FF4D00]/10 cursor-pointer w-full sm:w-auto"
             >
-              <span>EXPLORAR PROYECTOS DE PRODUCCIÓN</span>
+              <span>{t.hero.ctaProjects}</span>
               <ArrowUpRight className="w-4 h-4 text-black stroke-[3]" />
             </Link>
 
@@ -238,13 +244,13 @@ export const Hero: React.FC = () => {
               <span className="text-[10px] text-zinc-500 font-normal group-hover:text-zinc-400">[PDF]</span>
             </a>
 
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               className="px-6 py-3.5 bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-800 hover:border-zinc-700 font-mono font-bold text-xs md:text-sm uppercase tracking-wider rounded-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
             >
               <Calendar className="w-4 h-4 text-zinc-400" />
-              <span>AGENDAR CONSULTORÍA</span>
-            </a>
+              <span>{t.hero.ctaContact}</span>
+            </Link>
           </div>
         </motion.div>
 

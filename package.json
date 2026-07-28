@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@duckdb/duckdb-wasm": "^1.28.0",
+    "@emailjs/browser": "^4.4.1",
     "@xyflow/react": "^12.4.2",
     "clsx": "^2.1.1",
     "framer-motion": "^12.4.7",

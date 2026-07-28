@@ -1,18 +1,15 @@
-"use client";
-
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Cpu } from "lucide-react";
-import { Project } from "@/types/portfolio";
-import { TECH_CONFIG } from "@/components/ui/bento-grid";
+import { ArrowUpRight, Cpu, Github } from "lucide-react";
+import { Project, getLocalized } from "@/types/portfolio";
+import { resolveTech } from "@/components/ui/bento-grid";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─────────────────────────────────────────────────────────────
    PROJECT IMAGE FALLBACK MAPPING
 ───────────────────────────────────────────────────────────── */
-const DEFAULT_IMAGE = "/projects/smartfleet.jpg";
-
 const CarouselCardImage: React.FC<{ project: Project }> = ({ project }) => {
   const [imgSrc, setImgSrc] = useState(
     project.coverImage || `/projects/${project.slug}/cover.jpg`
@@ -24,7 +21,7 @@ const CarouselCardImage: React.FC<{ project: Project }> = ({ project }) => {
       alt={project.title}
       fill
       sizes="(max-width: 768px) 350px, 440px"
-      onError={() => setImgSrc(DEFAULT_IMAGE)}
+      onError={() => setImgSrc(`/projects/${project.slug}/cover.jpg`)}
       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
     />
   );
@@ -42,6 +39,7 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
   const targetRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [scrollDistance, setScrollDistance] = useState(0);
+  const { language, t } = useLanguage();
 
   // Measure exact total scroll distance needed in pixels dynamically
   useEffect(() => {
@@ -77,9 +75,9 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
         <div className="w-full max-w-7xl mx-auto shrink-0 mb-1">
           <SectionHeader
             number="02"
-            category="SELECTED LABS"
-            title="MORE PROJECTS & EXPERIMENTS"
-            count="SCROLL DOWN TO SLIDE →"
+            category={t.projects.selectedLabsTag}
+            title={t.projects.moreProjectsTitle}
+            count={language === "es" ? "DESLIZA HACIA ABAJO PARA EXPLORAR →" : "SCROLL DOWN TO SLIDE →"}
             className="mb-0"
           />
         </div>
@@ -132,17 +130,13 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                         {project.title}
                       </h3>
                       <p className="text-xs text-zinc-300 line-clamp-2 leading-relaxed font-sans font-normal mb-3">
-                        {project.tagline ?? project.summary ?? ""}
+                        {getLocalized(project.subtitle || project.tagline || project.summary, language)}
                       </p>
 
                       {project.techStack && project.techStack.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 pt-1">
-                          {project.techStack.slice(0, 4).map((tech: string) => {
-                            const config = TECH_CONFIG[tech] || {
-                              icon: Cpu,
-                              color: "text-zinc-400",
-                              bgHover: "hover:border-zinc-700",
-                            };
+                          {project.techStack.slice(0, 8).map((tech: string) => {
+                            const config = resolveTech(tech);
                             const IconComponent = config.icon;
 
                             return (
@@ -155,6 +149,11 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                               </span>
                             );
                           })}
+                          {project.techStack.length > 8 && (
+                            <span className="px-2 py-0.5 text-[10px] font-mono bg-white/5 border border-white/10 rounded text-zinc-400 inline-flex items-center">
+                              +{project.techStack.length - 8} more
+                            </span>
+                          )}
                         </div>
                       )}
                     </div>
@@ -164,17 +163,31 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                       <div className="font-mono font-bold text-[10px] text-zinc-400 uppercase tracking-widest">
                         {project.metrics?.throughput ?? "SLA 99.99%"}
                       </div>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelectProject(project);
-                        }}
-                        className="text-[#FF4D00] text-xs font-bold font-mono tracking-wider flex items-center gap-1 hover:underline cursor-pointer"
-                      >
-                        <span>VIEW ARCHITECTURE</span>
-                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </button>
+                      <div className="flex items-center gap-2">
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-zinc-400 hover:text-white transition-colors"
+                            title="View Repository"
+                          >
+                            <Github className="w-4 h-4" />
+                          </a>
+                        )}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectProject(project);
+                          }}
+                          className="text-[#FF4D00] text-xs font-bold font-mono tracking-wider flex items-center gap-1 hover:underline cursor-pointer"
+                        >
+                          <span>VIEW ARCHITECTURE</span>
+                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

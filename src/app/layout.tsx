@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google";
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 
 const inter = Inter({
@@ -19,9 +20,14 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Architect OS | Senior Fullstack Engineer & Data Systems Architect",
-  description: "Editorial portfolio of a Senior Fullstack Engineer & Data Systems Architect specializing in real-time telemetry, IoT ingestion, microservices, and distributed sync engines.",
+  title: "Portfolio — Juan Parra",
+  description: "Senior Lead Developer & Software Architect. Specializing in real-time telemetry, IoT ingestion, microservices, and distributed systems.",
   keywords: ["Senior Fullstack Engineer", "Data Systems Architect", "TypeScript", "IoT", "Microservices", "Editorial Portfolio", "Next.js"],
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -39,7 +45,9 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-black text-white antialiased selection:bg-[#FF4D00] selection:text-black`}
         suppressHydrationWarning
       >
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -3,6 +3,8 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 import { Github, ArrowUpRight, GitBranch, Star, Terminal, Cpu, Database, Network } from "lucide-react";
+import { SITE_CONFIG } from "@/config/site";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface RepoCardConfig {
   id: string;
@@ -101,6 +103,7 @@ const REPO_CARDS: RepoCardConfig[] = [
 
 export const GithubLabSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   // Raw scroll progress from start to end
   const { scrollYProgress } = useScroll({
@@ -131,7 +134,7 @@ export const GithubLabSection: React.FC = () => {
         {/* ── CENTRAL HUB CONTENT (z-10: Behind stacked cards at scroll 0, revealed as cards explode) ── */}
         <div className="relative z-10 text-center max-w-xl mx-auto px-4 pointer-events-auto">
           <span className="font-mono text-xs uppercase tracking-widest text-[#FF4D00] block mb-2">
-            FOLLOW ON
+            {t.githubLab.tag}
           </span>
 
           <div className="flex items-center justify-center space-x-3 my-3">
@@ -142,16 +145,16 @@ export const GithubLabSection: React.FC = () => {
           </div>
 
           <p className="font-mono text-xs text-zinc-400 tracking-wider uppercase leading-relaxed mb-8 max-w-md mx-auto">
-            EXPLORING DISTRIBUTED SYSTEMS, HIGH-THROUGHPUT PIPELINES, AND ENTERPRISE MONITORED ARCHITECTURES.
+            {t.githubLab.description}
           </p>
 
           <a
-            href="https://github.com/juanparra"
+            href={SITE_CONFIG.socials.github}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#FF4D00] text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_30px_rgba(255,77,0,0.4)] group cursor-pointer"
           >
-            <span>VIEW GITHUB PROFILE</span>
+            <span>{t.githubLab.viewProfile}</span>
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>

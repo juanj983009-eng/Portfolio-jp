@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─────────────────────────────────────────────────────────────
    DATA
@@ -220,13 +221,15 @@ const AccordionRow: React.FC<{
 ───────────────────────────────────────────────────────────── */
 const TechAccordionSection: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { t } = useLanguage();
 
   return (
     <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 border-t border-zinc-900">
       {/* Section label */}
       <div className="flex items-center gap-3 mb-10">
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#FF4D00]">
-          TOOLS &amp; TECH MATRIX
+          <span>{t.techStack.accordionTitle.main}</span>
+          <span className="text-[#FF4D00]">{t.techStack.accordionTitle.highlight}</span>
         </span>
         <span className="h-px w-12 bg-zinc-800" />
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-zinc-600">

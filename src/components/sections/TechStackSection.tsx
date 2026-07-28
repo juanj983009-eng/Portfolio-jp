@@ -235,9 +235,12 @@ const CardItem: React.FC<{ card: StackCardData; index: number; smoothProgress: M
 // ──────────────────────────────────────────────────────────────────
 // SECTION
 // ──────────────────────────────────────────────────────────────────
+import { useLanguage } from "@/context/LanguageContext";
+
 export const TechStackSection: React.FC = () => {
   const targetRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = React.useState(false);
+  const { t } = useLanguage();
 
   React.useEffect(() => {
     setMounted(true);
@@ -263,24 +266,28 @@ export const TechStackSection: React.FC = () => {
       {/* Sticky full-bleed canvas (100vh / 100dvh) */}
       <div className="sticky top-0 h-screen h-[100dvh] w-full relative overflow-hidden bg-black select-none z-10" style={{ perspective: "1200px" }}>
 
-        {/* Section Header — floating subtly at the very top (top-8/top-10), z-30 */}
+        {/* Section Header — floating subtly at the very top (top-4/top-6), z-30 */}
         <motion.div
           style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
-          className="absolute top-8 md:top-10 left-0 right-0 z-30 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center text-center select-none pointer-events-none"
+          className="absolute top-4 md:top-6 left-0 right-0 z-30 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center text-center select-none pointer-events-none"
         >
-          <h2 className="text-white font-black text-xl sm:text-3xl md:text-4xl tracking-tight uppercase leading-none max-w-4xl mx-auto font-sans not-italic">
-            PRODUCTION TECH STACK &amp;{" "}
-            <span className="text-[#FF4D00] font-black not-italic block md:inline">CAPABILITIES</span>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight uppercase leading-tight text-center font-sans mb-3">
+            <span className="text-white">
+              {(t.techStackTitle || t.techStack?.title)?.main}
+            </span>
+            <span className="text-[#FF4D00]">
+              {(t.techStackTitle || t.techStack?.title)?.highlight}
+            </span>
           </h2>
           <p className="font-mono text-[9px] md:text-[11px] text-zinc-500 uppercase tracking-widest mt-1.5">
-            SCROLL DOWN TO UNFOLD THE 3D CAPABILITY MATRIX DECK
+            {t.techStack.subtitle}
           </p>
-          <div className="w-full max-w-md border-b border-zinc-800/80 mt-1.5" />
+          <div className="w-full max-w-md border-b border-zinc-800/80 mt-2 mb-4" />
         </motion.div>
 
-        {/* 3D Cards Deck — Centered at EXACT 50% geometric center of 100vh viewport */}
+        {/* 3D Cards Deck — Centered with top clearance for floating header */}
         <div
-          className="absolute inset-0 z-20 flex items-center justify-center"
+          className="absolute inset-0 pt-24 md:pt-32 z-20 flex items-center justify-center pointer-events-none"
           style={{ perspective: "1200px" }}
         >
           {STACK_CARDS.map((card, index) => (

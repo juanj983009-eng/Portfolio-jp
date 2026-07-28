@@ -1,8 +1,7 @@
-"use client";
-
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, PanInfo, AnimatePresence } from "framer-motion";
 import { SiApachekafka, SiDocker, SiKeycloak, SiKubernetes } from "react-icons/si";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─────────────────────────────────────────────────────────────
    DATA
@@ -423,6 +422,7 @@ const DiplomaCard: React.FC<{
 const CertificationsSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -449,18 +449,18 @@ const CertificationsSection: React.FC = () => {
         className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 px-4"
       >
         <p className="font-sans font-black text-white uppercase text-center leading-none tracking-tighter text-[7vw]">
-          I HOLD A ROBUST SUITE OF CERTIFICATIONS
+          {t.certifications.watermark}
         </p>
       </motion.div>
 
       {/* Section label */}
       <div className="relative z-10 flex items-center gap-3 max-w-7xl mx-auto px-6 md:px-12 mb-20">
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#FF4D00]">
-          CERTIFICATIONS
+          {t.certifications.tag}
         </span>
         <span className="h-px w-12 bg-zinc-800" />
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-zinc-600">
-          DRAG OR CLICK TO EXPLORE
+          {t.certifications.dragExplore}
         </span>
       </div>
 

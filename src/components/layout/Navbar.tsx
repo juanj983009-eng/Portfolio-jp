@@ -3,59 +3,91 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t, language, setLanguage } = useLanguage();
 
   const menuItems = [
-    { title: "HOME", href: "/" },
-    { title: "ABOUT ME", href: "/about" },
-    { title: "PROJECTS", href: "/projects" },
-    { title: "CONTACT", href: "/contact" },
+    { title: t.nav.home, href: "/" },
+    { title: t.nav.about, href: "/about" },
+    { title: t.nav.projects, href: "/projects" },
+    { title: t.nav.contact, href: "/contact" },
   ];
 
   return (
     <>
-      {/* ── 1. FIXED TOP HEADER BAR ── */}
-      <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-6 pointer-events-none select-none bg-gradient-to-b from-black/90 via-black/40 to-transparent backdrop-blur-sm">
-        
-        {/* IZQUIERDA: Brand */}
-        <div className="pointer-events-auto">
+      {/* ── GHOST TRANSPARENT FIXED HEADER (NO BACKGROUND) ── */}
+      <header className="fixed top-0 left-0 right-0 z-50 w-full bg-transparent border-none pointer-events-none py-6 transition-all duration-300 select-none">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between pointer-events-auto">
+
+          {/* 1. Izquierda: Logo */}
           <Link
             href="/"
             onClick={() => setIsOpen(false)}
-            className="font-sans font-black text-white text-sm tracking-tight uppercase hover:text-[#FF4D00] transition-colors"
+            className="font-sans font-black text-white text-sm tracking-tight uppercase hover:text-[#FF4D00] transition-colors duration-200"
           >
             JUAN PARRA
           </Link>
-        </div>
 
-        {/* CENTRO: Menu / Close Trigger Minimalista */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="pointer-events-auto flex flex-col items-center gap-1 group cursor-pointer focus:outline-none"
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-        >
-          <span className={`w-16 h-[3px] rounded-full transition-all duration-300 ${isOpen ? 'bg-[#FF4D00]' : 'bg-white'}`} />
-          <span className="font-sans font-bold text-[10px] uppercase tracking-widest text-zinc-400 group-hover:text-white transition-colors">
-            {isOpen ? 'CLOSE' : 'MENU'}
-          </span>
-        </button>
-
-        {/* DERECHA: Single CTA */}
-        <div className="pointer-events-auto">
-          <Link
-            href="/contact"
-            onClick={() => setIsOpen(false)}
-            className="font-sans font-bold text-xs uppercase tracking-widest text-white hover:text-[#FF4D00] transition-colors"
+          {/* 2. Centro: Botón MENU minimalista */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center justify-center gap-[3px] group bg-transparent border-none outline-none cursor-pointer"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            CONTACT
-          </Link>
-        </div>
+            <span
+              className={`w-8 h-[2px] rounded-full transition-all duration-300 ${
+                isOpen ? "bg-[#FF4D00]" : "bg-white group-hover:bg-[#FF4D00]"
+              }`}
+            />
+            <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-zinc-300 group-hover:text-white transition-colors duration-200">
+              {isOpen ? (language === "es" ? "CERRAR" : "CLOSE") : "MENU"}
+            </span>
+          </button>
 
+          {/* 3. Derecha: i18n inline + Contacto */}
+          <div className="flex items-center gap-5">
+            {/* Selector de idioma compacto */}
+            <div className="flex items-center gap-0.5 text-xs font-mono bg-black/40 backdrop-blur-sm border border-zinc-800/80 rounded-full px-2.5 py-1 select-none">
+              <button
+                onClick={() => setLanguage("es")}
+                className={`px-1.5 py-0.5 rounded-full transition-all duration-200 font-bold ${
+                  language === "es"
+                    ? "bg-[#FF4D00] text-white"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                ES
+              </button>
+              <span className="text-zinc-700 px-0.5">|</span>
+              <button
+                onClick={() => setLanguage("en")}
+                className={`px-1.5 py-0.5 rounded-full transition-all duration-200 font-bold ${
+                  language === "en"
+                    ? "bg-[#FF4D00] text-white"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
+            {/* CTA Contacto */}
+            <Link
+              href="/contact"
+              onClick={() => setIsOpen(false)}
+              className="hidden sm:block font-mono font-bold text-xs uppercase tracking-widest text-white hover:text-[#FF4D00] transition-colors duration-200"
+            >
+              {language === "es" ? "CONTACTO" : "CONTACT"}
+            </Link>
+          </div>
+
+        </div>
       </header>
 
-      {/* ── 2. FULLSCREEN OVERLAY MENU ── */}
+      {/* ── FULLSCREEN OVERLAY MENU ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -72,7 +104,7 @@ export const Navbar: React.FC = () => {
             <nav className="relative z-10 flex flex-col items-center gap-6 text-center">
               {menuItems.map((item, index) => (
                 <motion.div
-                  key={item.title}
+                  key={item.href}
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: 10, opacity: 0 }}

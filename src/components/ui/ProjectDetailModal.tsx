@@ -13,8 +13,10 @@ import {
   Github,
   X as XIcon,
 } from "lucide-react";
-import { Project } from "@/types/portfolio";
-import { TECH_CONFIG } from "@/components/ui/bento-grid";
+import { Project, getLocalized } from "@/types/portfolio";
+import { resolveTech } from "@/components/ui/bento-grid";
+import BookACallCard from "@/components/sections/BookACallCard";
+import { useLanguage } from "@/context/LanguageContext";
 
 const CATEGORY_HERO_GRADIENT: Record<string, string> = {
   "IoT / Real-Time":        "from-orange-950 via-zinc-900 to-black",
@@ -33,13 +35,34 @@ interface ProjectDetailModalProps {
   onClose: () => void;
 }
 
-const DEFAULT_PLACEHOLDER = "/projects/smartfleet.jpg";
+const getProjectFallback = (slug: string) => `/projects/${slug}/cover.jpg`;
+
+/** Helper to convert standard YouTube URLs (watch, shorts, youtu.be) into an embed URL */
+const getYouTubeEmbedUrl = (url?: string): string => {
+  if (!url) return "";
+  if (url.includes("youtube.com/embed/")) {
+    return url;
+  }
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+  const match = url.match(regExp);
+
+  if (match && match[2] && match[2].length === 11) {
+    return `https://www.youtube.com/embed/${match[2]}`;
+  }
+  return url;
+};
+
+const isYouTubeUrl = (url?: string): boolean => {
+  if (!url) return false;
+  return url.includes("youtube.com") || url.includes("youtu.be");
+};
 
 const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
   const [mounted, setMounted] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [videoError, setVideoError] = useState(false);
   const [heroImgError, setHeroImgError] = useState(false);
+  const { language, t } = useLanguage();
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -91,7 +114,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
             onClick={onClose}
             className="fixed top-6 right-8 z-[10000] flex items-center gap-2 px-6 py-3 bg-zinc-900/90 hover:bg-zinc-800 text-white font-sans font-bold text-xs uppercase tracking-widest rounded-full border border-zinc-700 shadow-2xl backdrop-blur-md cursor-pointer transition-all"
           >
-            ✕ <span>CLOSE PROJECT</span>
+            ✕ <span>{t.projectDetail.closeProject}</span>
           </motion.button>
 
           {/* FULLSCREEN SCROLLABLE OVERLAY */}
@@ -115,7 +138,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
             >
               {/* 1. FULL-BLEED BACKGROUND IMAGE (100% CLEAN PREVIEW) */}
               <img
-                src={heroImgError ? DEFAULT_PLACEHOLDER : (project.coverImage || project.screenshots?.[0] || `/projects/${project.slug}/cover.jpg`)}
+                src={heroImgError ? getProjectFallback(project.slug) : (project.coverImage || project.screenshots?.[0] || `/projects/${project.slug}/cover.jpg`)}
                 alt={project.title}
                 onError={() => setHeroImgError(true)}
                 className="absolute inset-0 w-full h-full object-cover object-center z-0"
@@ -125,15 +148,15 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/50 z-10 pointer-events-none" />
 
               {/* 3. CLEAN BOTTOM POSTER FOOTER (Z-20): Giant Pure White Title & Description */}
-              <div className="relative z-20 space-y-4 max-w-5xl">
-                {/* MASSIVE PROJECT TITLE IN PURE WHITE */}
-                <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white tracking-tight uppercase leading-none font-sans drop-shadow-2xl">
+              <div className="relative z-20 space-y-4 max-w-full min-w-0">
+                {/* PROJECT TITLE — fluid responsive scale, contained & wrappable */}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight uppercase leading-tight font-sans drop-shadow-2xl break-words max-w-4xl">
                   {project.title}
                 </h1>
 
                 {/* Tagline Description */}
-                <p className="font-sans font-medium text-zinc-300 text-base md:text-xl leading-relaxed max-w-3xl drop-shadow-md">
-                  {project.tagline}
+                <p className="font-sans font-medium text-zinc-300 text-sm md:text-base leading-relaxed max-w-2xl drop-shadow-md break-words">
+                  {getLocalized(project.tagline || project.subtitle, language)}
                 </p>
 
                 {/* Animated Scroll Hint Indicator */}
@@ -172,7 +195,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                     {/* Metadata specification table */}
                     <div className="space-y-0 border-t border-zinc-900 pt-2">
                       {[
-                        { label: "ROLE",        value: project.role },
+                        { label: "ROLE",        value: getLocalized(project.role, language) },
                         { label: "RELEASE DATE", value: "Production" },
                         { label: "SERVICES",     value: project.category },
                         { label: "THROUGHPUT",   value: project.metrics.throughput ?? "N/A" },
@@ -195,13 +218,9 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                       <span className="font-mono font-bold text-xs uppercase tracking-widest text-zinc-500 block">
                         STACK SPECIFICATIONS
                       </span>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 w-full min-w-0">
                         {project.techStack.map((tech) => {
-                          const config = TECH_CONFIG[tech] || {
-                            icon: Cpu,
-                            color: "text-zinc-400",
-                            bgHover: "hover:border-zinc-700",
-                          };
+                          const config = resolveTech(tech);
                           const IconComponent = config.icon;
 
                           return (
@@ -219,59 +238,91 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                   </div>
 
                   {/* DUAL CTA: LIVE DEMO + VIEW SOURCE */}
-                  <div className="relative z-10 mt-8 flex gap-3">
-                    <a
-                      href={project.demoVideoUrl ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 bg-[#FF4D00] hover:bg-[#e04400] text-black font-mono font-bold uppercase py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span>LIVE DEMO</span>
-                    </a>
-                    <a
-                      href={project.githubUrl ?? "#"}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 bg-zinc-900 border border-zinc-700 hover:border-[#FF4D00] text-white font-mono font-bold uppercase py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer"
-                    >
-                      <Github className="w-3.5 h-3.5" />
-                      <span>VIEW SOURCE</span>
-                    </a>
-                  </div>
+                  {(() => {
+                    const rawDemoUrl = project.demoUrl || project.liveUrl || project.demoVideoUrl;
+                    const hasValidDemo = Boolean(rawDemoUrl && rawDemoUrl.trim() !== "" && rawDemoUrl.trim() !== "#");
+                    const rawGithubUrl = project.githubUrl;
+                    const hasValidGithub = Boolean(rawGithubUrl && rawGithubUrl.trim() !== "" && rawGithubUrl.trim() !== "#");
+
+                    return (
+                      <div className="relative z-10 mt-8 flex gap-3">
+                        {hasValidDemo ? (
+                          <a
+                            href={rawDemoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-[#FF4D00] hover:bg-[#e04400] text-black font-mono font-bold uppercase py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer shadow-lg shadow-[#FF4D00]/10"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>{t.projectDetail.liveDemo}</span>
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled
+                            className="flex-1 bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 cursor-not-allowed opacity-60 shadow-none font-mono font-bold uppercase py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-xs select-none"
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>{t.projectDetail.demoUnavailable}</span>
+                          </button>
+                        )}
+
+                        {hasValidGithub ? (
+                          <a
+                            href={rawGithubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 bg-zinc-900 border border-zinc-700 hover:border-[#FF4D00] text-white font-mono font-bold uppercase py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                            <span>{t.projectDetail.viewSource}</span>
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled
+                            className="flex-1 bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 cursor-not-allowed opacity-60 shadow-none font-mono font-bold uppercase py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-xs select-none"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                            <span>{t.projectDetail.privateRepo}</span>
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
 
               {/* ── RIGHT COLUMN: Clean Motion Editorial Overview + Media ── */}
-              <div className="w-full space-y-8 text-white">
+              <div className="w-full min-w-0 overflow-x-hidden space-y-8 text-white">
 
                 {/* OVERVIEW */}
-                <div className="border-b border-zinc-800/80 pb-6 mb-6">
+                <div className="border-b border-zinc-800/80 pb-6 mb-6 w-full max-w-full min-w-0">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-3 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
-                    OVERVIEW
+                    {t.projectDetail.overview}
                   </motion.h3>
-                  <p className="text-zinc-300 text-sm leading-relaxed max-w-2xl font-sans">
-                    {project.description}
+                  <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
+                    {getLocalized(project.description, language)}
                   </p>
                 </div>
 
                 {/* OBJECTIVE */}
-                <div className="border-b border-zinc-800/80 pb-6 mb-6">
+                <div className="border-b border-zinc-800/80 pb-6 mb-6 w-full max-w-full min-w-0">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-3 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
-                    OBJECTIVE
+                    {t.projectDetail.objective}
                   </motion.h3>
-                  <p className="text-zinc-300 text-sm leading-relaxed max-w-2xl font-sans">
-                    {project.summary ?? project.tagline}
+                  <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
+                    {getLocalized(project.summary ?? project.subtitle ?? project.tagline, language)}
                   </p>
                 </div>
 
@@ -283,37 +334,94 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                     transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
-                    ARCHITECTURE &amp; PIPELINE
+                    {t.projectDetail.projectMedia}
                   </motion.h3>
 
-                  {/* ── VIDEO PLAYER (Main Visual) ── */}
-                  <div className="w-full rounded-xl border border-zinc-800 bg-black overflow-hidden aspect-video relative">
-                    {project.demoVideoUrl && !videoError ? (
-                      <video
-                        src={project.demoVideoUrl}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        onError={() => setVideoError(true)}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <img
-                        src={heroImgError ? DEFAULT_PLACEHOLDER : (project.coverImage || project.screenshots?.[0] || `/projects/${project.slug}/cover.jpg`)}
-                        alt={project.title}
-                        onError={() => setHeroImgError(true)}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                    {/* Label badge */}
-                    <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-sm border border-zinc-700/60 px-3 py-1.5 rounded-md">
-                      <Film className="w-3 h-3 text-[#FF4D00]" />
-                      <span className="font-mono text-[10px] text-zinc-300 uppercase tracking-widest">
-                        {project.demoVideoUrl && !videoError ? "LIVE PREVIEW" : "PROJECT PREVIEW"}
-                      </span>
+                  {/* ── VIDEO PLAYER / YOUTUBE EMBED (Main Visual) ── */}
+                  {project.videoUrl && isYouTubeUrl(project.videoUrl) ? (
+                    <div className="mb-8 w-full">
+                      <h3 className="text-xs font-mono tracking-widest text-zinc-400 uppercase mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#FF4D00] animate-pulse" />
+                        SYSTEM DEMONSTRATION &amp; ARCHITECTURE OVERVIEW
+                      </h3>
+                      <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-950">
+                        <iframe
+                          src={getYouTubeEmbedUrl(project.videoUrl)}
+                          title={`${project.title} Video Demo`}
+                          className="absolute top-0 left-0 w-full h-full border-0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowFullScreen
+                        />
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="w-full max-h-[450px] rounded-xl border border-zinc-800 bg-black overflow-hidden aspect-video relative">
+                      {project.videoUrl && !videoError ? (
+                        <video
+                          src={project.videoUrl}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          onError={() => setVideoError(true)}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        /* ── BRUTALIST PLACEHOLDER — shown when videoUrl is absent or fails ── */
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-zinc-950 relative overflow-hidden select-none">
+                          {/* Scanline texture overlay */}
+                          <div
+                            className="absolute inset-0 pointer-events-none z-0"
+                            style={{
+                              backgroundImage:
+                                "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.018) 2px, rgba(255,255,255,0.018) 4px)",
+                            }}
+                          />
+                          {/* Subtle corner grid */}
+                          <div
+                            className="absolute inset-0 pointer-events-none z-0 opacity-10"
+                            style={{
+                              backgroundImage:
+                                "linear-gradient(rgba(255,77,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,77,0,0.15) 1px, transparent 1px)",
+                              backgroundSize: "48px 48px",
+                            }}
+                          />
+                          {/* Content */}
+                          <div className="relative z-10 flex flex-col items-center gap-4 px-6 text-center">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="inline-block w-2 h-2 rounded-full bg-[#FF4D00] animate-pulse" />
+                              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#FF4D00] font-bold">
+                                SYSTEM DEMO
+                              </span>
+                            </div>
+                            <Film className="w-10 h-10 text-zinc-700" strokeWidth={1} />
+                            <p className="font-mono font-bold text-sm text-zinc-400 uppercase tracking-widest leading-tight">
+                              Demo Pipeline Offline
+                            </p>
+                            <p className="font-mono text-[11px] text-zinc-600 max-w-xs leading-relaxed">
+                              Interactive architecture demo not yet available for this project.
+                            </p>
+                          </div>
+                          {/* Bottom status bar */}
+                          <div className="absolute bottom-0 left-0 right-0 border-t border-zinc-800/80 flex items-center justify-between px-4 py-2 z-10">
+                            <span className="font-mono text-[9px] text-zinc-600 uppercase tracking-widest">
+                              SYS:PREVIEW — NO SIGNAL
+                            </span>
+                            <span className="font-mono text-[9px] text-zinc-700 uppercase tracking-widest">
+                              VIDEO DEMO PENDING
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                      {/* Label badge */}
+                      <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-sm border border-zinc-700/60 px-3 py-1.5 rounded-md">
+                        <Film className="w-3 h-3 text-[#FF4D00]" />
+                        <span className="font-mono text-[10px] text-zinc-300 uppercase tracking-widest">
+                          {project.videoUrl && !videoError ? "LIVE PREVIEW" : "SYSTEM DEMO"}
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
                   {/* ── DUAL-DIRECTION MARQUEE GALLERY ── */}
                   {project.screenshots && project.screenshots.length > 1 && (
@@ -340,7 +448,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                               <img
                                 src={src}
                                 alt={`Preview ${i + 1}`}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = DEFAULT_PLACEHOLDER; }}
+                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project.slug); }}
                                 className="w-full h-full object-cover"
                               />
                             </button>
@@ -361,7 +469,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                               <img
                                 src={src}
                                 alt={`Preview ${i + 1}`}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = DEFAULT_PLACEHOLDER; }}
+                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project.slug); }}
                                 className="w-full h-full object-cover"
                               />
                             </button>
@@ -380,13 +488,13 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                     transition={{ duration: 0.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
-                    TECHNICAL HIGHLIGHTS
+                    {t.projectDetail.techHighlights}
                   </motion.h3>
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 w-full max-w-full">
                     {project.highlights.map((item, idx) => (
-                      <li key={idx} className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3">
-                        <span className="text-zinc-500 font-mono select-none">—</span>
-                        <span>{item}</span>
+                      <li key={idx} className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3 min-w-0 w-full">
+                        <span className="text-zinc-500 font-mono select-none shrink-0">—</span>
+                        <span className="break-words min-w-0 whitespace-normal">{getLocalized(item, language)}</span>
                       </li>
                     ))}
                   </ul>
@@ -403,25 +511,8 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="px-6 md:px-12"
             >
-              <section className="w-full max-w-5xl mx-auto my-24 p-12 md:p-16 rounded-3xl bg-gradient-to-b from-zinc-900/90 to-zinc-950 border border-zinc-800 text-center relative overflow-hidden shadow-2xl">
-                {/* Ambient glow */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-orange-500/10 blur-3xl pointer-events-none rounded-full" />
-
-                <span className="font-sans font-bold text-xs uppercase tracking-widest text-amber-500 mb-4 block relative z-10">
-                  BOOK A CALL
-                </span>
-                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase mb-6 leading-tight relative z-10 font-sans">
-                  READY TO TRANSFORM<br />YOUR VISION?
-                </h2>
-                <p className="text-zinc-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8 relative z-10">
-                  Let&apos;s discuss how we can bring your ideas to life. Book a quick call with our team, and we&apos;ll guide you through the next steps.
-                </p>
-                <button className="relative z-10 px-8 py-4 bg-[#FF4D00] hover:bg-orange-500 text-white font-sans font-bold text-xs uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-orange-600/30">
-                  BOOK A CALL
-                </button>
-              </section>
+              <BookACallCard />
             </motion.div>
 
             {/* ══════════════════════════════════════════

@@ -14,6 +14,7 @@ import {
   SiApachecassandra,
   SiDocker,
   SiSpringboot,
+  SiSpring,
   SiPython,
   SiApachekafka,
   SiDuckdb,
@@ -29,6 +30,16 @@ import {
   SiExpress,
   SiJavascript,
   SiMysql,
+  SiJsonwebtokens,
+  SiApachemaven,
+  SiAxios,
+  SiVite,
+  SiLucide,
+  SiHibernate,
+  SiKeycloak,
+  SiApachetomcat,
+  SiHtml5,
+  SiBootstrap,
 } from "react-icons/si";
 import { Cpu, Terminal, Database, Server, Layers, Globe, Radio, Activity } from "lucide-react";
 
@@ -84,11 +95,83 @@ export const TECH_CONFIG: Record<string, TechConfigItem> = {
   "CRDTs": { icon: Layers, color: "text-emerald-400", bgHover: "hover:border-emerald-400/40" },
   "WebSocket": { icon: Radio, color: "text-orange-400", bgHover: "hover:border-orange-400/40" },
   "OAuth2 / OIDC": { icon: Terminal, color: "text-rose-400", bgHover: "hover:border-rose-400/40" },
-  "Apache Tomcat": { icon: Server, color: "text-[#F8DC75]", bgHover: "hover:border-[#F8DC75]/40" },
+  "Apache Tomcat": { icon: SiApachetomcat, color: "text-[#F8DC75]", bgHover: "hover:border-[#F8DC75]/40" },
   "CSS3": { icon: Terminal, color: "text-[#1572B6]", bgHover: "hover:border-[#1572B6]/40" },
   "Recharts": { icon: Activity, color: "text-[#22B5BF]", bgHover: "hover:border-[#22B5BF]/40" },
   "Zustand": { icon: Layers, color: "text-amber-400", bgHover: "hover:border-amber-400/40" },
+  // ── Meca-PRO MES versioned stack ──────────────────────────────────────────
+  "Java 17":              { icon: Server,           color: "text-[#ED8B00]",  bgHover: "hover:border-[#ED8B00]/40"  },
+  "Spring Boot 3.3.5":   { icon: SiSpringboot,      color: "text-[#6DB33F]",  bgHover: "hover:border-[#6DB33F]/40"  },
+  "PostgreSQL 16":        { icon: SiPostgresql,      color: "text-[#4169E1]",  bgHover: "hover:border-[#4169E1]/40"  },
+  "Flyway DB":            { icon: Database,          color: "text-amber-400",  bgHover: "hover:border-amber-400/40"  },
+  "React 19":             { icon: SiReact,           color: "text-[#61DAFB]",  bgHover: "hover:border-[#61DAFB]/40"  },
+  "Zustand 5.0":          { icon: Layers,            color: "text-amber-400",  bgHover: "hover:border-amber-400/40"  },
+  "Docker Compose":       { icon: SiDocker,          color: "text-[#2496ED]",  bgHover: "hover:border-[#2496ED]/40"  },
+  "JWT (HS256)":          { icon: SiJsonwebtokens,   color: "text-rose-400",   bgHover: "hover:border-rose-400/40"   },
+  "Maven":                { icon: SiApachemaven,     color: "text-[#C71A36]",  bgHover: "hover:border-[#C71A36]/40"  },
+  // ── LogiCore Port Control stack ───────────────────────────────────────────
+  "Spring Boot 3.x":      { icon: SiSpringboot,      color: "text-[#6DB33F]",  bgHover: "hover:border-[#6DB33F]/40"  },
+  "PostgreSQL 15":         { icon: SiPostgresql,      color: "text-[#4169E1]",  bgHover: "hover:border-[#4169E1]/40"  },
+  "MS SQL Server 2022":   { icon: Database,          color: "text-[#CC2927]",  bgHover: "hover:border-[#CC2927]/40"  },
+  "JavaScript (ES6+)":    { icon: SiJavascript,      color: "text-[#F7DF1E]",  bgHover: "hover:border-[#F7DF1E]/40"  },
+  "Three.js":              { icon: Globe,             color: "text-zinc-200",   bgHover: "hover:border-zinc-400/40"   },
+  "JVM Concurrency":       { icon: Cpu,               color: "text-orange-400", bgHover: "hover:border-orange-400/40" },
+  "WSL2":                  { icon: Terminal,          color: "text-[#FCC624]",  bgHover: "hover:border-[#FCC624]/40"  },
+  // ── Testigo Oculto – Forensic Audio Platform stack ───────────────────────
+  "Spring Boot 3":         { icon: SiSpringboot,      color: "text-[#6DB33F]",  bgHover: "hover:border-[#6DB33F]/40"  },
+  "Spring Security":       { icon: SiSpring,          color: "text-[#6DB33F]",  bgHover: "hover:border-[#6DB33F]/40"  },
+  "JWT":                   { icon: SiJsonwebtokens,   color: "text-rose-400",   bgHover: "hover:border-rose-400/40"   },
+  "Spring Data JPA":       { icon: SiSpring,          color: "text-[#6DB33F]",  bgHover: "hover:border-[#6DB33F]/40"  },
+  "React 18":              { icon: SiReact,           color: "text-[#61DAFB]",  bgHover: "hover:border-[#61DAFB]/40"  },
+  "Vite":                  { icon: SiVite,            color: "text-[#646CFF]",  bgHover: "hover:border-[#646CFF]/40"  },
+  "Axios":                 { icon: SiAxios,           color: "text-[#5A29E4]",  bgHover: "hover:border-[#5A29E4]/40"  },
+  "WaveSurfer.js":         { icon: Radio,             color: "text-cyan-400",   bgHover: "hover:border-cyan-400/40"   },
+  // ── SaaS Bodegas – Offline-First POS stack ─────────────────────────────────
+  "Lucide React":          { icon: SiLucide,          color: "text-zinc-200",   bgHover: "hover:border-zinc-400/40"   },
+  "Dexie.js":              { icon: Database,          color: "text-blue-400",   bgHover: "hover:border-blue-400/40"   },
+  "Prisma ORM":            { icon: SiPrisma,          color: "text-[#2D3748]",  bgHover: "hover:border-zinc-500/40"   },
+  "REST API":              { icon: Globe,             color: "text-emerald-400",bgHover: "hover:border-emerald-400/40"},
+  // ── Tienda Catys – Restaurant ERP & POS stack ───────────────────────
+  "Spring Boot 3.2.5":    { icon: SiSpringboot,      color: "text-[#6DB33F]",  bgHover: "hover:border-[#6DB33F]/40"  },
+  "Hibernate ORM":         { icon: SiHibernate,       color: "text-[#59666C]",  bgHover: "hover:border-[#59666C]/40"  },
+  "React 19.2":            { icon: SiReact,           color: "text-[#61DAFB]",  bgHover: "hover:border-[#61DAFB]/40"  },
+  "Vite 8.0":              { icon: SiVite,            color: "text-[#646CFF]",  bgHover: "hover:border-[#646CFF]/40"  },
+  "Tailwind CSS v4.0":    { icon: SiTailwindcss,      color: "text-[#06B6D4]",  bgHover: "hover:border-[#06B6D4]/40"  },
+  "RESTful APIs":          { icon: Globe,             color: "text-emerald-400",bgHover: "hover:border-emerald-400/40"},
+  // ── HealthTech 2026 stack ─────────────────────────────────────────
+  "Keycloak":              { icon: SiKeycloak,        color: "text-[#4D9A39]",  bgHover: "hover:border-[#4D9A39]/40"  },
+  "Server-Sent Events":    { icon: Radio,             color: "text-sky-400",    bgHover: "hover:border-sky-400/40"    },
+  "Jakarta Servlets":      { icon: Server,            color: "text-orange-400", bgHover: "hover:border-orange-400/40" },
+  // ── HealthTech 2026 + Olimpiadas Perú 2026 shared stack ──────────────
+  "HTML5":                 { icon: SiHtml5,           color: "text-[#E34F26]",  bgHover: "hover:border-[#E34F26]/40"  },
+  "Bootstrap 5":           { icon: SiBootstrap,       color: "text-[#7952B3]",  bgHover: "hover:border-[#7952B3]/40"  },
+  "HikariCP":              { icon: Database,          color: "text-blue-400",   bgHover: "hover:border-blue-400/40"   },
 };
+
+/* ─────────────────────────────────────────────────────────────
+   TECH RESOLVER — fuzzy match insensible a versiones / paréntesis
+   Prioridad: 1) exact key  2) key ⊂ query  3) query ⊂ key
+───────────────────────────────────────────────────────────── */
+export function resolveTech(tech: string): TechConfigItem {
+  // 1. Match exacto
+  if (TECH_CONFIG[tech]) return TECH_CONFIG[tech];
+
+  const q = tech.toLowerCase();
+  const entries = Object.entries(TECH_CONFIG);
+
+  // 2. La clave registrada está contenida en el query
+  //    Ej: "Spring Boot" ⊂ "Spring Boot 3.3"  →  devuelve entrada "Spring Boot"
+  const byKeyInQuery = entries.find(([key]) => q.includes(key.toLowerCase()));
+  if (byKeyInQuery) return byKeyInQuery[1];
+
+  // 3. El query está contenido en la clave registrada
+  //    Ej: "java" ⊂ "Java 17"
+  const byQueryInKey = entries.find(([key]) => key.toLowerCase().includes(q));
+  if (byQueryInKey) return byQueryInKey[1];
+
+  // 4. Fallback genérico
+  return { icon: Cpu, color: "text-zinc-400", bgHover: "hover:border-zinc-700" };
+}
 
 /* ─────────────────────────────────────────────────────────────
    MOTION VARIANTS
@@ -215,12 +298,8 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
         {/* Pills de tech stack con íconos oficiales a color y hover inteligente */}
         {techStack && techStack.length > 0 && (
           <div className="flex flex-wrap gap-2 pt-2">
-            {techStack.map((tech) => {
-              const config = TECH_CONFIG[tech] || {
-                icon: Cpu,
-                color: "text-zinc-400",
-                bgHover: "hover:border-zinc-700",
-              };
+            {techStack.slice(0, 8).map((tech) => {
+              const config = resolveTech(tech);
               const IconComponent = config.icon;
 
               return (
@@ -233,6 +312,11 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
                 </span>
               );
             })}
+            {techStack.length > 8 && (
+              <span className="px-2 py-1 text-xs font-mono bg-white/5 border border-white/10 rounded-md text-zinc-400 inline-flex items-center">
+                +{techStack.length - 8} more
+              </span>
+            )}
           </div>
         )}
       </div>

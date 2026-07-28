@@ -1,8 +1,7 @@
-"use client";
-
 import React, { useRef } from "react";
 import Link from "next/link";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface WordProps {
   children: React.ReactNode;
@@ -26,13 +25,14 @@ const Word: React.FC<WordProps> = ({ children, progress, range }) => {
 
 export default function AboutManifesto() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 0.85", "start 0.2"],
   });
 
-  const text =
-    "I AM A SENIOR FULLSTACK ARCHITECT & DATA ENGINEER SPECIALIZING IN HIGH-THROUGHPUT DISTRIBUTED SYSTEMS, REAL-TIME TELEMETRY, AND SCALABLE EVENT-DRIVEN PIPELINES.";
+  const text = t.about.heroStatement;
   const words = text.split(" ");
 
   return (
@@ -52,7 +52,7 @@ export default function AboutManifesto() {
         {/* Minimalist Discrete Overline */}
         <div className="flex items-center justify-center gap-2 mb-8 font-mono text-xs text-zinc-500 uppercase tracking-widest">
           <span className="w-1.5 h-1.5 bg-[#FF4D00] rounded-full" />
-          <span>// EXECUTIVE SUMMARY &amp; CORE ARCHITECTURE</span>
+          <span>{t.about.executiveSummaryTitle}</span>
         </div>
 
         {/* Main Manifesto Word Reveal Statement */}
@@ -60,7 +60,7 @@ export default function AboutManifesto() {
           {words.map((word, i) => {
             const start = i / words.length;
             const end = start + 1 / words.length;
-            const isHighlight = word.includes("FULLSTACK") || word.includes("ARCHITECT");
+            const isHighlight = word.includes("FULLSTACK") || word.includes("ARCHITECT") || word.includes("ARQUITECTO");
 
             return (
               <Word key={i} progress={scrollYProgress} range={[start, end]}>
@@ -78,15 +78,15 @@ export default function AboutManifesto() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8 border-t border-zinc-800/80 mb-10">
           <div className="text-center">
             <p className="font-mono text-2xl font-black text-white">99.99%</p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">Uptime SLA Guaranteed</p>
+            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">{t.about.metric1Label}</p>
           </div>
           <div className="text-center md:border-x md:border-zinc-800/80">
             <p className="font-mono text-2xl font-black text-white">50K+ msg/s</p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">Telemetry Throughput</p>
+            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">{t.about.metric2Label}</p>
           </div>
           <div className="text-center">
             <p className="font-mono text-2xl font-black text-white">Distributed</p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">Multi-Cloud Architectures</p>
+            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">{t.about.metric3Label}</p>
           </div>
         </div>
 
@@ -96,7 +96,7 @@ export default function AboutManifesto() {
             href="/about"
             className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#FF4D00] hover:bg-[#e04400] text-black font-sans font-black text-xs uppercase tracking-wider shadow-lg shadow-[#FF4D00]/20 hover:scale-105 transition-all duration-300 cursor-pointer"
           >
-            MORE ABOUT ME
+            {t.about.moreAboutMeBtn}
           </Link>
         </div>
 

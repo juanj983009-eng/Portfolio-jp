@@ -3,13 +3,18 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Calendar, Mail, Copy, CheckCheck, X, ExternalLink, Clock } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { SITE_CONFIG } from "@/config/site";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ─── BOOK A CALL MODAL ─────────────────────────────────────── */
-const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+export const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [copied, setCopied] = useState(false);
+  const pathname = usePathname();
+  const { t } = useLanguage();
 
-  const email = "contact@juanparra.dev";
-  const mailtoLink = `mailto:${email}?subject=Architecture%20Discovery%20Call&body=Hello%20Juan%2C%0A%0AI%27d%20love%20to%20schedule%20a%20discovery%20call%20to%20discuss...`;
+  const email = SITE_CONFIG.email;
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Technical%20Consultation%20Inquiry`;
 
   const handleCopy = async () => {
     try {
@@ -28,6 +33,19 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     }
   };
 
+  const handleSendEmailClick = () => {
+    if (pathname === "/contact" || pathname?.startsWith("/contact")) {
+      onClose();
+      setTimeout(() => {
+        const nameInput = document.getElementById("contact-name-input") || document.querySelector('form input[type="text"]');
+        if (nameInput instanceof HTMLElement) {
+          nameInput.focus();
+          nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <motion.div
       key="book-modal-backdrop"
@@ -35,7 +53,7 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/85 backdrop-blur-2xl"
+      className="fixed inset-0 z-[20000] flex items-center justify-center p-6 bg-black/85 backdrop-blur-2xl"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <motion.div
@@ -65,28 +83,30 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
         {/* Header */}
         <span className="font-sans font-bold text-[10px] uppercase tracking-widest text-[#FF4D00] block mb-4 relative z-10">
-          // BOOK A CALL
+          {t.bookModal.tag}
         </span>
         <h2 className="font-sans font-black text-3xl md:text-4xl text-white uppercase tracking-tighter leading-tight mb-3 relative z-10">
-          LET&apos;S BUILD<br />SOMETHING GREAT
+          <span>{t.bookModal.title.main}</span>
+          <span className="text-[#FF4D00]">{t.bookModal.title.highlight}</span>
         </h2>
         <p className="font-sans font-medium text-xs text-zinc-400 leading-relaxed mb-10 max-w-sm relative z-10">
-          Available for Lead Roles, Architecture Consulting &amp; Senior Fullstack contracts.
+          {t.bookModal.subtitle}
         </p>
 
         {/* Options */}
         <div className="space-y-4 relative z-10">
           {/* Option 1: Send Email */}
           <a
-            href={mailtoLink}
+            href={gmailLink}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleSendEmailClick}
             className="group w-full flex items-center justify-between gap-4 p-5 rounded-2xl bg-[#FF4D00] hover:bg-orange-500 transition-all duration-300 shadow-[0_0_30px_rgba(255,77,0,0.3)] cursor-pointer"
           >
             <div className="flex items-center gap-3">
               <Mail className="w-5 h-5 text-white shrink-0" />
               <div>
-                <p className="font-sans font-bold text-xs text-white uppercase tracking-widest">SEND EMAIL</p>
+                <p className="font-sans font-bold text-xs text-white uppercase tracking-widest">{t.bookModal.sendEmail}</p>
                 <p className="font-sans text-[10px] text-orange-200 mt-0.5">{email}</p>
               </div>
             </div>
@@ -122,7 +142,7 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               </AnimatePresence>
               <div>
                 <p className="font-sans font-bold text-xs text-white uppercase tracking-widest">
-                  {copied ? "COPIED TO CLIPBOARD" : "COPY EMAIL ADDRESS"}
+                  {copied ? t.bookModal.copiedEmail : t.bookModal.copyEmail}
                 </p>
                 <p className="font-sans text-[10px] text-zinc-500 mt-0.5">{email}</p>
               </div>
@@ -135,7 +155,7 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                   exit={{ opacity: 0, scale: 0.8 }}
                   className="font-sans text-[10px] text-emerald-400 uppercase tracking-wider shrink-0"
                 >
-                  ✓ DONE
+                  ✓ {t.bookModal.done}
                 </motion.span>
               )}
             </AnimatePresence>
@@ -145,7 +165,7 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <div className="flex items-center gap-2 pt-2 px-1">
             <Clock className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
             <p className="font-sans text-[10px] text-zinc-500 uppercase tracking-wider">
-              Response time: Within 24 hours · Lima, PE (UTC-5)
+              {t.bookModal.responseTime}
             </p>
           </div>
         </div>
@@ -157,6 +177,7 @@ const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 /* ─── BOOK A CALL CARD SECTION ───────────────────────────────── */
 export const BookACallCard: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -179,13 +200,14 @@ export const BookACallCard: React.FC = () => {
 
           {/* Card Content */}
           <span className="text-xs font-sans font-bold tracking-widest text-[#FF4D00] uppercase mb-4 block relative z-10">
-            BOOK A CALL
+            {t.bookModal.bookCallBtn}
           </span>
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight uppercase mb-6 leading-tight relative z-10 font-sans">
-            READY TO TRANSFORM<br />YOUR VISION?
+            <span>{t.bookModal.readyTitle.main}</span>
+            <span className="text-[#FF4D00]">{t.bookModal.readyTitle.highlight}</span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8 relative z-10 font-sans font-medium">
-            Let&apos;s discuss how we can bring your distributed architecture or data engineering pipeline to life.
+            {t.bookModal.readyDesc}
           </p>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -198,7 +220,7 @@ export const BookACallCard: React.FC = () => {
             "
           >
             <Calendar className="w-4 h-4 text-black stroke-[2.5]" />
-            <span>BOOK A CALL</span>
+            <span>{t.bookModal.bookCallBtn}</span>
           </button>
         </div>
       </section>
