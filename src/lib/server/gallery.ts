@@ -14,7 +14,7 @@ export function getProjectGalleryImages(projectId: string): string[] {
     }
 
     const files = fs.readdirSync(galleryDir);
-    const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
+    const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif', '.avif']);
 
     return files
       .filter(file => imageExtensions.has(path.extname(file).toLowerCase()))
@@ -31,9 +31,6 @@ export function getProjectGalleryImages(projectId: string): string[] {
 export function getEnrichedProjects<T extends { id: string; slug: string; screenshots?: string[]; coverImage?: string }>(projects: T[]): T[] {
   return projects.map((project) => {
     const dynamicImages = getProjectGalleryImages(project.slug || project.id);
-    if (dynamicImages.length > 0) {
-      return { ...project, screenshots: dynamicImages };
-    }
-    return project;
+    return { ...project, screenshots: dynamicImages };
   });
 }

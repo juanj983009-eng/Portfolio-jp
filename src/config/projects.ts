@@ -85,9 +85,9 @@ export const PROJECTS: Project[] = [
     },
     coverImage: "/projects/smartfleet-v2/cover.jpg",
     githubUrl: "https://github.com/juanj983009-eng/SMARTFLEET_V2",
-    videoUrl: "https://youtu.be/V2s_K7pTXJo",
-    demoVideoUrl: "https://youtu.be/V2s_K7pTXJo",
-    demoUrl: "https://youtu.be/V2s_K7pTXJo",
+    videoUrl: "https://youtu.be/GWb8TBxducY",
+    demoVideoUrl: "https://youtu.be/GWb8TBxducY",
+    demoUrl: "https://youtu.be/GWb8TBxducY",
     screenshots: [
       "/projects/smartfleet-v2/gallery/Captura de pantalla 2026-07-28 232338.png",
       "/projects/smartfleet-v2/gallery/Captura de pantalla 2026-07-28 232352.png",
@@ -184,9 +184,25 @@ export const PROJECTS: Project[] = [
     },
     coverImage: "/projects/controller-production/cover.jpg",
     githubUrl: "https://github.com/juanj983009-eng/Mecapro-mes-V1",
+    videoUrl: "https://youtu.be/V4FemFCJsPg",
+    demoVideoUrl: "https://youtu.be/V4FemFCJsPg",
+    demoUrl: "https://youtu.be/V4FemFCJsPg",
     screenshots: [
-      "/projects/controller-production/gallery/01.jpg",
-      "/projects/controller-production/gallery/02.jpg"
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082302.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082803.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082813.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082820.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082830.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082840.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082848.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082931.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082939.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 082947.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 083007.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 083018.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 083024.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 083036.png",
+      "/projects/controller-production/gallery/Captura de pantalla 2026-07-29 083042.png",
     ],
     isFeatured: true
   },
@@ -254,9 +270,20 @@ export const PROJECTS: Project[] = [
     },
     coverImage: "/projects/logicore-port-control/cover.jpg",
     githubUrl: "https://github.com/juanj983009-eng/LogiCore-Port-Control",
+    videoUrl: "https://youtu.be/2pPX6ErTX7A",
+    demoVideoUrl: "https://youtu.be/2pPX6ErTX7A",
+    demoUrl: "https://youtu.be/2pPX6ErTX7A",
     screenshots: [
-      "/projects/logicore-port-control/gallery/01.jpg",
-      "/projects/logicore-port-control/gallery/02.jpg"
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085803.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085813.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085818.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085825.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085837.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085846.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085856.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085902.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085909.png",
+      "/projects/logicore-port-control/gallery/Captura de pantalla 2026-07-29 085916.png",
     ],
     isFeatured: true
   },
@@ -324,9 +351,24 @@ export const PROJECTS: Project[] = [
     },
     coverImage: "/projects/podcast-streaming-app/cover.jpg",
     githubUrl: "https://github.com/juanj983009-eng/testigo-oculto-v2",
+    videoUrl: "https://youtu.be/trWjGSGqxXw",
+    demoVideoUrl: "https://youtu.be/trWjGSGqxXw",
+    demoUrl: "https://youtu.be/trWjGSGqxXw",
     screenshots: [
-      "/projects/podcast-streaming-app/gallery/01.jpg",
-      "/projects/podcast-streaming-app/gallery/02.jpg"
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 092352.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 092640.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095756.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095802.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095808.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095814.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095826.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095831.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095838.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095847.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095854.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095902.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095910.png",
+      "/projects/podcast-streaming-app/gallery/Captura de pantalla 2026-07-29 095920.png"
     ],
     isFeatured: false
   },
@@ -392,9 +434,21 @@ export const PROJECTS: Project[] = [
       ]
     },
     coverImage: "/projects/saas-bodegas-pos/cover.jpg",
+    videoUrl: "https://youtu.be/oDbNjL_c7dI",
+    demoVideoUrl: "https://youtu.be/oDbNjL_c7dI",
+    demoUrl: "https://youtu.be/oDbNjL_c7dI",
     screenshots: [
-      "/projects/saas-bodegas-pos/gallery/01.jpg",
-      "/projects/saas-bodegas-pos/gallery/02.jpg"
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104359.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104406.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104421.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104430.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104438.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104443.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104454.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104507.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104512.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104534.png",
+      "/projects/saas-bodegas-pos/gallery/Captura de pantalla 2026-07-29 104546.png",
     ],
     isFeatured: true
   },
@@ -460,10 +514,26 @@ export const PROJECTS: Project[] = [
       ]
     },
     coverImage: "/projects/tienda-catys/cover.jpg",
+    videoUrl: "https://youtu.be/9y-XOab5JzU",
+    demoVideoUrl: "https://youtu.be/9y-XOab5JzU",
+    demoUrl: "https://youtu.be/9y-XOab5JzU",
     githubUrl: "https://github.com/juanj983009-eng/Tienda-Catys-Java",
     screenshots: [
-      "/projects/tienda-catys/gallery/01.jpg",
-      "/projects/tienda-catys/gallery/02.jpg"
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154042.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154049.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154059.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154121.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154127.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154133.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154144.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154150.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154155.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154208.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154220.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154233.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154242.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154250.png",
+      "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154304.png"
     ],
     isFeatured: false
   },
@@ -545,10 +615,23 @@ export const PROJECTS: Project[] = [
       ]
     },
     coverImage: "/projects/biblioteca-digital/cover.jpg",
+    videoUrl: "https://youtu.be/-wGJQhYD_iI",
+    demoVideoUrl: "https://youtu.be/-wGJQhYD_iI",
+    demoUrl: "https://youtu.be/-wGJQhYD_iI",
     githubUrl: "https://github.com/juanj983009-eng/Libreria-Digital",
     screenshots: [
-      "/projects/biblioteca-digital/gallery/01.jpg",
-      "/projects/biblioteca-digital/gallery/02.jpg"
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160125.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160131.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160142.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160150.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160159.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160212.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160225.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160236.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160241.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160251.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160256.png",
+      "/projects/biblioteca-digital/gallery/Captura de pantalla 2026-07-29 160302.png"
     ],
     isFeatured: true
   },
@@ -630,10 +713,24 @@ export const PROJECTS: Project[] = [
       ]
     },
     coverImage: "/projects/clinicav2-stack/cover.jpg",
+    videoUrl: "https://youtu.be/xR0LZ8JPsU0",
+    demoVideoUrl: "https://youtu.be/xR0LZ8JPsU0",
+    demoUrl: "https://youtu.be/xR0LZ8JPsU0",
     githubUrl: "https://github.com/juanj983009-eng/Clinica_V2",
     screenshots: [
-      "/projects/clinicav2-stack/gallery/01.jpg",
-      "/projects/clinicav2-stack/gallery/02.jpg"
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161811.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161816.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161822.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161828.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161833.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161840.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161844.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161851.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161858.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161903.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161913.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161918.png",
+      "/projects/clinicav2-stack/gallery/Captura de pantalla 2026-07-29 161927.png"
     ],
     isFeatured: false
   },
@@ -711,10 +808,22 @@ export const PROJECTS: Project[] = [
       ]
     },
     coverImage: "/projects/olimpiadas-peru/cover.jpg",
+    videoUrl: "https://youtu.be/KbHmRWK1-ws",
+    demoVideoUrl: "https://youtu.be/KbHmRWK1-ws",
+    demoUrl: "https://youtu.be/KbHmRWK1-ws",
     githubUrl: "https://github.com/juanj983009-eng/Olimpiadas-Peru",
     screenshots: [
-      "/projects/olimpiadas-peru/gallery/01.jpg",
-      "/projects/olimpiadas-peru/gallery/02.jpg"
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163441.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163449.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163455.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163502.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163509.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163516.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163523.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163531.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163541.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163550.png",
+      "/projects/olimpiadas-peru/gallery/Captura de pantalla 2026-07-29 163602.png"
     ],
     isFeatured: false
   }

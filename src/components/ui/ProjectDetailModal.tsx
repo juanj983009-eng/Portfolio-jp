@@ -72,12 +72,6 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
     if (project?.screenshots && project.screenshots.length > 0) {
       return project.screenshots;
     }
-    if (project?.coverImage) {
-      return [project.coverImage];
-    }
-    if (project?.slug) {
-      return [`/projects/${project.slug}/cover.jpg`];
-    }
     return [];
   }, [images, project]);
 
@@ -465,7 +459,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                               <img
                                 src={src}
                                 alt={`Preview ${i + 1}`}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project?.slug || ""); }}
+                                onError={(e) => {
+                                  if (e.currentTarget.parentElement) {
+                                    e.currentTarget.parentElement.style.display = "none";
+                                  }
+                                }}
                                 className="w-full h-full object-cover"
                               />
                             </button>
@@ -486,7 +484,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                               <img
                                 src={src}
                                 alt={`Preview ${i + 1}`}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project?.slug || ""); }}
+                                onError={(e) => {
+                                  if (e.currentTarget.parentElement) {
+                                    e.currentTarget.parentElement.style.display = "none";
+                                  }
+                                }}
                                 className="w-full h-full object-cover"
                               />
                             </button>
@@ -504,7 +506,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                         <img
                           src={effectiveScreenshots[0]}
                           alt="Project Preview"
-                          onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project?.slug || ""); }}
+                          onError={(e) => {
+                            if (e.currentTarget.parentElement) {
+                              e.currentTarget.parentElement.style.display = "none";
+                            }
+                          }}
                           className="w-full h-full object-cover"
                         />
                       </button>
