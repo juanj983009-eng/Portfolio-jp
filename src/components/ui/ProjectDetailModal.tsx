@@ -32,6 +32,7 @@ const CATEGORY_HERO_GRADIENT: Record<string, string> = {
 
 interface ProjectDetailModalProps {
   project: Project | null;
+  images?: string[];
   onClose: () => void;
 }
 
@@ -57,12 +58,28 @@ const isYouTubeUrl = (url?: string): boolean => {
   return url.includes("youtube.com") || url.includes("youtu.be");
 };
 
-const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClose }) => {
+const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images, onClose }) => {
   const [mounted, setMounted] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [videoError, setVideoError] = useState(false);
   const [heroImgError, setHeroImgError] = useState(false);
   const { language, t } = useLanguage();
+
+  const effectiveScreenshots = useMemo(() => {
+    if (images && images.length > 0) {
+      return images;
+    }
+    if (project?.screenshots && project.screenshots.length > 0) {
+      return project.screenshots;
+    }
+    if (project?.coverImage) {
+      return [project.coverImage];
+    }
+    if (project?.slug) {
+      return [`/projects/${project.slug}/cover.jpg`];
+    }
+    return [];
+  }, [images, project]);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -423,8 +440,8 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                     </div>
                   )}
 
-                  {/* ── DUAL-DIRECTION MARQUEE GALLERY ── */}
-                  {project.screenshots && project.screenshots.length > 1 && (
+                  {/* ── DUAL-DIRECTION MARQUEE GALLERY / SINGLE FALLBACK ── */}
+                  {effectiveScreenshots.length > 1 ? (
                     <div className="space-y-3 overflow-hidden pt-2">
                       <style>{`
                         @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -438,7 +455,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                       {/* Rail 1 — Left to Right */}
                       <div className="marquee-track w-full overflow-hidden">
                         <div className="flex gap-3 marquee-ltr" style={{ width: "max-content" }}>
-                          {[...project.screenshots, ...project.screenshots].map((src, i) => (
+                          {[...effectiveScreenshots, ...effectiveScreenshots].map((src, i) => (
                             <button
                               key={`ltr-${i}`}
                               type="button"
@@ -448,7 +465,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                               <img
                                 src={src}
                                 alt={`Preview ${i + 1}`}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project.slug); }}
+                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project?.slug || ""); }}
                                 className="w-full h-full object-cover"
                               />
                             </button>
@@ -459,7 +476,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                       {/* Rail 2 — Right to Left */}
                       <div className="marquee-track w-full overflow-hidden">
                         <div className="flex gap-3 marquee-rtl" style={{ width: "max-content" }}>
-                          {[...project.screenshots.slice().reverse(), ...project.screenshots.slice().reverse()].map((src, i) => (
+                          {[...effectiveScreenshots.slice().reverse(), ...effectiveScreenshots.slice().reverse()].map((src, i) => (
                             <button
                               key={`rtl-${i}`}
                               type="button"
@@ -469,7 +486,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                               <img
                                 src={src}
                                 alt={`Preview ${i + 1}`}
-                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project.slug); }}
+                                onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project?.slug || ""); }}
                                 className="w-full h-full object-cover"
                               />
                             </button>
@@ -477,7 +494,22 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, onClos
                         </div>
                       </div>
                     </div>
-                  )}
+                  ) : effectiveScreenshots.length === 1 ? (
+                    <div className="pt-2 w-full">
+                      <button
+                        type="button"
+                        onClick={() => setLightboxSrc(effectiveScreenshots[0])}
+                        className="w-full h-48 rounded-lg overflow-hidden border border-zinc-800 hover:border-[#FF4D00]/60 transition-colors cursor-zoom-in focus:outline-none"
+                      >
+                        <img
+                          src={effectiveScreenshots[0]}
+                          alt="Project Preview"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).src = getProjectFallback(project?.slug || ""); }}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    </div>
+                  ) : null}
                 </div>
 
                 {/* TECHNICAL HIGHLIGHTS */}
