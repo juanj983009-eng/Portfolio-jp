@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, Cpu, Github } from "lucide-react";
+import { ArrowUpRight, Cpu, Github, Video } from "lucide-react";
 import { Project, getLocalized } from "@/types/portfolio";
 import { resolveTech } from "@/components/ui/bento-grid";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -164,6 +164,22 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                         {project.metrics?.throughput ?? "SLA 99.99%"}
                       </div>
                       <div className="flex items-center gap-2">
+                        {(() => {
+                          const demoLink = project.demoVideoUrl || project.demoUrl || (project.videoUrl && project.videoUrl.startsWith("http") ? project.videoUrl : null);
+                          if (!demoLink) return null;
+                          return (
+                            <a
+                              href={demoLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-red-400 hover:text-white transition-colors"
+                              title="Watch Video Demo"
+                            >
+                              <Video className="w-4 h-4 text-red-500" />
+                            </a>
+                          );
+                        })()}
                         {project.githubUrl && (
                           <a
                             href={project.githubUrl}

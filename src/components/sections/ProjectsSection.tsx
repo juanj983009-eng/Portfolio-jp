@@ -9,7 +9,7 @@ import {
   useSpring,
   MotionValue,
 } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, Github, Video } from "lucide-react";
 import { PROJECTS } from "@/config/projects";
 import { Project, getLocalized } from "@/types/portfolio";
 import ProjectDetailModal from "@/components/ui/ProjectDetailModal";
@@ -195,6 +195,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
 
             <div className="inline-flex items-center gap-2.5 ml-auto sm:ml-0">
+              {(() => {
+                const demoLink = project.demoVideoUrl || project.demoUrl || (project.videoUrl && project.videoUrl.startsWith("http") ? project.videoUrl : null);
+                if (!demoLink) return null;
+                return (
+                  <a
+                    href={demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center justify-center p-2.5 rounded-full bg-zinc-900/90 text-red-400 hover:text-white border border-zinc-700/80 hover:border-red-500 transition-all duration-300 shadow-xl cursor-pointer"
+                    title="Watch Video Demo"
+                  >
+                    <Video className="w-4 h-4 text-red-500" />
+                  </a>
+                );
+              })()}
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}

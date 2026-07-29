@@ -85,7 +85,9 @@ export const PROJECTS: Project[] = [
     },
     coverImage: "/projects/smartfleet-v2/cover.jpg",
     githubUrl: "https://github.com/juanj983009-eng/SMARTFLEET_V2",
-    videoUrl: "/projects/smartfleet-v2/demo.mp4",
+    videoUrl: "https://youtu.be/V2s_K7pTXJo",
+    demoVideoUrl: "https://youtu.be/V2s_K7pTXJo",
+    demoUrl: "https://youtu.be/V2s_K7pTXJo",
     screenshots: [
       "/projects/smartfleet-v2/gallery/01.jpg",
       "/projects/smartfleet-v2/gallery/02.jpg",
