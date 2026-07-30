@@ -43,6 +43,33 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
 });
 
 export default function Home() {
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const restoreScrollPosition = () => {
+      const hash = window.location.hash.replace("#", "");
+      const searchParams = new URLSearchParams(window.location.search);
+      const sectionParam = searchParams.get("section");
+      const projectParam = searchParams.get("project");
+      const targetId = hash || sectionParam || (projectParam ? "projects" : null);
+
+      if (targetId) {
+        let attempts = 0;
+        const interval = setInterval(() => {
+          attempts += 1;
+          const element = document.getElementById(targetId);
+          if (element) {
+            clearInterval(interval);
+            element.scrollIntoView({ behavior: "smooth" });
+          } else if (attempts > 35) {
+            clearInterval(interval);
+          }
+        }, 80);
+      }
+    };
+
+    restoreScrollPosition();
+  }, []);
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-200 bg-cad-grid relative [overflow-clip-margin:0px] overflow-clip selection:bg-orange-500/20 selection:text-orange-400">
       {/* Sticky Header Navbar */}

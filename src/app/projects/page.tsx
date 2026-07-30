@@ -59,6 +59,38 @@ export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { language, t } = useLanguage();
 
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const projectSlug = params.get("project");
+    if (projectSlug) {
+      const matched = PROJECTS.find(
+        (p) => p.slug === projectSlug || p.id === projectSlug
+      );
+      if (matched) {
+        setSelectedProject(matched);
+      }
+    }
+  }, []);
+
+  const handleOpenProject = (project: Project) => {
+    setSelectedProject(project);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("project", project.slug);
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
+  const handleCloseProject = () => {
+    setSelectedProject(null);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("project");
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white selection:bg-orange-500/20 selection:text-orange-400 select-none relative">
       <Navbar />
@@ -98,7 +130,7 @@ export default function ProjectsPage() {
                   index={`#${String(index + 1).padStart(2, "0")}`}
                   cta="VIEW ARCHITECTURE"
                   ctaHref="#"
-                  onCtaClick={() => setSelectedProject(project)}
+                  onCtaClick={() => handleOpenProject(project)}
                   header={
                     <ProjectHeader
                       project={project}
@@ -118,7 +150,7 @@ export default function ProjectsPage() {
         {/* ── INTERACTIVE HORIZONTAL PROJECTS CAROUSEL (ARCHITECTURE LAB) ── */}
         <HorizontalProjectsCarousel
           projects={PROJECTS}
-          onSelectProject={(project) => setSelectedProject(project)}
+          onSelectProject={(project) => handleOpenProject(project)}
         />
 
         {/* ── INFINITE TECH ECOSYSTEM MARQUEE ── */}
@@ -136,7 +168,7 @@ export default function ProjectsPage() {
       {selectedProject && (
         <ProjectDetailModal
           project={selectedProject}
-          onClose={() => setSelectedProject(null)}
+          onClose={handleCloseProject}
         />
       )}
     </div>

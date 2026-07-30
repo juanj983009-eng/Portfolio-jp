@@ -257,6 +257,41 @@ export const ProjectsSection: React.FC = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const projectSlug = params.get("project");
+    if (projectSlug) {
+      const matched = PROJECTS.find(
+        (p) => p.slug === projectSlug || p.id === projectSlug
+      );
+      if (matched) {
+        setSelectedProject(matched);
+      }
+    }
+  }, []);
+
+  const handleOpenProject = (project: Project) => {
+    setSelectedProject(project);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.set("project", project.slug);
+      if (!url.hash) {
+        url.hash = "projects";
+      }
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
+  const handleCloseProject = () => {
+    setSelectedProject(null);
+    if (typeof window !== "undefined") {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("project");
+      window.history.replaceState(null, "", url.toString());
+    }
+  };
+
   return (
     <>
       <section id="projects" className="w-full pt-6 md:pt-8">
@@ -294,7 +329,7 @@ export const ProjectsSection: React.FC = () => {
                 index={index}
                 total={total}
                 language={language}
-                onOpen={setSelectedProject}
+                onOpen={handleOpenProject}
                 containerRef={containerRef}
               />
             ))}
@@ -306,7 +341,7 @@ export const ProjectsSection: React.FC = () => {
       {/* PROJECT DETAIL MODAL */}
       <ProjectDetailModal
         project={selectedProject}
-        onClose={() => setSelectedProject(null)}
+        onClose={handleCloseProject}
       />
     </>
   );
