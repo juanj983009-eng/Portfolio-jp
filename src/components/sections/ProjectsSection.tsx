@@ -245,10 +245,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 // ─── SECTION ──────────────────────────────────────────────────────────────────
 export const ProjectsSection: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projects, setProjects] = useState<Project[]>(PROJECTS);
   const [isMobile, setIsMobile] = useState(false);
   const { language, t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
-  const total = PROJECTS.length;
+  const total = projects.length;
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/projects", { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : Promise.reject(new Error("Unable to load projects"))))
+      .then((data: Project[]) => setProjects(data))
+      .catch((error: unknown) => {
+        if (!(error instanceof DOMException && error.name === "AbortError")) {
+          console.error("Unable to load dynamic project galleries:", error);
+        }
+      });
+
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -262,14 +278,14 @@ export const ProjectsSection: React.FC = () => {
     const params = new URLSearchParams(window.location.search);
     const projectSlug = params.get("project");
     if (projectSlug) {
-      const matched = PROJECTS.find(
+      const matched = projects.find(
         (p) => p.slug === projectSlug || p.id === projectSlug
       );
       if (matched) {
         setSelectedProject(matched);
       }
     }
-  }, []);
+  }, [projects]);
 
   const handleOpenProject = (project: Project) => {
     setSelectedProject(project);
@@ -322,7 +338,7 @@ export const ProjectsSection: React.FC = () => {
         >
           {/* Cards stack inside — responsive vertical spacing */}
           <div className="space-y-8 sm:space-y-12 md:space-y-[14vh] pt-4 md:pt-8">
-            {PROJECTS.map((project, index) => (
+            {projects.map((project, index) => (
               <ProjectCard
                 key={project.id}
                 project={project}

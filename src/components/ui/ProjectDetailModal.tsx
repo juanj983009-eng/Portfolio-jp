@@ -75,6 +75,13 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
     return [];
   }, [images, project]);
 
+  // Data remains unique; the marquee below may clone this array only for its
+  // visual loop, never as part of the gallery data model.
+  const galleryImages = useMemo(
+    () => Array.from(new Set(effectiveScreenshots)),
+    [effectiveScreenshots]
+  );
+
   useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
@@ -435,7 +442,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                   )}
 
                   {/* ── DUAL-DIRECTION MARQUEE GALLERY / SINGLE FALLBACK ── */}
-                  {effectiveScreenshots.length > 1 ? (
+                  {galleryImages.length > 1 ? (
                     <div className="space-y-3 overflow-hidden pt-2">
                       <style>{`
                         @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -449,7 +456,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                       {/* Rail 1 — Left to Right */}
                       <div className="marquee-track w-full overflow-hidden">
                         <div className="flex gap-3 marquee-ltr" style={{ width: "max-content" }}>
-                          {[...effectiveScreenshots, ...effectiveScreenshots].map((src, i) => (
+                          {[...galleryImages, ...galleryImages].map((src, i) => (
                             <button
                               key={`ltr-${i}`}
                               type="button"
@@ -474,7 +481,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                       {/* Rail 2 — Right to Left */}
                       <div className="marquee-track w-full overflow-hidden">
                         <div className="flex gap-3 marquee-rtl" style={{ width: "max-content" }}>
-                          {[...effectiveScreenshots.slice().reverse(), ...effectiveScreenshots.slice().reverse()].map((src, i) => (
+                          {[...galleryImages.slice().reverse(), ...galleryImages.slice().reverse()].map((src, i) => (
                             <button
                               key={`rtl-${i}`}
                               type="button"
@@ -496,15 +503,15 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                         </div>
                       </div>
                     </div>
-                  ) : effectiveScreenshots.length === 1 ? (
+                  ) : galleryImages.length === 1 ? (
                     <div className="pt-2 w-full">
                       <button
                         type="button"
-                        onClick={() => setLightboxSrc(effectiveScreenshots[0])}
+                        onClick={() => setLightboxSrc(galleryImages[0])}
                         className="w-full h-48 rounded-lg overflow-hidden border border-zinc-800 hover:border-[#FF4D00]/60 transition-colors cursor-zoom-in focus:outline-none"
                       >
                         <img
-                          src={effectiveScreenshots[0]}
+                          src={galleryImages[0]}
                           alt="Project Preview"
                           onError={(e) => {
                             if (e.currentTarget.parentElement) {

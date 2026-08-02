@@ -57,21 +57,37 @@ const ProjectHeader: React.FC<{ project: Project }> = ({ project }) => {
 ───────────────────────────────────────────────────────────── */
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projects, setProjects] = useState<Project[]>(PROJECTS);
   const { language, t } = useLanguage();
+
+  React.useEffect(() => {
+    const controller = new AbortController();
+
+    fetch("/api/projects", { signal: controller.signal })
+      .then((response) => (response.ok ? response.json() : Promise.reject(new Error("Unable to load projects"))))
+      .then((data: Project[]) => setProjects(data))
+      .catch((error: unknown) => {
+        if (!(error instanceof DOMException && error.name === "AbortError")) {
+          console.error("Unable to load dynamic project galleries:", error);
+        }
+      });
+
+    return () => controller.abort();
+  }, []);
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     const projectSlug = params.get("project");
     if (projectSlug) {
-      const matched = PROJECTS.find(
+      const matched = projects.find(
         (p) => p.slug === projectSlug || p.id === projectSlug
       );
       if (matched) {
         setSelectedProject(matched);
       }
     }
-  }, []);
+  }, [projects]);
 
   const handleOpenProject = (project: Project) => {
     setSelectedProject(project);
@@ -112,12 +128,12 @@ export default function ProjectsPage() {
             number="01"
             category="FEATURED SHOWCASE"
             title={t.projects.title}
-            count={`${PROJECTS.length} ENTERPRISE SYSTEMS`}
+            count={`${projects.length} ENTERPRISE SYSTEMS`}
           />
 
           {/* Dynamic 3-Column Bento Grid */}
           <BentoGrid>
-            {PROJECTS.map((project, index) => {
+            {projects.map((project, index) => {
               const spanClass = getBentoSpan(index);
 
               return (
@@ -149,7 +165,7 @@ export default function ProjectsPage() {
 
         {/* ── INTERACTIVE HORIZONTAL PROJECTS CAROUSEL (ARCHITECTURE LAB) ── */}
         <HorizontalProjectsCarousel
-          projects={PROJECTS}
+          projects={projects}
           onSelectProject={(project) => handleOpenProject(project)}
         />
 

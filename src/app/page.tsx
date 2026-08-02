@@ -46,14 +46,30 @@ export default function Home() {
   React.useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const scrollKey = `scroll:${window.location.pathname}${window.location.search}`;
+    const persistScrollPosition = () => {
+      window.sessionStorage.setItem(scrollKey, String(window.scrollY));
+    };
+
     const restoreScrollPosition = () => {
+      const savedPosition = window.sessionStorage.getItem(scrollKey);
+      if (savedPosition !== null) {
+        const top = Number(savedPosition);
+        if (Number.isFinite(top)) {
+          window.requestAnimationFrame(() => window.scrollTo({ top, behavior: "auto" }));
+          return;
+        }
+      }
+
       const hash = window.location.hash.replace("#", "");
       const searchParams = new URLSearchParams(window.location.search);
       const sectionParam = searchParams.get("section");
       const projectParam = searchParams.get("project");
       const targetId = hash || sectionParam || (projectParam ? "projects" : null);
 
-      if (targetId) {
+      // A project query restores the modal in ProjectsSection. Do not override
+      // the browser's restored viewport with a second forced scroll.
+      if (targetId && !projectParam) {
         let attempts = 0;
         const interval = setInterval(() => {
           attempts += 1;
@@ -69,6 +85,8 @@ export default function Home() {
     };
 
     restoreScrollPosition();
+    window.addEventListener("pagehide", persistScrollPosition);
+    return () => window.removeEventListener("pagehide", persistScrollPosition);
   }, []);
   return (
     <div className="min-h-screen bg-[#050505] text-zinc-200 bg-cad-grid relative [overflow-clip-margin:0px] overflow-clip selection:bg-orange-500/20 selection:text-orange-400">

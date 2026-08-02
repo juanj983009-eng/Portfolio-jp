@@ -7,18 +7,28 @@ import path from 'path';
  */
 export function getProjectGalleryImages(projectId: string): string[] {
   try {
+    // Project ids are used as a filesystem path segment. Do not allow a caller to
+    // escape the projects directory (e.g. with `../`).
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/i.test(projectId)) {
+      return [];
+    }
+
     const galleryDir = path.join(process.cwd(), 'public', 'projects', projectId, 'gallery');
     
     if (!fs.existsSync(galleryDir)) {
       return [];
     }
 
-    const files = fs.readdirSync(galleryDir);
+    const files = fs.readdirSync(galleryDir, { withFileTypes: true });
     const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif', '.avif']);
 
-    return files
-      .filter(file => imageExtensions.has(path.extname(file).toLowerCase()))
-      .map(file => `/projects/${projectId}/gallery/${file}`);
+    return [...new Set(
+      files
+        .filter((file) => file.isFile() && imageExtensions.has(path.extname(file.name).toLowerCase()))
+        .map((file) => file.name)
+        .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }))
+        .map((file) => `/projects/${projectId}/gallery/${encodeURIComponent(file)}`)
+    )];
   } catch (error) {
     console.error(`Error reading gallery for ${projectId}:`, error);
     return [];
