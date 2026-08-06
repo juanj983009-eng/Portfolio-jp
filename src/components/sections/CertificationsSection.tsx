@@ -1,6 +1,13 @@
 import React, { useRef, useState } from "react";
-import { motion, useScroll, useTransform, PanInfo, AnimatePresence } from "framer-motion";
-import { SiApachekafka, SiDocker, SiKeycloak, SiKubernetes } from "react-icons/si";
+import { motion, PanInfo, useScroll, useTransform } from "framer-motion";
+import { FaAws } from "react-icons/fa6";
+import {
+  SiApachekafka,
+  SiKubernetes,
+  SiPostgresql,
+  SiRedhat,
+  SiSpring,
+} from "react-icons/si";
 import { useLanguage } from "@/context/LanguageContext";
 
 /* ─────────────────────────────────────────────────────────────
@@ -26,63 +33,93 @@ interface Cert {
 const CERTS: Cert[] = [
   {
     id: "01",
-    title: "DISTRIBUTED SYSTEMS ARCHITECT",
-    specialty: "DISTRIBUTED SYSTEMS & EVENT ARCHITECTURE",
+    title: "AWS Certified Solutions Architect",
+    specialty: "CLOUD ARCHITECTURE & RELIABILITY",
     validationText:
-      "Validated through rigorous assessment in consensus algorithms, event sourcing, CQRS, and high-availability fault-tolerant microservice design across multi-datacenter environments.",
-    issued: "MAY 2024",
-    badge: "ACCREDITED",
-    hash: "0x89F4A1C2",
-    authority: "DISTRIBUTED SYSTEMS FOUNDATION",
-    board: "CHIEF ARCHITECT BOARD",
-    dockLabel: "KAFKA / EVENT MESH",
-    brandColor: "#FF4D00",          // Kafka has no strong color; use system accent
-    dockIcon: <SiApachekafka size={22} color="#FF4D00" />,
+      "Target roadmap for designing resilient, secure, and scalable cloud architectures on AWS.",
+    issued: "TARGET 2027",
+    badge: "TARGET",
+    hash: "0xAWS2027",
+    authority: "Amazon Web Services",
+    board: "CLOUD CERTIFICATION BOARD",
+    dockLabel: "AWS / CLOUD",
+    brandColor: "#FF9900",
+    dockIcon: <FaAws size={22} color="#FF9900" />,
   },
   {
     id: "02",
-    title: "AWS SOLUTIONS ARCHITECT",
-    specialty: "CLOUD INFRASTRUCTURE & RELIABILITY ENGINEERING",
+    title: "Confluent Certified Developer for Apache Kafka",
+    specialty: "EVENT STREAMING & DISTRIBUTED SYSTEMS",
     validationText:
-      "Certified in multi-region AWS infrastructure design, edge routing strategies, auto-scaling policies, and enterprise-grade high-speed disaster recovery architectures.",
-    issued: "NOV 2023",
-    badge: "VERIFIED",
-    hash: "0x3DA92FF1",
-    authority: "AMAZON WEB SERVICES INSTITUTE",
-    board: "CLOUD CERTIFICATION BOARD",
-    dockLabel: "DOCKER / CLOUD",
-    brandColor: "#2496ED",
-    dockIcon: <SiDocker size={22} color="#2496ED" />,
+      "Target roadmap for developing production-grade event streaming applications with Apache Kafka.",
+    issued: "TARGET 2027",
+    badge: "TARGET",
+    hash: "0xKAF2027",
+    authority: "Confluent",
+    board: "STREAMING CERTIFICATION BOARD",
+    dockLabel: "KAFKA / EVENT MESH",
+    brandColor: "#FF4D00",
+    dockIcon: <SiApachekafka size={22} color="#FF4D00" />,
   },
   {
     id: "03",
-    title: "ZERO-TRUST IAM ACCREDITATION",
-    specialty: "ENTERPRISE SECURITY & IDENTITY ARCHITECTURE",
+    title: "Spring Professional Certification",
+    specialty: "ENTERPRISE JAVA & SPRING ARCHITECTURE",
     validationText:
-      "Accredited in Zero-Trust network design, Keycloak federation, OAuth2 / OIDC token flows, SAML enterprise SSO, and RBAC/ABAC policy enforcement at scale.",
-    issued: "JAN 2024",
-    badge: "ENTERPRISE",
-    hash: "0xC7B308E5",
-    authority: "ENTERPRISE SECURITY COUNCIL",
-    board: "IAM STANDARDS AUTHORITY",
-    dockLabel: "KEYCLOAK / IAM",
-    brandColor: "#00B4D8",
-    dockIcon: <SiKeycloak size={22} color="#00B4D8" />,
+      "Target roadmap for building secure, maintainable, and cloud-ready Spring applications.",
+    issued: "TARGET 2027",
+    badge: "TARGET",
+    hash: "0xSPR2027",
+    authority: "VMware / Broadcom",
+    board: "SPRING CERTIFICATION BOARD",
+    dockLabel: "SPRING / BACKEND",
+    brandColor: "#6DB33F",
+    dockIcon: <SiSpring size={22} color="#6DB33F" />,
   },
   {
     id: "04",
-    title: "KUBERNETES & CONTAINERS LEAD",
-    specialty: "CONTAINER ORCHESTRATION & SERVICE MESH",
+    title: "EDB PostgreSQL Professional",
+    specialty: "POSTGRESQL PERFORMANCE & ADMINISTRATION",
     validationText:
-      "Demonstrated mastery in Kubernetes cluster architecture, Docker Swarm orchestration, container lifecycle management, and service mesh telemetry infrastructure at production scale.",
-    issued: "MAR 2025",
-    badge: "VERIFIED",
-    hash: "0xF02D77A9",
-    authority: "CLOUD NATIVE COMPUTING FOUNDATION",
-    board: "DEVOPS EXCELLENCE BOARD",
-    dockLabel: "KUBERNETES",
+      "Target roadmap for administering, optimizing, and securing enterprise PostgreSQL environments.",
+    issued: "TARGET 2027",
+    badge: "TARGET",
+    hash: "0xEDB2027",
+    authority: "EnterpriseDB",
+    board: "DATABASE CERTIFICATION BOARD",
+    dockLabel: "POSTGRESQL / DATA",
+    brandColor: "#4169E1",
+    dockIcon: <SiPostgresql size={22} color="#4169E1" />,
+  },
+  {
+    id: "05",
+    title: "CKA: Certified Kubernetes Administrator",
+    specialty: "KUBERNETES OPERATIONS & ORCHESTRATION",
+    validationText:
+      "Target roadmap for administering secure, reliable, and production-ready Kubernetes clusters.",
+    issued: "TARGET 2027",
+    badge: "TARGET",
+    hash: "0xCKA2027",
+    authority: "CNCF",
+    board: "CLOUD NATIVE CERTIFICATION BOARD",
+    dockLabel: "KUBERNETES / DEVOPS",
     brandColor: "#326CE5",
     dockIcon: <SiKubernetes size={22} color="#326CE5" />,
+  },
+  {
+    id: "06",
+    title: "Red Hat Certified Specialist in Identity Management",
+    specialty: "IDENTITY MANAGEMENT & ENTERPRISE SECURITY",
+    validationText:
+      "Target roadmap for implementing centralized identity, access control, and enterprise security services.",
+    issued: "TARGET 2027",
+    badge: "TARGET",
+    hash: "0xRHI2027",
+    authority: "Red Hat",
+    board: "IDENTITY CERTIFICATION BOARD",
+    dockLabel: "RED HAT / IAM",
+    brandColor: "#EE0000",
+    dockIcon: <SiRedhat size={22} color="#EE0000" />,
   },
 ];
 
@@ -93,46 +130,7 @@ const CARD_W = 620;
 const SPREAD = 520;
 
 /* ─────────────────────────────────────────────────────────────
-   BORDER BEAM
-   Technique: a spinning disc (4× the button size, centered at 50%/50%)
-   carries a conic-gradient arc. The outer wrapper clips it to the button
-   shape, so only the perimeter strip is visible → the comet travels the edge.
-   CSS @keyframes spin is provided by Tailwind by default (animate-spin).
-   We use an arbitrary duration via `style` on the element instead of
-   relying on the Tailwind JIT arbitrary animation value.
-───────────────────────────────────────────────────────────── */
-const BorderBeam: React.FC<{ color: string }> = ({ color }) => (
-  <div
-    /* Clip container — sits 2 px outside the button on every side */
-    className="absolute -inset-[2px] rounded-[18px] overflow-hidden pointer-events-none z-0"
-  >
-    {/*
-     * The spinning disc.
-     * -inset-[100%] makes it 3× the container (width = 3 × container width),
-     * centred via translate. Rotating this large disc means its bright arc
-     * sweeps cleanly around every corner of the clip rectangle.
-     */}
-    <div
-      className="absolute -inset-[100%]"
-      style={{
-        animation: "spin 3s linear infinite",
-        background: `conic-gradient(
-          from 0deg at 50% 50%,
-          transparent   0deg,
-          transparent   300deg,
-          ${color}CC    340deg,
-          #ffffff        355deg,
-          transparent   360deg
-        )`,
-      }}
-    />
-    {/* Inner mask — covers the centre, leaving only the 2 px border strip */}
-    <div className="absolute inset-[2px] rounded-[16px] bg-zinc-950" />
-  </div>
-);
-
-/* ─────────────────────────────────────────────────────────────
-   DOCK  — tech logo badges with Border Beam on active
+   DOCK  — interactive roadmap navigation
 ───────────────────────────────────────────────────────────── */
 const CertDock: React.FC<{
   certs: Cert[];
@@ -144,9 +142,11 @@ const CertDock: React.FC<{
       {certs.map((cert, i) => {
         const isActive = i === activeIndex;
         return (
-          <div key={cert.id} className="relative flex flex-col items-center gap-2">
-
-            {/* Floating label — fades in on active */}
+          <div
+            key={cert.id}
+            className="relative flex flex-col items-center gap-2"
+          >
+            {/* Floating label — visible on active */}
             <div className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, y: 5 }}
@@ -159,39 +159,15 @@ const CertDock: React.FC<{
               </motion.div>
             </div>
 
-            {/* Button — overflow-hidden so the beam is clipped to its shape */}
+            {/* Interactive roadmap marker */}
             <motion.button
               onClick={() => onSelect(i)}
               aria-label={cert.dockLabel}
-              animate={{ scale: isActive ? 1.2 : 1, opacity: isActive ? 1 : 0.4 }}
-              whileHover={!isActive ? { scale: 1.1, opacity: 0.72 } : {}}
+              animate={{ scale: isActive ? 1.2 : 1, opacity: 1 }}
+              whileHover={!isActive ? { scale: 1.1, opacity: 1 } : {}}
               transition={{ type: "spring", stiffness: 340, damping: 26 }}
-              className="relative w-14 h-14 rounded-2xl bg-zinc-950 flex items-center justify-center focus:outline-none overflow-hidden"
+              className="relative w-14 h-14 rounded-2xl bg-zinc-950 flex items-center justify-center focus:outline-none overflow-hidden cursor-pointer"
             >
-              {/* Border Beam — mounts / unmounts with AnimatePresence for a fade */}
-              <AnimatePresence>
-                {isActive && (
-                  <motion.div
-                    key={`beam-${cert.id}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="contents"
-                  >
-                    <BorderBeam color={cert.brandColor} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Subtle brand-tint wash on active */}
-              {isActive && (
-                <div
-                  className="absolute inset-[2px] rounded-[16px] pointer-events-none"
-                  style={{ backgroundColor: `${cert.brandColor}0D` }}
-                />
-              )}
-
               {/* Logo — always on top */}
               <span className="relative z-20">{cert.dockIcon}</span>
             </motion.button>
@@ -199,8 +175,8 @@ const CertDock: React.FC<{
             {/* Active indicator line */}
             <motion.span
               animate={{
-                opacity: isActive ? 1 : 0,
-                scaleX: isActive ? 1 : 0.15,
+                opacity: isActive ? 1 : 0.4,
+                scaleX: isActive ? 1 : 0.6,
                 backgroundColor: cert.brandColor,
               }}
               transition={{ duration: 0.25 }}
@@ -213,17 +189,39 @@ const CertDock: React.FC<{
   </div>
 );
 
-
-
 /* ─────────────────────────────────────────────────────────────
    PER-OFFSET TRANSFORMS
 ───────────────────────────────────────────────────────────── */
 function getCardProps(offset: number) {
   const abs = Math.abs(offset);
-  if (abs === 0) return { x: 0,              scale: 1,    opacity: 1,    rotateY: 0,            zIndex: 30, blur: 0 };
-  if (abs === 1) return { x: offset * SPREAD, scale: 0.83, opacity: 0.32, rotateY: offset * -14, zIndex: 20, blur: 1 };
-  if (abs === 2) return { x: offset * SPREAD, scale: 0.68, opacity: 0.10, rotateY: offset * -20, zIndex: 10, blur: 2 };
-  return              { x: offset * SPREAD,  scale: 0.56, opacity: 0,    rotateY: offset * -24, zIndex: 0,  blur: 3 };
+  if (abs === 0)
+    return { x: 0, scale: 1, opacity: 1, rotateY: 0, zIndex: 30, blur: 0 };
+  if (abs === 1)
+    return {
+      x: offset * SPREAD,
+      scale: 0.83,
+      opacity: 0.32,
+      rotateY: offset * -14,
+      zIndex: 20,
+      blur: 1,
+    };
+  if (abs === 2)
+    return {
+      x: offset * SPREAD,
+      scale: 0.68,
+      opacity: 0.1,
+      rotateY: offset * -20,
+      zIndex: 10,
+      blur: 2,
+    };
+  return {
+    x: offset * SPREAD,
+    scale: 0.56,
+    opacity: 0,
+    rotateY: offset * -24,
+    zIndex: 0,
+    blur: 3,
+  };
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -233,21 +231,39 @@ const WaxSeal: React.FC<{ id: string }> = ({ id }) => (
   <div className="relative w-14 h-14 flex-shrink-0">
     <svg viewBox="0 0 56 56" className="w-full h-full" aria-hidden="true">
       {/* Outer ring */}
-      <circle cx="28" cy="28" r="26" fill="none" stroke="#FF4D00" strokeWidth="1.5" strokeDasharray="4 2" />
+      <circle
+        cx="28"
+        cy="28"
+        r="26"
+        fill="none"
+        stroke="#FF4D00"
+        strokeWidth="1.5"
+        strokeDasharray="4 2"
+      />
       {/* Inner disc */}
       <circle cx="28" cy="28" r="19" fill="#FF4D00" />
       {/* ID text */}
       <text
-        x="28" y="24" textAnchor="middle"
-        fontSize="7" fontWeight="800" fill="white"
-        fontFamily="sans-serif" letterSpacing="1"
+        x="28"
+        y="24"
+        textAnchor="middle"
+        fontSize="7"
+        fontWeight="800"
+        fill="white"
+        fontFamily="sans-serif"
+        letterSpacing="1"
       >
         CERT
       </text>
       <text
-        x="28" y="34" textAnchor="middle"
-        fontSize="9" fontWeight="900" fill="white"
-        fontFamily="sans-serif" letterSpacing="0"
+        x="28"
+        y="34"
+        textAnchor="middle"
+        fontSize="9"
+        fontWeight="900"
+        fill="white"
+        fontFamily="sans-serif"
+        letterSpacing="0"
       >
         {id}
       </text>
@@ -282,6 +298,9 @@ const DiplomaCard: React.FC<{
         cursor: isActive ? "default" : "pointer",
       }}
     >
+      <span className="absolute top-4 right-4 z-30 bg-zinc-900 text-white border border-zinc-700 px-2.5 py-1 rounded-md font-mono text-[9px] font-bold uppercase tracking-widest">
+        PRÓXIMAMENTE
+      </span>
       {/*
         Diploma lienzo — white/ivory paper background
         Double border: outer decorative band + inner content area
@@ -292,6 +311,7 @@ const DiplomaCard: React.FC<{
           bg-stone-50 text-zinc-900
           shadow-[0_32px_80px_rgba(0,0,0,0.55)]
           border-[6px] border-stone-200
+          grayscale opacity-70
         "
         style={{ height: 340 }}
       >
@@ -311,13 +331,12 @@ const DiplomaCard: React.FC<{
 
         {/* Main content padding */}
         <div className="relative z-10 h-full flex flex-col justify-between px-8 md:px-10 pt-7 pb-6">
-
           {/* ── HEADER ── */}
           <div className="flex items-start justify-between">
             <div className="flex-1">
               {/* Institution label */}
               <p className="font-sans font-bold text-[9px] uppercase tracking-[0.22em] text-zinc-400 text-center">
-                CERTIFICATE OF ARCHITECTURAL COMPETENCE
+                CERTIFICATION ROADMAP (TARGETS)
               </p>
               {/* Thin rule */}
               <div className="flex items-center gap-2 mt-1.5 justify-center">
@@ -333,13 +352,7 @@ const DiplomaCard: React.FC<{
           {/* ── BODY ── */}
           <div className="text-center space-y-1 -mt-1">
             <p className="font-sans font-bold text-[9px] uppercase tracking-[0.18em] text-zinc-400">
-              THIS IS TO CERTIFY THAT
-            </p>
-            <p className="font-sans font-black text-2xl md:text-3xl uppercase tracking-tight text-zinc-950 leading-none">
-              JUAN PARRA
-            </p>
-            <p className="font-sans font-bold text-[9px] uppercase tracking-[0.18em] text-zinc-400">
-              HAS DEMONSTRATED MASTERY IN
+              CANDIDATE ROADMAP FOR
             </p>
             <p className="font-sans font-black text-base md:text-lg uppercase tracking-tight text-[#FF4D00] leading-tight">
               {cert.title}
@@ -365,7 +378,14 @@ const DiplomaCard: React.FC<{
               <div className="text-left space-y-0.5">
                 {/* Simulated signature stroke */}
                 <div className="w-24 border-b border-zinc-400/60 pb-0.5 mb-1">
-                  <svg viewBox="0 0 96 18" className="w-24 h-4 text-zinc-500" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+                  <svg
+                    viewBox="0 0 96 18"
+                    className="w-24 h-4 text-zinc-500"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  >
                     <path d="M4 14 C12 4, 20 16, 30 10 C38 4, 44 16, 56 8 C64 2, 72 14, 84 10 L92 9" />
                   </svg>
                 </div>
@@ -394,7 +414,14 @@ const DiplomaCard: React.FC<{
 
               <div className="text-right space-y-0.5">
                 <div className="w-24 ml-auto border-b border-zinc-400/60 pb-0.5 mb-1">
-                  <svg viewBox="0 0 96 18" className="w-24 h-4 text-zinc-500" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round">
+                  <svg
+                    viewBox="0 0 96 18"
+                    className="w-24 h-4 text-zinc-500"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  >
                     <path d="M4 10 C14 2, 22 16, 34 8 C44 2, 52 16, 64 6 C72 0, 80 14, 92 10" />
                   </svg>
                 </div>
@@ -407,7 +434,6 @@ const DiplomaCard: React.FC<{
               </div>
             </div>
           </div>
-
         </div>
         {/* Bottom orange accent stripe */}
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF4D00]/40" />
@@ -428,13 +454,21 @@ const CertificationsSection: React.FC = () => {
     target: containerRef,
     offset: ["start 0.85", "start 0.1"],
   });
-  const wmOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.04, 0.06, 0.025]);
-  const wmScale   = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+  const wmOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.04, 0.06, 0.025],
+  );
+  const wmScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
 
-  const clamp = (v: number) => Math.max(0, Math.min(CERTS.length - 1, v));
-  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    if (info.offset.x < -60) setActiveIndex((i) => clamp(i + 1));
-    else if (info.offset.x > 60) setActiveIndex((i) => clamp(i - 1));
+  const clamp = (value: number) =>
+    Math.max(0, Math.min(CERTS.length - 1, value));
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
+    if (info.offset.x < -60) setActiveIndex((index) => clamp(index + 1));
+    else if (info.offset.x > 60) setActiveIndex((index) => clamp(index - 1));
   };
 
   return (
@@ -467,30 +501,30 @@ const CertificationsSection: React.FC = () => {
       {/* Stage */}
       <div className="relative z-10">
         <div style={{ height: 400 }} className="relative">
-        {/* Ambient glow — warm ivory/orange */}
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-72 rounded-full bg-[#FF4D00]/10 blur-[130px] pointer-events-none -z-10"
-        />
+          {/* Ambient glow — warm ivory/orange */}
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-72 rounded-full bg-[#FF4D00]/10 blur-[130px] pointer-events-none -z-10"
+          />
 
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.05}
-          onDragEnd={handleDragEnd}
-          style={{ perspective: 1600, height: "100%", cursor: "grab" }}
-          whileDrag={{ cursor: "grabbing" }}
-          className="relative flex items-center justify-center"
-        >
-          {CERTS.map((cert, index) => (
-            <DiplomaCard
-              key={cert.id}
-              cert={cert}
-              offset={index - activeIndex}
-              onClick={() => setActiveIndex(index)}
-            />
-          ))}
-        </motion.div>
+          <motion.div
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.05}
+            onDragEnd={handleDragEnd}
+            style={{ perspective: 1600, height: "100%", cursor: "grab" }}
+            whileDrag={{ cursor: "grabbing" }}
+            className="relative flex items-center justify-center"
+          >
+            {CERTS.map((cert, index) => (
+              <DiplomaCard
+                key={cert.id}
+                cert={cert}
+                offset={index - activeIndex}
+                onClick={() => setActiveIndex(index)}
+              />
+            ))}
+          </motion.div>
         </div>
 
         {/* Dock */}

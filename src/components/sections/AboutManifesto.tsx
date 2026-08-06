@@ -34,6 +34,13 @@ export default function AboutManifesto() {
 
   const text = t.about.heroStatement;
   const words = text.split(" ");
+  const highlightedPhrase = "INGENIERO DE SOFTWARE Y DATA ENGINEER";
+  const highlightedWords = highlightedPhrase.split(" ");
+  const highlightedStart = words.findIndex(
+    (_, index) =>
+      words.slice(index, index + highlightedWords.length).join(" ") ===
+      highlightedPhrase,
+  );
 
   return (
     <section
@@ -42,13 +49,20 @@ export default function AboutManifesto() {
       className="relative w-full py-24 px-6 md:px-12 border-y border-zinc-800/60 bg-zinc-950/40 my-16 select-none"
     >
       {/* Industrial Corner Marks */}
-      <span className="absolute top-0 left-4 -translate-y-1/2 font-mono text-xs text-zinc-600 select-none">+</span>
-      <span className="absolute top-0 right-4 -translate-y-1/2 font-mono text-xs text-zinc-600 select-none">+</span>
-      <span className="absolute bottom-0 left-4 translate-y-1/2 font-mono text-xs text-zinc-600 select-none">+</span>
-      <span className="absolute bottom-0 right-4 translate-y-1/2 font-mono text-xs text-zinc-600 select-none">+</span>
+      <span className="absolute top-0 left-4 -translate-y-1/2 font-mono text-xs text-zinc-600 select-none">
+        +
+      </span>
+      <span className="absolute top-0 right-4 -translate-y-1/2 font-mono text-xs text-zinc-600 select-none">
+        +
+      </span>
+      <span className="absolute bottom-0 left-4 translate-y-1/2 font-mono text-xs text-zinc-600 select-none">
+        +
+      </span>
+      <span className="absolute bottom-0 right-4 translate-y-1/2 font-mono text-xs text-zinc-600 select-none">
+        +
+      </span>
 
       <div className="max-w-5xl mx-auto text-center">
-        
         {/* Minimalist Discrete Overline */}
         <div className="flex items-center justify-center gap-2 mb-8 font-mono text-xs text-zinc-500 uppercase tracking-widest">
           <span className="w-1.5 h-1.5 bg-[#FF4D00] rounded-full" />
@@ -56,11 +70,46 @@ export default function AboutManifesto() {
         </div>
 
         {/* Main Manifesto Word Reveal Statement */}
-        <h2 className="font-sans font-black text-2xl md:text-4xl lg:text-5xl leading-snug tracking-tight uppercase text-center max-w-5xl mx-auto mb-12">
+        <h2 className="font-sans font-black text-2xl md:text-4xl lg:text-5xl leading-snug tracking-tight uppercase text-center text-balance max-w-5xl mx-auto mb-12">
           {words.map((word, i) => {
             const start = i / words.length;
             const end = start + 1 / words.length;
-            const isHighlight = word.includes("FULLSTACK") || word.includes("ARCHITECT") || word.includes("ARQUITECTO");
+            const isHighlight =
+              word.includes("FULLSTACK") ||
+              word.includes("ARCHITECT") ||
+              word.includes("ARQUITECTO");
+
+            if (
+              highlightedStart !== -1 &&
+              i > highlightedStart &&
+              i < highlightedStart + highlightedWords.length
+            ) {
+              return null;
+            }
+
+            if (i === highlightedStart) {
+              return (
+                <span key={highlightedPhrase} className="text-[#FF4D00]">
+                  {highlightedWords.map((highlightedWord, offset) => {
+                    const highlightedIndex = i + offset;
+                    return (
+                      <Word
+                        key={highlightedWord}
+                        progress={scrollYProgress}
+                        range={[
+                          highlightedIndex / words.length,
+                          (highlightedIndex + 1) / words.length,
+                        ]}
+                      >
+                        <span className="text-[#FF4D00]">
+                          {highlightedWord}
+                        </span>
+                      </Word>
+                    );
+                  })}
+                </span>
+              );
+            }
 
             return (
               <Word key={i} progress={scrollYProgress} range={[start, end]}>
@@ -77,16 +126,28 @@ export default function AboutManifesto() {
         {/* Key Technical Metrics Bar */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8 border-t border-zinc-800/80 mb-10">
           <div className="text-center">
-            <p className="font-mono text-2xl font-black text-white">99.99%</p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">{t.about.metric1Label}</p>
+            <p className="font-mono text-2xl font-black text-white">
+              Alta Disponibilidad
+            </p>
+            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
+              {t.about.metric1Label}
+            </p>
           </div>
           <div className="text-center md:border-x md:border-zinc-800/80">
-            <p className="font-mono text-2xl font-black text-white">50K+ msg/s</p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">{t.about.metric2Label}</p>
+            <p className="font-mono text-2xl font-black text-white">
+              500+ req/s
+            </p>
+            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
+              {t.about.metric2Label}
+            </p>
           </div>
           <div className="text-center">
-            <p className="font-mono text-2xl font-black text-white">Distributed</p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">{t.about.metric3Label}</p>
+            <p className="font-mono text-2xl font-black text-white">
+              Persistencia Políglota
+            </p>
+            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
+              {t.about.metric3Label}
+            </p>
           </div>
         </div>
 
@@ -99,7 +160,6 @@ export default function AboutManifesto() {
             {t.about.moreAboutMeBtn}
           </Link>
         </div>
-
       </div>
     </section>
   );

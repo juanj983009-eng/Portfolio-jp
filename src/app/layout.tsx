@@ -22,8 +22,17 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   title: "Portfolio — Juan Parra",
-  description: "Senior Lead Developer & Software Architect. Specializing in real-time telemetry, IoT ingestion, microservices, and distributed systems.",
-  keywords: ["Senior Fullstack Engineer", "Data Systems Architect", "TypeScript", "IoT", "Microservices", "Editorial Portfolio", "Next.js"],
+  description:
+    "Senior Lead Developer & Software Architect. Specializing in real-time telemetry, IoT ingestion, microservices, and distributed systems.",
+  keywords: [
+    "Senior Fullstack Engineer",
+    "Data Systems Architect",
+    "TypeScript",
+    "IoT",
+    "Microservices",
+    "Editorial Portfolio",
+    "Next.js",
+  ],
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",
@@ -37,18 +46,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html 
-      lang="es" 
+    <html
+      lang="es"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${jetbrainsMono.variable} ${playfairDisplay.variable} dark scroll-smooth`}
       suppressHydrationWarning
     >
-      <body 
+      <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-black text-white antialiased selection:bg-[#FF4D00] selection:text-black`}
         suppressHydrationWarning
       >
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <LanguageProvider>{children}</LanguageProvider>
         <Analytics />
       </body>
     </html>

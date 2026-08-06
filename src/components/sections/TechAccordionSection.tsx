@@ -27,15 +27,13 @@ const CATEGORIES: TechCategory[] = [
     accentHex: "#FF4D00",
     accentClass: "text-[#FF4D00]",
     techs: [
-      { name: "Java", role: "CORE" },
-      { name: "Spring Boot", role: "FRAMEWORK" },
-      { name: "Python", role: "SCRIPTING" },
-      { name: "FastAPI", role: "REST / ASYNC" },
-      { name: "Apache Kafka", role: "EVENT MESH" },
-      { name: "Go", role: "SYSTEMS" },
-      { name: "gRPC", role: "PROTOCOL" },
-      { name: "Microservices", role: "ARCH PATTERN" },
-      { name: "Event Sourcing", role: "CQRS" },
+      { name: "Java 21/17", role: "LANGUAGE" },
+      { name: "Spring Boot 3.x", role: "FRAMEWORK" },
+      { name: "Python", role: "LANGUAGE" },
+      { name: "Spring Security", role: "SECURITY" },
+      { name: "JWT", role: "AUTH" },
+      { name: "RESTful APIs", role: "INTEGRATION" },
+      { name: "Clean Code & SOLID", role: "PRACTICES" },
     ],
   },
   {
@@ -44,14 +42,12 @@ const CATEGORIES: TechCategory[] = [
     accentHex: "#34d399",
     accentClass: "text-emerald-400",
     techs: [
-      { name: "Next.js 15", role: "APP ROUTER" },
-      { name: "React 19", role: "RSC" },
-      { name: "TypeScript", role: "TYPED" },
+      { name: "JavaScript (ES6+)", role: "LANGUAGE" },
+      { name: "React 18", role: "LIBRARY" },
+      { name: "Vite", role: "BUILD TOOL" },
       { name: "Tailwind CSS", role: "STYLING" },
-      { name: "Framer Motion", role: "ANIMATION" },
-      { name: "React Flow", role: "DIAGRAMS" },
-      { name: "Three.js", role: "3D / WEBGL" },
-      { name: "WebGL", role: "GPU RENDER" },
+      { name: "Chart.js", role: "VISUALIZATION" },
+      { name: "HTML5/CSS3", role: "FOUNDATION" },
     ],
   },
   {
@@ -60,14 +56,14 @@ const CATEGORIES: TechCategory[] = [
     accentHex: "#38bdf8",
     accentClass: "text-sky-400",
     techs: [
+      { name: "Apache Spark (PySpark)", role: "DISTRIBUTED" },
+      { name: "ETL Avanzado", role: "PIPELINES" },
+      { name: "MS SQL Server", role: "RELATIONAL" },
       { name: "PostgreSQL", role: "RELATIONAL" },
-      { name: "Cassandra", role: "WIDE-COLUMN" },
       { name: "MongoDB", role: "DOCUMENT" },
-      { name: "DuckDB-WASM", role: "OLAP / IN-BROWSER" },
-      { name: "Redis", role: "CACHE" },
-      { name: "ClickHouse", role: "COLUMNAR" },
-      { name: "Apache Parquet", role: "DATA FORMAT" },
-      { name: "dbt", role: "TRANSFORM" },
+      { name: "Apache Cassandra", role: "WIDE-COLUMN" },
+      { name: "Flyway", role: "MIGRATIONS" },
+      { name: "HikariCP", role: "CONNECTION POOL" },
     ],
   },
   {
@@ -77,13 +73,11 @@ const CATEGORIES: TechCategory[] = [
     accentClass: "text-violet-400",
     techs: [
       { name: "Docker", role: "CONTAINERS" },
-      { name: "Kubernetes", role: "ORCHESTRATION" },
-      { name: "Linux", role: "ADMIN" },
-      { name: "CI/CD", role: "PIPELINES" },
-      { name: "AWS", role: "CLOUD" },
-      { name: "Terraform", role: "IaC" },
-      { name: "Nginx", role: "REVERSE PROXY" },
-      { name: "Prometheus", role: "OBSERVABILITY" },
+      { name: "Docker Compose", role: "ORCHESTRATION" },
+      { name: "Tomcat", role: "APPLICATION SERVER" },
+      { name: "Maven", role: "BUILD TOOL" },
+      { name: "Git/GitHub", role: "VERSION CONTROL" },
+      { name: "Power BI", role: "ANALYTICS" },
     ],
   },
 ];
@@ -229,7 +223,9 @@ const TechAccordionSection: React.FC = () => {
       <div className="flex items-center gap-3 mb-10">
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#FF4D00]">
           <span>{t.techStack.accordionTitle.main}</span>
-          <span className="text-[#FF4D00]">{t.techStack.accordionTitle.highlight}</span>
+          <span className="text-[#FF4D00]">
+            {t.techStack.accordionTitle.highlight}
+          </span>
         </span>
         <span className="h-px w-12 bg-zinc-800" />
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-zinc-600">

@@ -7,7 +7,8 @@ export const SITE_CONFIG = {
   accentColor: "#FF4D00",
   socials: {
     github: "https://github.com/juanj983009-eng",
-    linkedin: "https://linkedin.com/in/juanparra-dev",
+    linkedin:
+      "https://www.linkedin.com/in/juan-jos%C3%A9-parra-terrel-96a435364/",
   },
 } as const;
 

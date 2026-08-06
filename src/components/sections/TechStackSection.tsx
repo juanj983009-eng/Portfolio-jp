@@ -12,21 +12,22 @@ import {
 
 import {
   SiSpringboot,
-  SiFastapi,
-  SiGo,
+  SiSpringsecurity,
+  SiPython,
   SiKeycloak,
   SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiApachecassandra,
+  SiTailwindcss,
+  SiJavascript,
+  SiVercel,
   SiPostgresql,
-  SiDuckdb,
-  SiApachekafka,
+  SiRedis,
+  SiApachespark,
   SiDocker,
-  SiLinux,
   SiNginx,
-  SiGithubactions,
+  SiApachetomcat,
+  SiGithub,
 } from "react-icons/si";
+import { Database } from "lucide-react";
 
 interface StackItem {
   name: string;
@@ -53,10 +54,30 @@ const STACK_CARDS: StackCardData[] = [
     category: "BACKEND",
     tag: "DISTRIBUTED SYSTEMS",
     items: [
-      { name: "Java / Spring Boot", desc: "ENTERPRISE MICROSERVICES & OAUTH2", icon: SiSpringboot, color: "text-[#6DB33F]" },
-      { name: "Python / FastAPI",   desc: "ASYNC DATA PIPELINES & HIGH-SPEED APIS", icon: SiFastapi, color: "text-[#009688]" },
-      { name: "Go Systems",         desc: "LOW-LATENCY CONCURRENT SERVICES", icon: SiGo, color: "text-[#00ADD8]" },
-      { name: "Keycloak IAM",       desc: "OPENID CONNECT & ZERO-TRUST AUTH", icon: SiKeycloak, color: "text-[#FF4D00]" },
+      {
+        name: "Java / Spring Boot",
+        desc: "ENTERPRISE MICROSERVICES & APIS",
+        icon: SiSpringboot,
+        color: "text-[#6DB33F]",
+      },
+      {
+        name: "Spring Security",
+        desc: "JWT AUTHENTICATION & AUTHORIZATION",
+        icon: SiSpringsecurity,
+        color: "text-[#6DB33F]",
+      },
+      {
+        name: "Python",
+        desc: "DATA PROCESSING & SCRIPTS",
+        icon: SiPython,
+        color: "text-[#3776AB]",
+      },
+      {
+        name: "Keycloak IAM",
+        desc: "CENTRALIZED IDENTITY & ZERO-TRUST",
+        icon: SiKeycloak,
+        color: "text-[#FF4D00]",
+      },
     ],
     targetVw: "-36vw",
   },
@@ -66,10 +87,30 @@ const STACK_CARDS: StackCardData[] = [
     category: "FRONTEND",
     tag: "REACTIVE INTERFACES",
     items: [
-      { name: "React 19 Architecture", desc: "REACTIVE UI & CONCURRENT MODE", icon: SiReact, color: "text-[#61DAFB]" },
-      { name: "Next.js 15 App Router", desc: "SSR, STATIC EXPORT & EDGE ROUTING", icon: SiNextdotjs, color: "text-white" },
-      { name: "Strict TypeScript",     desc: "TYPE-SAFE CONTRACTS & CLEAN CODE", icon: SiTypescript, color: "text-[#3178C6]" },
-      { name: "React Flow Canvas",     desc: "INTERACTIVE NODE DIAGRAM EDITORS", icon: SiReact, color: "text-[#FF007A]" },
+      {
+        name: "React Architecture",
+        desc: "SPA & COMPONENT DESIGN SYSTEMS",
+        icon: SiReact,
+        color: "text-[#61DAFB]",
+      },
+      {
+        name: "Tailwind CSS",
+        desc: "UTILITY-FIRST STYLING & THEMING",
+        icon: SiTailwindcss,
+        color: "text-[#06B6D4]",
+      },
+      {
+        name: "JavaScript / ES6+",
+        desc: "DYNAMIC CLIENT-SIDE LOGIC",
+        icon: SiJavascript,
+        color: "text-[#F7DF1E]",
+      },
+      {
+        name: "Vercel",
+        desc: "PRODUCTION EDGE DEPLOYMENTS",
+        icon: SiVercel,
+        color: "text-white",
+      },
     ],
     targetVw: "-12vw",
   },
@@ -79,10 +120,30 @@ const STACK_CARDS: StackCardData[] = [
     category: "DATA LAB",
     tag: "ENGINEERING & ANALYTICS",
     items: [
-      { name: "Apache Cassandra",   desc: "DISTRIBUTED WIDE-COLUMN STORAGE", icon: SiApachecassandra, color: "text-[#1287B1]" },
-      { name: "PostgreSQL / PostGIS", desc: "RELATIONAL QUERIES & TIMESCALEDB", icon: SiPostgresql, color: "text-[#4169E1]" },
-      { name: "DuckDB-Wasm",        desc: "IN-BROWSER OLAP COLUMNAR ENGINE", icon: SiDuckdb, color: "text-[#FFF000]" },
-      { name: "Apache Kafka",       desc: "REAL-TIME EVENT STREAM MESH", icon: SiApachekafka, color: "text-[#FF4D00]" },
+      {
+        name: "PostgreSQL",
+        desc: "RELATIONAL SCHEMAS & TRANSACTIONS",
+        icon: SiPostgresql,
+        color: "text-[#4169E1]",
+      },
+      {
+        name: "MS SQL Server",
+        desc: "ENTERPRISE DATA ENGINES",
+        icon: Database,
+        color: "text-[#CC2927]",
+      },
+      {
+        name: "Redis",
+        desc: "IN-MEMORY CACHING & SESSIONS",
+        icon: SiRedis,
+        color: "text-[#DC382D]",
+      },
+      {
+        name: "Apache Spark",
+        desc: "DISTRIBUTED DATA PROCESSING",
+        icon: SiApachespark,
+        color: "text-[#E25A1C]",
+      },
     ],
     targetVw: "12vw",
   },
@@ -92,10 +153,30 @@ const STACK_CARDS: StackCardData[] = [
     category: "INFRA & OPS",
     tag: "DEVOPS & CLOUD",
     items: [
-      { name: "Docker / Swarm",      desc: "CONTAINERIZED WORKLOADS & SWARM", icon: SiDocker, color: "text-[#2496ED]" },
-      { name: "Linux Administration",desc: "SYSTEMD SERVICES & KERNEL TUNING", icon: SiLinux, color: "text-[#FCC624]" },
-      { name: "Nginx & Edge Proxies",desc: "LOAD BALANCING & TLS TERMINATION", icon: SiNginx, color: "text-[#009639]" },
-      { name: "Automated CI/CD",     desc: "GITHUB ACTIONS & ZERO DOWNTIME", icon: SiGithubactions, color: "text-[#2088FF]" },
+      {
+        name: "Docker & Compose",
+        desc: "CONTAINERIZED WORKLOADS",
+        icon: SiDocker,
+        color: "text-[#2496ED]",
+      },
+      {
+        name: "Nginx",
+        desc: "REVERSE PROXY & LOAD BALANCING",
+        icon: SiNginx,
+        color: "text-[#009639]",
+      },
+      {
+        name: "Apache Tomcat",
+        desc: "JAVA APP SERVERS",
+        icon: SiApachetomcat,
+        color: "text-[#F8DC75]",
+      },
+      {
+        name: "Git & GitHub",
+        desc: "VERSION CONTROL",
+        icon: SiGithub,
+        color: "text-white",
+      },
     ],
     targetVw: "36vw",
   },
@@ -108,11 +189,11 @@ const STACK_CARDS: StackCardData[] = [
 // PHASE 1  (0.05 → 0.45): Spread out horizontally (x: 0 → targetVw), back still visible
 // PHASE 2  (0.45 → 0.82): Each card flips in 3D (rotateY: 0 → 180)
 // ──────────────────────────────────────────────────────────────────
-const CardItem: React.FC<{ card: StackCardData; index: number; smoothProgress: MotionValue<number> }> = ({
-  card,
-  index,
-  smoothProgress,
-}) => {
+const CardItem: React.FC<{
+  card: StackCardData;
+  index: number;
+  smoothProgress: MotionValue<number>;
+}> = ({ card, index, smoothProgress }) => {
   // PHASE 1: Horizontal spread (scroll 5% → 45%)
   const x = useTransform(smoothProgress, [0.05, 0.45], ["0vw", card.targetVw]);
 
@@ -188,7 +269,9 @@ const CardItem: React.FC<{ card: StackCardData; index: number; smoothProgress: M
                 {card.tag}
               </span>
             </div>
-            <span className="font-mono font-bold text-xs text-zinc-500">{card.num}</span>
+            <span className="font-mono font-bold text-xs text-zinc-500">
+              {card.num}
+            </span>
           </div>
 
           <h3 className="text-base md:text-lg font-black font-sans text-zinc-100 uppercase tracking-tight mb-2">
@@ -262,10 +345,17 @@ export const TechStackSection: React.FC = () => {
   const titleScale = useTransform(smoothProgress, [0, 0.15], [1, 0.92]);
 
   return (
-    <section ref={targetRef} id="stack" className="relative w-full h-[400vh] bg-black" style={{ perspective: "1200px" }}>
+    <section
+      ref={targetRef}
+      id="stack"
+      className="relative w-full h-[400vh] bg-black"
+      style={{ perspective: "1200px" }}
+    >
       {/* Sticky full-bleed canvas (100vh / 100dvh) */}
-      <div className="sticky top-0 h-screen h-[100dvh] w-full relative overflow-hidden bg-black select-none z-10" style={{ perspective: "1200px" }}>
-
+      <div
+        className="sticky top-0 h-screen h-[100dvh] w-full relative overflow-hidden bg-black select-none z-10"
+        style={{ perspective: "1200px" }}
+      >
         {/* Section Header — floating subtly at the very top (top-4/top-6), z-30 */}
         <motion.div
           style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
@@ -299,7 +389,6 @@ export const TechStackSection: React.FC = () => {
             />
           ))}
         </div>
-
       </div>
     </section>
   );

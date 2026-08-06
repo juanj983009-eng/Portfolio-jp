@@ -40,7 +40,7 @@ const AboutProfileCard: React.FC = () => {
       {/* 4. Bottom Typography */}
       <div className="mt-auto space-y-2 relative z-20 text-left">
         <p className="font-mono text-xs text-[#FF4D00] font-bold uppercase tracking-widest">
-          LEAD ARCHITECT PROFILE
+          SOFTWARE & DATA PROFILE
         </p>
         <h3 className="text-white font-bold text-3xl md:text-4xl uppercase tracking-tight font-sans drop-shadow-md">
           JUAN PARRA
@@ -62,10 +62,8 @@ export default function AboutPage() {
       <Navbar />
 
       <main className="w-full relative pt-28 md:pt-36 space-y-20">
-        
         {/* ── 1. BIOGRAPHY & PORTRAIT GRID ── */}
         <section className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-          
           {/* Left Column: Manifesto Bio Statement */}
           <div className="space-y-6 flex flex-col justify-between">
             <div className="space-y-6">
@@ -91,7 +89,7 @@ export default function AboutPage() {
             {/* Industrial Terminal Metric Badges */}
             <div className="flex flex-wrap gap-3 mt-8">
               <div className="flex items-center gap-2 px-3.5 py-2 bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 uppercase tracking-wider rounded-md">
-                <span className="text-[#FF4D00] font-bold">8+</span>
+                <span className="text-[#FF4D00] font-bold">2+</span>
                 <span>{t.about.yearsExp}</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-2 bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 uppercase tracking-wider rounded-md">
@@ -103,7 +101,6 @@ export default function AboutPage() {
 
           {/* Right Column: Industrial Profile Card */}
           <AboutProfileCard />
-
         </section>
 
         {/* ── 3. TOOLS & TECH MATRIX (Marquee Hover Reveal Accordion) ── */}
@@ -111,7 +108,6 @@ export default function AboutPage() {
 
         {/* ── 4. EXPERIENCE TIMELINE ── */}
         <section className="max-w-7xl mx-auto px-6 md:px-12 py-16 border-t border-zinc-900 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
           {/* Left Column: Sticky Title & Record Overview */}
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-36 space-y-4">
@@ -120,7 +116,9 @@ export default function AboutPage() {
               </span>
               <h2 className="text-3xl md:text-5xl font-black uppercase text-white font-sans tracking-tight leading-none">
                 <span>{t.about.careerTitle.main}</span>
-                <span className="text-[#FF4D00]">{t.about.careerTitle.highlight}</span>
+                <span className="text-[#FF4D00]">
+                  {t.about.careerTitle.highlight}
+                </span>
               </h2>
               <p className="font-mono text-xs text-zinc-400 max-w-xs uppercase tracking-wider leading-relaxed pt-2">
                 {t.about.careerDesc}
@@ -131,75 +129,56 @@ export default function AboutPage() {
           {/* Right Column: Industrial Connected Timeline */}
           <div className="lg:col-span-8">
             <div className="relative pl-8 md:pl-10 border-l border-zinc-800 space-y-12">
-              
-              {/* Role 1 */}
-              <div className="relative group">
-                {/* Node Marker */}
-                <div className="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-[#FF4D00] group-hover:scale-125 transition-transform duration-200" />
+              {t.about.architectureMilestones.map((milestone, index) => (
+                <div key={milestone.badge} className="relative group">
+                  {/* Node Marker */}
+                  <div
+                    className={
+                      index === 0
+                        ? "absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-[#FF4D00] group-hover:scale-125 transition-transform duration-200"
+                        : "absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 group-hover:border-[#FF4D00] group-hover:scale-125 transition-all duration-200"
+                    }
+                  />
 
-                {/* Role Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <span className="font-mono text-xs text-[#FF4D00] uppercase font-bold tracking-widest">
-                    {t.about.role1Title}
-                  </span>
-                  <span className="font-mono text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-md uppercase tracking-wider self-start sm:self-auto">
-                    {t.about.role1Date}
-                  </span>
+                  {/* Role Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    <span
+                      className={
+                        index === 0
+                          ? "font-mono text-xs text-[#FF4D00] uppercase font-bold tracking-widest"
+                          : "font-mono text-xs text-zinc-400 uppercase font-bold tracking-widest"
+                      }
+                    >
+                      {milestone.role}
+                    </span>
+                    <span className="font-mono text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-md uppercase tracking-wider self-start sm:self-auto">
+                      {milestone.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tight mb-3 font-sans">
+                    {milestone.title}
+                  </h3>
+
+                  <p className="text-zinc-300 font-sans font-normal text-sm md:text-base leading-relaxed mb-4">
+                    {milestone.description}
+                  </p>
+
+                  {/* Tech Badges */}
+                  <div className="flex flex-wrap gap-2">
+                    {milestone.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-
-                <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tight mb-3 font-sans">
-                  {t.about.role1Company}
-                </h3>
-
-                <p className="text-zinc-300 font-sans font-normal text-sm md:text-base leading-relaxed mb-4">
-                  {t.about.role1Desc}
-                </p>
-
-                {/* Tech Badges */}
-                <div className="flex flex-wrap gap-2">
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Next.js 15</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Apache Kafka</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Spring Boot</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">PostgreSQL</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Docker</span>
-                </div>
-              </div>
-
-              {/* Role 2 */}
-              <div className="relative group">
-                {/* Node Marker */}
-                <div className="absolute -left-[37px] md:-left-[45px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-700 group-hover:border-[#FF4D00] group-hover:scale-125 transition-all duration-200" />
-
-                {/* Role Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <span className="font-mono text-xs text-zinc-400 uppercase font-bold tracking-widest">
-                    {t.about.role2Title}
-                  </span>
-                  <span className="font-mono text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-md uppercase tracking-wider self-start sm:self-auto">
-                    {t.about.role2Date}
-                  </span>
-                </div>
-
-                <h3 className="text-white font-black text-xl md:text-2xl uppercase tracking-tight mb-3 font-sans">
-                  {t.about.role2Company}
-                </h3>
-
-                <p className="text-zinc-300 font-sans font-normal text-sm md:text-base leading-relaxed mb-4">
-                  {t.about.role2Desc}
-                </p>
-
-                {/* Tech Badges */}
-                <div className="flex flex-wrap gap-2">
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Java</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Cassandra</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Keycloak</span>
-                  <span className="font-mono text-[11px] text-zinc-400 bg-zinc-900/80 border border-zinc-800 px-2.5 py-1 rounded-md">Python</span>
-                </div>
-              </div>
-
+              ))}
             </div>
           </div>
-
         </section>
 
         {/* ── 5. CERTIFICATIONS 3D COVER FLOW CAROUSEL ── */}
@@ -210,9 +189,7 @@ export default function AboutPage() {
 
         {/* ── 7. BRUTALIST FOOTER ── */}
         <Footer />
-
       </main>
     </div>
   );
 }
-

@@ -43,6 +43,7 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 60,
+    qualities: [25, 50, 70, 75, 100],
   },
 
   /** Apply security headers to every route */
@@ -70,4 +71,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-

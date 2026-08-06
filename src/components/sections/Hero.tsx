@@ -195,13 +195,13 @@ export const Hero: React.FC = () => {
             {/* HIGH-CONTRAST OVERLAY TYPOGRAPHY (Layer z-20, translateZ: 20px pop) */}
             <div className="relative z-20 flex flex-col justify-end h-full p-6 text-left space-y-1 select-none [transform-style:preserve-3d] [transform:translateZ(20px)]">
               <span className="font-mono text-[10px] text-[#FF4D00] uppercase tracking-widest font-bold block">
-                // LEAD SOFTWARE ARCHITECT
+                // SOFTWARE & DATA ENGINEER
               </span>
               <h2 className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight uppercase leading-none drop-shadow-md">
                 JUAN PARRA
               </h2>
               <p className="font-mono text-xs text-zinc-300 tracking-wider uppercase font-medium">
-                DATA SYSTEMS &amp; IOT TELEMETRY
+                ENTERPRISE SYSTEMS &amp; ANALYTICS
               </p>
             </div>
           </motion.div>
@@ -233,8 +233,9 @@ export const Hero: React.FC = () => {
             </Link>
 
             <a
-              href="/resume.pdf"
-              download="Juan_Parra_Lead_Architect_CV.pdf"
+              href="/juan-parra-cv.pdf"
+              download="Juan_Parra_CV.pdf"
+              aria-label="Descargar currículum vitae de Juan Parra"
               target="_blank"
               rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-center gap-3 px-6 py-3.5 bg-zinc-950/80 border border-zinc-700/80 hover:border-[#FF4D00] text-zinc-300 hover:text-white font-mono text-xs md:text-sm font-bold tracking-wider uppercase rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,77,0,0.15)] backdrop-blur-md cursor-pointer w-full sm:w-auto"
@@ -260,5 +261,3 @@ export const Hero: React.FC = () => {
 };
 
 export default Hero;
-
-

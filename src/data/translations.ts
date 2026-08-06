@@ -5,6 +5,14 @@ export interface TitleWithHighlight {
   highlight: string;
 }
 
+export interface ArchitectureMilestone {
+  badge: string;
+  role: string;
+  title: string;
+  description: string;
+  tech: string[];
+}
+
 export interface Translations {
   nav: {
     home: string;
@@ -36,14 +44,7 @@ export interface Translations {
     prodSystems: string;
     careerTitle: TitleWithHighlight;
     careerDesc: string;
-    role1Title: string;
-    role1Company: string;
-    role1Desc: string;
-    role1Date: string;
-    role2Title: string;
-    role2Company: string;
-    role2Desc: string;
-    role2Date: string;
+    architectureMilestones: ArchitectureMilestone[];
   };
   infrastructureTitle: TitleWithHighlight;
   techStackTitle: TitleWithHighlight;
@@ -162,41 +163,64 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       badge: "INGENIERO FULLSTACK SENIOR Y ARQUITECTO DE SISTEMAS",
-      heroRole: "INGENIERO FULLSTACK SENIOR Y ARQUITECTO DE SISTEMAS",
+      heroRole: "INGENIERO DE SOFTWARE Y DATA ENGINEER",
       heroTitle: {
         main: "INGENIERÍA DE SISTEMAS ",
         highlight: "DISTRIBUIDOS & ESCALABLES",
       },
-      description: "Especializado en arquitectura de datos de alto rendimiento, telemetría IoT en tiempo real, persistencia políglota y microservicios resilientes.",
+      description:
+        "ESPECIALIZADO EN ARQUITECTURAS E2E, PROCESAMIENTO DISTRIBUIDO EN TIEMPO REAL, PERSISTENCIA POLÍGLOTA Y MICROSERVICIOS RESILIENTES.",
       ctaProjects: "EXPLORAR PROYECTOS DE PRODUCCIÓN",
       ctaContact: "AGENDAR CONSULTORÍA",
       status: "DISPONIBLE PARA ROLES LEAD & CONSULTORÍA DE ARQUITECTURA",
     },
     about: {
       executiveSummaryTitle: "// RESUMEN EJECUTIVO Y ARQUITECTURA CORE",
-      heroStatement: "SOY UN ARQUITECTO FULLSTACK SENIOR E INGENIERO DE DATOS ESPECIALIZADO EN SISTEMAS DISTRIBUIDOS DE ALTO RENDIMIENTO, TELEMETRÍA EN TIEMPO REAL Y PIPELINES ESCALABLES ORIENTADOS A EVENTOS.",
-      metric1Label: "SLA DE DISPONIBILIDAD GARANTIZADO",
-      metric2Label: "PROCESAMIENTO DE TELEMETRÍA",
-      metric3Label: "ARQUITECTURAS MULTI-NUBE DISTRIBUIDAS",
+      heroStatement:
+        "SOY UN INGENIERO DE SOFTWARE Y DATA ENGINEER ESPECIALIZADO EN ARQUITECTURAS LIMPIAS, PERSISTENCIA POLÍGLOTA Y EL DESPLIEGUE DE SOLUCIONES ENTERPRISE DE EXTREMO A EXTREMO (E2E).",
+      metric1Label: "RESILIENCIA BAJO CARGA TRANSACCIONAL",
+      metric2Label: "CONCURRENCIA EN MOTORES TRANSACCIONALES",
+      metric3Label: "SQL, NOSQL Y PROCESAMIENTO DISTRIBUIDO",
       moreAboutMeBtn: "MÁS SOBRE MÍ",
       biographyTag: "// BIOGRAFÍA",
-      biographyLead: "Soy un Arquitecto Principal de Software e Ingeniero de Datos Senior con más de 8 años de experiencia diseñando pipelines de telemetría en tiempo real y microservicios orientados a eventos.",
-      biographyBody: "Con base en Lima, Perú (UTC-5), me especializo en combinar ingeniería backend robusta (Java Spring Boot, Go, Python) con interfaces cliente reactivas (React 19, Next.js 15) y analítica columnar de alta velocidad (DuckDB, Cassandra, PostgreSQL).",
+      biographyLead:
+        "Soy un Ingeniero de Software y Data Engineer enfocado en el diseño, construcción y despliegue de soluciones enterprise de extremo a extremo (E2E).",
+      biographyBody:
+        "Con base en Lima, Perú (UTC-5), combino ingeniería backend robusta (Java Spring Boot, Python) con interfaces cliente reactivas (React, Vite, Tailwind CSS), procesamiento distribuido de datos (Apache Spark, PySpark) e infraestructura contenerizada (Docker). Aplico la disciplina analítica de la certificación Lean Six Sigma (Green Belt) para auditar sistemas, eliminar cuellos de botella y garantizar alta disponibilidad bajo carga transaccional.",
       yearsExp: "AÑOS DE EXPERIENCIA",
-      prodSystems: "SISTEMAS EN PRODUCCIÓN",
+      prodSystems: "PROYECTOS E2E",
       careerTitle: {
-        main: "LÍNEA DE TIEMPO DE ",
-        highlight: "CARRERA",
+        main: "HITOS DE ",
+        highlight: "ARQUITECTURA",
       },
-      careerDesc: "Historial comprobado diseñando redes distribuidas tolerantes a fallos y sistemas web de alta carga.",
-      role1Title: "ARQUITECTO PRINCIPAL DE SOFTWARE / SENIOR FULLSTACK",
-      role1Company: "LABORATORIO DE SISTEMAS DISTRIBUIDOS",
-      role1Desc: "Arquitectura de pipelines de ingestión de telemetría de alto rendimiento, mallas de streaming Kafka y tableros enterprise en Next.js 15 procesando más de 5,000 req/s con 99.99% de disponibilidad.",
-      role1Date: "2021 — PRESENTE",
-      role2Title: "INGENIERO DE DATOS / ARQUITECTO BACKEND",
-      role2Company: "SOLUCIONES ENTERPRISE",
-      role2Desc: "Diseño de sistemas de monitoreo industrial OEE, estructuras de datos columnares en Cassandra y microservicios de autenticación Zero-Trust con Keycloak y OAuth2.",
-      role2Date: "2018 — 2021",
+      careerDesc:
+        "Historial comprobado diseñando arquitecturas E2E, motores transaccionales y procesamiento distribuido.",
+      architectureMilestones: [
+        {
+          badge: "SISTEMAS INDUSTRIALES Y RETAIL E2E",
+          role: "LEAD FULL STACK DEVELOPER",
+          title: "Meca-PRO MES, Catys Enterprise & SaaS Bodegas",
+          description:
+            "Arquitectura de soluciones comerciales e industriales. Optimización de acceso a datos, esquemas evolutivos con Flyway, orquestación en Docker Compose y desarrollo de sistemas de diseño de interfaces interactivas.",
+          tech: ["Java Spring Boot", "React", "PostgreSQL", "Docker", "Flyway"],
+        },
+        {
+          badge: "ARQUITECTURA TRANSACCIONAL Y LOGÍSTICA",
+          role: "ARCHITECT & FULL STACK DEVELOPER",
+          title: "Testigo Oculto, LogiCore & SmartFleet V2",
+          description:
+            "Construcción de motores backend asegurados con JWT y simuladores de tráfico logístico. Validación de resiliencia mediante pruebas de estrés inyectando 500 solicitudes concurrentes sin degradación del servicio.",
+          tech: ["Spring Security", "SQL Server", "PostgreSQL", "React"],
+        },
+        {
+          badge: "PLATAFORMAS DE SALUD, GESTIÓN Y DATOS",
+          role: "SYSTEMS ARCHITECT & DATA ENGINEER",
+          title: "ClinicaV2, Biblioteca Digital & Olimpiadas PERÚ",
+          description:
+            "Desarrollo de plataformas con gestión de identidad centralizada (Keycloak), almacenamiento en caché (Redis) e infraestructura para la ingesta y procesamiento distribuido de datos en tiempo real.",
+          tech: ["Keycloak", "Redis", "Apache Spark", "Tomcat", "Java EE"],
+        },
+      ],
     },
     infrastructureTitle: {
       main: "DESARROLLO FULL STACK & ",
@@ -268,7 +292,8 @@ export const translations: Record<Language, Translations> = {
         main: "PERFIL DE ",
         highlight: "GITHUB",
       },
-      description: "EXPLORANDO SISTEMAS DISTRIBUIDOS, PIPELINES DE ALTO RENDIMIENTO Y ARQUITECTURAS ENTERPRISE MONITOREADAS.",
+      description:
+        "EXPLORANDO SISTEMAS DISTRIBUIDOS, PIPELINES DE ALTO RENDIMIENTO Y ARQUITECTURAS ENTERPRISE MONITOREADAS.",
       viewProfile: "VER PERFIL DE GITHUB",
       publicRepo: "REPOSITORIO PÚBLICO",
     },
@@ -287,11 +312,13 @@ export const translations: Record<Language, Translations> = {
         main: "¿LISTO PARA TRANSFORMAR ",
         highlight: "TU VISIÓN?",
       },
-      description: "DISCUTAMOS TUS REQUERIMIENTOS DE SISTEMA, METAS DE ARQUITECTURA O PIPELINES DISTRIBUIDOS ESCALABLES.",
+      description:
+        "DISCUTAMOS TUS REQUERIMIENTOS DE SISTEMA, METAS DE ARQUITECTURA O PIPELINES DISTRIBUIDOS ESCALABLES.",
       directInquiries: "CONSULTAS DIRECTAS",
       responseTime: "TIEMPO DE RESPUESTA: < 24HRS (UTC-5)",
       scheduleCallTitle: "AGENDAR LLAMADA",
-      scheduleCallDesc: "¿Prefieres una conversación directa? Agenda una llamada de consulta técnica de 30 minutos.",
+      scheduleCallDesc:
+        "¿Prefieres una conversación directa? Agenda una llamada de consulta técnica de 30 minutos.",
       bookCallBtn: "AGENDAR LLAMADA",
       formTitle: "TRANSMITIR ESPECIFICACIONES",
       nameLabel: "NOMBRE",
@@ -301,13 +328,16 @@ export const translations: Record<Language, Translations> = {
       subjectLabel: "ASUNTO DEL PROYECTO",
       subjectPlaceholder: "Arquitectura de Telemetría Distribuida",
       messageLabel: "MENSAJE & ESPECIFICACIONES",
-      messagePlaceholder: "Describe tus requerimientos de sistema, línea de tiempo o metas de arquitectura...",
+      messagePlaceholder:
+        "Describe tus requerimientos de sistema, línea de tiempo o metas de arquitectura...",
       submitBtn: "TRANSMITIR CONSULTA",
       submittingBtn: "TRANSMITIENDO...",
       successTitle: "CONSULTA TRANSMITIDA",
-      successDesc: "GRACIAS POR CONTACTAR. TU TRANSMISIÓN HA SIDO ENVIADA A MI ESPACIO DE TRABAJO.",
+      successDesc:
+        "GRACIAS POR CONTACTAR. TU TRANSMISIÓN HA SIDO ENVIADA A MI ESPACIO DE TRABAJO.",
       transmitAnother: "TRANSMITIR OTRO MENSAJE",
-      errorMessage: "ERROR DE TRANSMISIÓN. POR FAVOR INTENTA DE NUEVO O ESCRIBE DIRECTAMENTE A JUANJ983009@GMAIL.COM",
+      errorMessage:
+        "ERROR DE TRANSMISIÓN. POR FAVOR INTENTA DE NUEVO O ESCRIBE DIRECTAMENTE A JUANJ983009@GMAIL.COM",
     },
     bookModal: {
       tag: "// AGENDAR LLAMADA",
@@ -315,18 +345,21 @@ export const translations: Record<Language, Translations> = {
         main: "CONSTRUYAMOS ",
         highlight: "ALGO INCREÍBLE",
       },
-      subtitle: "Disponible para roles Lead, consultoría de arquitectura y contratos Senior Fullstack.",
+      subtitle:
+        "Disponible para roles Lead, consultoría de arquitectura y contratos Senior Fullstack.",
       sendEmail: "ENVIAR CORREO",
       copyEmail: "COPIAR DIRECCIÓN DE CORREO",
       copiedEmail: "COPIADO AL PORTAPAPELES",
       done: "HECHO",
-      responseTime: "Tiempo de respuesta: En menos de 24 horas · Lima, PE (UTC-5)",
+      responseTime:
+        "Tiempo de respuesta: En menos de 24 horas · Lima, PE (UTC-5)",
       bookCallBtn: "AGENDAR LLAMADA",
       readyTitle: {
         main: "¿LISTO PARA TRANSFORMAR ",
         highlight: "TU VISIÓN?",
       },
-      readyDesc: "Hablemos de cómo dar vida a tu arquitectura distribuida o pipeline de ingeniería de datos.",
+      readyDesc:
+        "Hablemos de cómo dar vida a tu arquitectura distribuida o pipeline de ingeniería de datos.",
     },
     footer: {
       role: "LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER & ARCHITECT",
@@ -349,41 +382,64 @@ export const translations: Record<Language, Translations> = {
     },
     hero: {
       badge: "SENIOR FULLSTACK ENGINEER & SYSTEM ARCHITECT",
-      heroRole: "SENIOR FULLSTACK ENGINEER & SYSTEM ARCHITECT",
+      heroRole: "SOFTWARE ENGINEER & DATA ENGINEER",
       heroTitle: {
         main: "DISTRIBUTED & SCALABLE ",
         highlight: "SYSTEMS ENGINEERING",
       },
-      description: "Specializing in high-throughput data architecture, real-time IoT telemetry, polyglot persistence, and resilient microservices.",
+      description:
+        "Specializing in high-throughput data architecture, real-time IoT telemetry, polyglot persistence, and resilient microservices.",
       ctaProjects: "EXPLORE PRODUCTION PROJECTS",
       ctaContact: "SCHEDULE CONSULTATION",
       status: "AVAILABLE FOR LEAD ROLES & ARCHITECTURE CONSULTING",
     },
     about: {
       executiveSummaryTitle: "// EXECUTIVE SUMMARY & CORE ARCHITECTURE",
-      heroStatement: "I AM A SENIOR FULLSTACK ARCHITECT & DATA ENGINEER SPECIALIZING IN HIGH-THROUGHPUT DISTRIBUTED SYSTEMS, REAL-TIME TELEMETRY, AND SCALABLE EVENT-DRIVEN PIPELINES.",
+      heroStatement:
+        "I AM A SENIOR FULLSTACK ARCHITECT & DATA ENGINEER SPECIALIZING IN HIGH-THROUGHPUT DISTRIBUTED SYSTEMS, REAL-TIME TELEMETRY, AND SCALABLE EVENT-DRIVEN PIPELINES.",
       metric1Label: "UPTIME SLA GUARANTEED",
       metric2Label: "TELEMETRY THROUGHPUT",
       metric3Label: "DISTRIBUTED MULTI-CLOUD ARCHITECTURES",
       moreAboutMeBtn: "MORE ABOUT ME",
       biographyTag: "// BIOGRAPHY",
-      biographyLead: "I am a Senior Lead Software Architect & Data Engineer with over 8 years of experience designing high-throughput distributed systems, real-time telemetry ingestion pipelines, and fault-tolerant event-driven microservices.",
-      biographyBody: "Based in Lima, PE (UTC-5), I specialize in combining robust backend engineering (Java Spring Boot, Go, Python) with modern reactive frontend interfaces (React 19, Next.js 15) and high-speed columnar database analytics (DuckDB, Cassandra, PostgreSQL).",
+      biographyLead:
+        "I am a Software Engineer and Data Engineer focused on designing, building, and deploying end-to-end enterprise solutions.",
+      biographyBody:
+        "Based in Lima, Peru (UTC-5), I combine robust backend engineering (Java Spring Boot, Python) with reactive client interfaces (React, Vite, Tailwind CSS), distributed data processing (Apache Spark, PySpark), and containerized infrastructure (Docker). I apply the analytical discipline of Lean Six Sigma Green Belt certification to audit systems, remove bottlenecks, and ensure high availability under transactional load.",
       yearsExp: "YEARS EXPERIENCE",
-      prodSystems: "PRODUCTION SYSTEMS",
+      prodSystems: "E2E PROJECTS",
       careerTitle: {
-        main: "CAREER ",
-        highlight: "TIMELINE",
+        main: "ARCHITECTURE ",
+        highlight: "MILESTONES",
       },
-      careerDesc: "Proven history architecting fault-tolerant distributed networks and high-load web systems.",
-      role1Title: "LEAD SOFTWARE ARCHITECT / SENIOR FULLSTACK",
-      role1Company: "DISTRIBUTED SYSTEMS LAB",
-      role1Desc: "Architected high-throughput telemetry ingestion pipelines, Kafka event streaming meshes, and Next.js 15 enterprise dashboards serving over 5,000 requests per second with 99.99% uptime.",
-      role1Date: "2021 — PRESENT",
-      role2Title: "DATA ENGINEER / BACKEND ARCHITECT",
-      role2Company: "ENTERPRISE SOLUTIONS",
-      role2Desc: "Designed industrial OEE shift monitoring systems, Cassandra wide-column data structures, and OAuth2 Keycloak Zero-Trust authentication microservices.",
-      role2Date: "2018 — 2021",
+      careerDesc:
+        "Proven track record designing E2E architectures, transactional engines, and distributed processing.",
+      architectureMilestones: [
+        {
+          badge: "E2E INDUSTRIAL AND RETAIL SYSTEMS",
+          role: "LEAD FULL STACK DEVELOPER",
+          title: "Meca-PRO MES, Catys Enterprise & SaaS Bodegas",
+          description:
+            "Architecture for commercial and industrial solutions. Data-access optimization, evolutionary schemas with Flyway, Docker Compose orchestration, and interactive interface design systems.",
+          tech: ["Java Spring Boot", "React", "PostgreSQL", "Docker", "Flyway"],
+        },
+        {
+          badge: "TRANSACTIONAL AND LOGISTICS ARCHITECTURE",
+          role: "ARCHITECT & FULL STACK DEVELOPER",
+          title: "Testigo Oculto, LogiCore & SmartFleet V2",
+          description:
+            "Built JWT-secured backend engines and logistics traffic simulators. Validated resilience through stress tests injecting 500 concurrent requests without service degradation.",
+          tech: ["Spring Security", "SQL Server", "PostgreSQL", "React"],
+        },
+        {
+          badge: "HEALTH, MANAGEMENT, AND DATA PLATFORMS",
+          role: "SYSTEMS ARCHITECT & DATA ENGINEER",
+          title: "ClinicaV2, Biblioteca Digital & Olimpiadas PERÚ",
+          description:
+            "Developed platforms with centralized identity management (Keycloak), caching (Redis), and infrastructure for real-time distributed data ingestion and processing.",
+          tech: ["Keycloak", "Redis", "Apache Spark", "Tomcat", "Java EE"],
+        },
+      ],
     },
     infrastructureTitle: {
       main: "FULL STACK & ",
@@ -455,7 +511,8 @@ export const translations: Record<Language, Translations> = {
         main: "GITHUB ",
         highlight: "PROFILE",
       },
-      description: "EXPLORING DISTRIBUTED SYSTEMS, HIGH-THROUGHPUT PIPELINES, AND ENTERPRISE MONITORED ARCHITECTURES.",
+      description:
+        "EXPLORING DISTRIBUTED SYSTEMS, HIGH-THROUGHPUT PIPELINES, AND ENTERPRISE MONITORED ARCHITECTURES.",
       viewProfile: "VIEW GITHUB PROFILE",
       publicRepo: "PUBLIC REPO",
     },
@@ -474,11 +531,13 @@ export const translations: Record<Language, Translations> = {
         main: "READY TO TRANSFORM ",
         highlight: "YOUR VISION?",
       },
-      description: "LET'S DISCUSS YOUR SYSTEM REQUIREMENTS, ARCHITECTURE GOALS, OR SCALABLE DISTRIBUTED PIPELINES.",
+      description:
+        "LET'S DISCUSS YOUR SYSTEM REQUIREMENTS, ARCHITECTURE GOALS, OR SCALABLE DISTRIBUTED PIPELINES.",
       directInquiries: "DIRECT INQUIRIES",
       responseTime: "RESPONSE TIME: < 24HRS (UTC-5)",
       scheduleCallTitle: "SCHEDULE CALL",
-      scheduleCallDesc: "Prefer a direct conversation? Book a 30-minute technical roadmap consultation call.",
+      scheduleCallDesc:
+        "Prefer a direct conversation? Book a 30-minute technical roadmap consultation call.",
       bookCallBtn: "BOOK A CALL",
       formTitle: "TRANSMIT SPECIFICATIONS",
       nameLabel: "NAME",
@@ -488,13 +547,16 @@ export const translations: Record<Language, Translations> = {
       subjectLabel: "PROJECT SUBJECT",
       subjectPlaceholder: "Distributed Telemetry Architecture",
       messageLabel: "MESSAGE & SPECIFICATIONS",
-      messagePlaceholder: "Describe your system requirements, timeline, or architecture goals...",
+      messagePlaceholder:
+        "Describe your system requirements, timeline, or architecture goals...",
       submitBtn: "TRANSMIT INQUIRY",
       submittingBtn: "TRANSMITTING...",
       successTitle: "INQUIRY TRANSMITTED",
-      successDesc: "THANK YOU FOR REACHING OUT. YOUR TRANSMISSION HAS BEEN ROUTED TO MY WORKSPACE.",
+      successDesc:
+        "THANK YOU FOR REACHING OUT. YOUR TRANSMISSION HAS BEEN ROUTED TO MY WORKSPACE.",
       transmitAnother: "TRANSMIT ANOTHER MESSAGE",
-      errorMessage: "TRANSMISSION ERROR. PLEASE TRY AGAIN OR WRITE DIRECTLY TO JUANJ983009@GMAIL.COM",
+      errorMessage:
+        "TRANSMISSION ERROR. PLEASE TRY AGAIN OR WRITE DIRECTLY TO JUANJ983009@GMAIL.COM",
     },
     bookModal: {
       tag: "// BOOK A CALL",
@@ -502,7 +564,8 @@ export const translations: Record<Language, Translations> = {
         main: "LET'S BUILD ",
         highlight: "SOMETHING GREAT",
       },
-      subtitle: "Available for Lead Roles, Architecture Consulting & Senior Fullstack contracts.",
+      subtitle:
+        "Available for Lead Roles, Architecture Consulting & Senior Fullstack contracts.",
       sendEmail: "SEND EMAIL",
       copyEmail: "COPY EMAIL ADDRESS",
       copiedEmail: "COPIED TO CLIPBOARD",
@@ -513,7 +576,8 @@ export const translations: Record<Language, Translations> = {
         main: "READY TO TRANSFORM ",
         highlight: "YOUR VISION?",
       },
-      readyDesc: "Let's discuss how we can bring your distributed architecture or data engineering pipeline to life.",
+      readyDesc:
+        "Let's discuss how we can bring your distributed architecture or data engineering pipeline to life.",
     },
     footer: {
       role: "LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER & ARCHITECT",
