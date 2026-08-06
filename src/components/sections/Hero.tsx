@@ -40,20 +40,44 @@ export const Hero: React.FC = () => {
   // 1. FRONT CARD — Fast, direct spring physics
   const frontX = useSpring(rawX, { stiffness: 180, damping: 20, mass: 0.6 });
   const frontY = useSpring(rawY, { stiffness: 180, damping: 20, mass: 0.6 });
-  const frontRotateX = useSpring(rawRotateX, { stiffness: 180, damping: 20, mass: 0.6 });
-  const frontRotateY = useSpring(rawRotateY, { stiffness: 180, damping: 20, mass: 0.6 });
+  const frontRotateX = useSpring(rawRotateX, {
+    stiffness: 180,
+    damping: 20,
+    mass: 0.6,
+  });
+  const frontRotateY = useSpring(rawRotateY, {
+    stiffness: 180,
+    damping: 20,
+    mass: 0.6,
+  });
 
   // 2. MIDDLE LAYER (Shadow 1) — Intermediate spring physics with subtle lag
   const midX = useSpring(rawX, { stiffness: 120, damping: 22, mass: 0.8 });
   const midY = useSpring(rawY, { stiffness: 120, damping: 22, mass: 0.8 });
-  const midRotateX = useSpring(rawRotateX, { stiffness: 120, damping: 22, mass: 0.8 });
-  const midRotateY = useSpring(rawRotateY, { stiffness: 120, damping: 22, mass: 0.8 });
+  const midRotateX = useSpring(rawRotateX, {
+    stiffness: 120,
+    damping: 22,
+    mass: 0.8,
+  });
+  const midRotateY = useSpring(rawRotateY, {
+    stiffness: 120,
+    damping: 22,
+    mass: 0.8,
+  });
 
   // 3. REAR LAYER (Shadow 2) — Soft, lagging spring physics
   const rearX = useSpring(rawX, { stiffness: 80, damping: 25, mass: 1.0 });
   const rearY = useSpring(rawY, { stiffness: 80, damping: 25, mass: 1.0 });
-  const rearRotateX = useSpring(rawRotateX, { stiffness: 80, damping: 25, mass: 1.0 });
-  const rearRotateY = useSpring(rawRotateY, { stiffness: 80, damping: 25, mass: 1.0 });
+  const rearRotateX = useSpring(rawRotateX, {
+    stiffness: 80,
+    damping: 25,
+    mass: 1.0,
+  });
+  const rearRotateY = useSpring(rawRotateY, {
+    stiffness: 80,
+    damping: 25,
+    mass: 1.0,
+  });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -63,8 +87,8 @@ export const Hero: React.FC = () => {
     const mouseXPos = e.clientX - rect.left;
     const mouseYPos = e.clientY - rect.top;
 
-    const xPct = (mouseXPos / width) - 0.5;
-    const yPct = (mouseYPos / height) - 0.5;
+    const xPct = mouseXPos / width - 0.5;
+    const yPct = mouseYPos / height - 0.5;
 
     mouseX.set(xPct);
     mouseY.set(yPct);
@@ -91,10 +115,10 @@ export const Hero: React.FC = () => {
             className="flex gap-8 whitespace-nowrap items-center"
           >
             <span className="text-[13vw] font-black tracking-tighter text-zinc-800/80 uppercase select-none">
-              JUAN PARRA — LEAD SOFTWARE ARCHITECT — PORTFOLIO —
+              JUAN PARRA — SOFTWARE & DATA ENGINEER — PORTFOLIO —
             </span>
             <span className="text-[13vw] font-black tracking-tighter text-zinc-800/80 uppercase select-none">
-              JUAN PARRA — LEAD SOFTWARE ARCHITECT — PORTFOLIO —
+              JUAN PARRA — SOFTWARE & DATA ENGINEER — PORTFOLIO —
             </span>
           </motion.div>
         </div>
@@ -106,7 +130,6 @@ export const Hero: React.FC = () => {
 
       {/* MAIN CONTAINER */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-4xl px-2 sm:px-4">
-        
         {/* Top Status Tag — Brutalist Industrial Editorial */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -124,7 +147,6 @@ export const Hero: React.FC = () => {
 
         {/* ── 3D PERSPECTIVE CANVAS (perspective: 1200px) ── */}
         <div className="relative flex items-center justify-center [perspective:1200px] my-2 sm:my-4 z-10 w-full">
-
           {/* ── STACK LAYER 2 (Deepest Rear Layer, -z-20, soft lagging spring) ── */}
           <motion.div
             style={{
@@ -175,7 +197,7 @@ export const Hero: React.FC = () => {
             {!avatarError ? (
               <Image
                 src="/profile/avatar.jpg"
-                alt="Juan Parra"
+                alt="Juan Parra — Software & Data Engineer"
                 fill
                 priority
                 sizes="(max-width: 768px) 290px, 350px"
@@ -185,7 +207,9 @@ export const Hero: React.FC = () => {
             ) : (
               <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-zinc-900 z-0">
                 <Code2 className="w-16 h-16 text-orange-500 mb-2" />
-                <span className="font-mono text-xs text-zinc-400 uppercase">JUAN PARRA</span>
+                <span className="font-mono text-xs text-zinc-400 uppercase">
+                  JUAN PARRA
+                </span>
               </div>
             )}
 
@@ -240,9 +264,13 @@ export const Hero: React.FC = () => {
               rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-center gap-3 px-6 py-3.5 bg-zinc-950/80 border border-zinc-700/80 hover:border-[#FF4D00] text-zinc-300 hover:text-white font-mono text-xs md:text-sm font-bold tracking-wider uppercase rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,77,0,0.15)] backdrop-blur-md cursor-pointer w-full sm:w-auto"
             >
-              <span className="text-[#FF4D00] group-hover:translate-y-0.5 transition-transform duration-200">↓</span>
+              <span className="text-[#FF4D00] group-hover:translate-y-0.5 transition-transform duration-200">
+                ↓
+              </span>
               <span>DOWNLOAD CV</span>
-              <span className="text-[10px] text-zinc-500 font-normal group-hover:text-zinc-400">[PDF]</span>
+              <span className="text-[10px] text-zinc-500 font-normal group-hover:text-zinc-400">
+                [PDF]
+              </span>
             </a>
 
             <Link
@@ -254,7 +282,6 @@ export const Hero: React.FC = () => {
             </Link>
           </div>
         </motion.div>
-
       </div>
     </section>
   );

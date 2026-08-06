@@ -162,7 +162,7 @@ export const translations: Record<Language, Translations> = {
       lab: "LABORATORIO",
     },
     hero: {
-      badge: "INGENIERO FULLSTACK SENIOR Y ARQUITECTO DE SISTEMAS",
+      badge: "INGENIERO DE SOFTWARE Y DATOS | SISTEMAS EMPRESARIALES",
       heroRole: "INGENIERO DE SOFTWARE Y DATA ENGINEER",
       heroTitle: {
         main: "INGENIERÍA DE SISTEMAS ",
@@ -362,7 +362,7 @@ export const translations: Record<Language, Translations> = {
         "Hablemos de cómo dar vida a tu arquitectura distribuida o pipeline de ingeniería de datos.",
     },
     footer: {
-      role: "LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER & ARCHITECT",
+      role: "SOFTWARE & DATA ENGINEER · LIMA, PE (UTC-5)",
       home: "INICIO",
       about: "SOBRE MÍ",
       projects: "PROYECTOS",
@@ -381,7 +381,7 @@ export const translations: Record<Language, Translations> = {
       lab: "LABORATORY",
     },
     hero: {
-      badge: "SENIOR FULLSTACK ENGINEER & SYSTEM ARCHITECT",
+      badge: "SOFTWARE & DATA ENGINEER | ENTERPRISE SYSTEMS",
       heroRole: "SOFTWARE ENGINEER & DATA ENGINEER",
       heroTitle: {
         main: "DISTRIBUTED & SCALABLE ",
@@ -580,7 +580,7 @@ export const translations: Record<Language, Translations> = {
         "Let's discuss how we can bring your distributed architecture or data engineering pipeline to life.",
     },
     footer: {
-      role: "LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER & ARCHITECT",
+      role: "SOFTWARE & DATA ENGINEER · LIMA, PE (UTC-5)",
       home: "HOME",
       about: "ABOUT",
       projects: "PROJECTS",
