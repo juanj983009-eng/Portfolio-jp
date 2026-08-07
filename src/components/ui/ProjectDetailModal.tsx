@@ -71,14 +71,17 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   const { language, t } = useLanguage();
 
   const effectiveScreenshots = useMemo(() => {
-    if (images && images.length > 0) {
-      return images;
-    }
-    if (project?.screenshots && project.screenshots.length > 0) {
-      return project.screenshots;
-    }
-    return [];
-  }, [images, project]);
+    const modalImages = Array.isArray(images) ? images : [];
+    const projectImages = Array.isArray(project?.screenshots)
+      ? project.screenshots
+      : [];
+    const candidateImages =
+      modalImages.length > 0 ? modalImages : projectImages;
+
+    return candidateImages.filter(
+      (src): src is string => typeof src === "string" && src.trim().length > 0,
+    );
+  }, [images, project?.screenshots]);
 
   // Data remains unique; the marquee below may clone this array only for its
   // visual loop, never as part of the gallery data model.
@@ -585,7 +588,23 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         />
                       </button>
                     </div>
-                  ) : null}
+                  ) : (
+                    <div className="pt-2 w-full">
+                      <div className="relative w-full h-48 rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950">
+                        <img
+                          src={
+                            project.coverImage ||
+                            getProjectFallback(project.slug)
+                          }
+                          alt={`${project.title} preview`}
+                          className="w-full h-full object-cover opacity-60"
+                        />
+                        <span className="absolute inset-0 flex items-center justify-center bg-black/35 font-mono text-[10px] uppercase tracking-widest text-zinc-300">
+                          Gallery preview unavailable
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* TECHNICAL HIGHLIGHTS */}
