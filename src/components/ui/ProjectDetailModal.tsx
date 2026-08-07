@@ -19,15 +19,15 @@ import BookACallCard from "@/components/sections/BookACallCard";
 import { useLanguage } from "@/context/LanguageContext";
 
 const CATEGORY_HERO_GRADIENT: Record<string, string> = {
-  "IoT / Real-Time":        "from-orange-950 via-zinc-900 to-black",
-  "Production System":      "from-blue-950 via-zinc-900 to-black",
-  "Logistics / Port":       "from-emerald-950 via-zinc-900 to-black",
-  "Media / Streaming":      "from-purple-950 via-zinc-900 to-black",
-  "SaaS / Inventory":       "from-cyan-950 via-zinc-900 to-black",
-  "Task Management":        "from-amber-950 via-zinc-900 to-black",
+  "IoT / Real-Time": "from-orange-950 via-zinc-900 to-black",
+  "Production System": "from-blue-950 via-zinc-900 to-black",
+  "Logistics / Port": "from-emerald-950 via-zinc-900 to-black",
+  "Media / Streaming": "from-purple-950 via-zinc-900 to-black",
+  "SaaS / Inventory": "from-cyan-950 via-zinc-900 to-black",
+  "Task Management": "from-amber-950 via-zinc-900 to-black",
   "Retail / Offline-First": "from-rose-950 via-zinc-900 to-black",
-  "Healthcare / SaaS":      "from-teal-950 via-zinc-900 to-black",
-  "Education / Gov":        "from-indigo-950 via-zinc-900 to-black",
+  "Healthcare / SaaS": "from-teal-950 via-zinc-900 to-black",
+  "Education / Gov": "from-indigo-950 via-zinc-900 to-black",
 };
 
 interface ProjectDetailModalProps {
@@ -44,7 +44,8 @@ const getYouTubeEmbedUrl = (url?: string): string => {
   if (url.includes("youtube.com/embed/")) {
     return url;
   }
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
+  const regExp =
+    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
   const match = url.match(regExp);
 
   if (match && match[2] && match[2].length === 11) {
@@ -58,7 +59,11 @@ const isYouTubeUrl = (url?: string): boolean => {
   return url.includes("youtube.com") || url.includes("youtu.be");
 };
 
-const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images, onClose }) => {
+const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
+  project,
+  images,
+  onClose,
+}) => {
   const [mounted, setMounted] = useState(false);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const [videoError, setVideoError] = useState(false);
@@ -79,10 +84,12 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
   // visual loop, never as part of the gallery data model.
   const galleryImages = useMemo(
     () => Array.from(new Set(effectiveScreenshots)),
-    [effectiveScreenshots]
+    [effectiveScreenshots],
   );
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     setVideoError(false);
@@ -111,12 +118,16 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [project]);
 
   if (!mounted || !project) return null;
 
-  const heroBg = CATEGORY_HERO_GRADIENT[project.category] ?? "from-zinc-900 via-zinc-950 to-black";
+  const heroBg =
+    CATEGORY_HERO_GRADIENT[project.category] ??
+    "from-zinc-900 via-zinc-950 to-black";
 
   const modalContent = (
     <AnimatePresence mode="wait">
@@ -144,7 +155,6 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[9999] w-screen h-screen bg-black overflow-y-auto overflow-x-hidden"
           >
-
             {/* ══════════════════════════════════════════
                 SECTION 1 — FULL-SCREEN IMMERSIVE POSTER HERO
             ══════════════════════════════════════════ */}
@@ -156,7 +166,13 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
             >
               {/* 1. FULL-BLEED BACKGROUND IMAGE (100% CLEAN PREVIEW) */}
               <img
-                src={heroImgError ? getProjectFallback(project.slug) : (project.coverImage || project.screenshots?.[0] || `/projects/${project.slug}/cover.jpg`)}
+                src={
+                  heroImgError
+                    ? getProjectFallback(project.slug)
+                    : project.coverImage ||
+                      project.screenshots?.[0] ||
+                      `/projects/${project.slug}/cover.jpg`
+                }
                 alt={project.title}
                 onError={() => setHeroImgError(true)}
                 className="absolute inset-0 w-full h-full object-cover object-center z-0"
@@ -191,7 +207,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.6,
+                delay: 0.15,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="max-w-7xl mx-auto px-6 md:px-12 pb-32 grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-10 items-start w-full relative"
             >
               {/* ── LEFT COLUMN: Sticky Monochromatic Industrial Metadata Card ── */}
@@ -213,14 +233,29 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                     {/* Metadata specification table */}
                     <div className="space-y-0 border-t border-zinc-900 pt-2">
                       {[
-                        { label: "ROLE",        value: getLocalized(project.role, language) },
+                        {
+                          label: "ROLE",
+                          value: getLocalized(project.role, language),
+                        },
                         { label: "RELEASE DATE", value: "Production" },
-                        { label: "SERVICES",     value: project.category },
-                        { label: "THROUGHPUT",   value: project.metrics.throughput ?? "N/A" },
-                        { label: "LATENCY",      value: project.metrics.latency    ?? "N/A" },
-                        { label: "SLA",          value: project.metrics.uptime     ?? "99.99%" },
+                        { label: "SERVICES", value: project.category },
+                        {
+                          label: "THROUGHPUT",
+                          value: project.metrics.throughput ?? "N/A",
+                        },
+                        {
+                          label: "LATENCY",
+                          value: project.metrics.latency ?? "N/A",
+                        },
+                        {
+                          label: "SLA",
+                          value: project.metrics.uptime ?? "99.99%",
+                        },
                       ].map(({ label, value }) => (
-                        <div key={label} className="flex justify-between items-center border-b border-zinc-900 py-3.5">
+                        <div
+                          key={label}
+                          className="flex justify-between items-center border-b border-zinc-900 py-3.5"
+                        >
                           <span className="font-mono font-medium text-xs uppercase tracking-wider text-zinc-400 shrink-0">
                             {label}
                           </span>
@@ -246,7 +281,9 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                               key={tech}
                               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono font-medium text-zinc-200"
                             >
-                              <IconComponent className={`w-4 h-4 ${config.color}`} />
+                              <IconComponent
+                                className={`w-4 h-4 ${config.color}`}
+                              />
                               <span>{tech}</span>
                             </span>
                           );
@@ -257,10 +294,21 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
 
                   {/* DUAL CTA: LIVE DEMO + VIEW SOURCE */}
                   {(() => {
-                    const rawDemoUrl = project.demoUrl || project.liveUrl || project.demoVideoUrl;
-                    const hasValidDemo = Boolean(rawDemoUrl && rawDemoUrl.trim() !== "" && rawDemoUrl.trim() !== "#");
+                    const rawDemoUrl =
+                      project.demoUrl ||
+                      project.liveUrl ||
+                      project.demoVideoUrl;
+                    const hasValidDemo = Boolean(
+                      rawDemoUrl &&
+                      rawDemoUrl.trim() !== "" &&
+                      rawDemoUrl.trim() !== "#",
+                    );
                     const rawGithubUrl = project.githubUrl;
-                    const hasValidGithub = Boolean(rawGithubUrl && rawGithubUrl.trim() !== "" && rawGithubUrl.trim() !== "#");
+                    const hasValidGithub = Boolean(
+                      rawGithubUrl &&
+                      rawGithubUrl.trim() !== "" &&
+                      rawGithubUrl.trim() !== "#",
+                    );
 
                     return (
                       <div className="relative z-10 mt-8 flex gap-3">
@@ -313,7 +361,6 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
 
               {/* ── RIGHT COLUMN: Clean Motion Editorial Overview + Media ── */}
               <div className="w-full min-w-0 overflow-x-hidden space-y-8 text-white">
-
                 {/* OVERVIEW */}
                 <div className="border-b border-zinc-800/80 pb-6 mb-6 w-full max-w-full min-w-0">
                   <motion.h3
@@ -334,13 +381,20 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.05,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-3 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
                     {t.projectDetail.objective}
                   </motion.h3>
                   <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
-                    {getLocalized(project.summary ?? project.subtitle ?? project.tagline, language)}
+                    {getLocalized(
+                      project.summary ?? project.subtitle ?? project.tagline,
+                      language,
+                    )}
                   </p>
                 </div>
 
@@ -349,7 +403,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
                     {t.projectDetail.projectMedia}
@@ -412,12 +470,16 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                                 SYSTEM DEMO
                               </span>
                             </div>
-                            <Film className="w-10 h-10 text-zinc-700" strokeWidth={1} />
+                            <Film
+                              className="w-10 h-10 text-zinc-700"
+                              strokeWidth={1}
+                            />
                             <p className="font-mono font-bold text-sm text-zinc-400 uppercase tracking-widest leading-tight">
                               Demo Pipeline Offline
                             </p>
                             <p className="font-mono text-[11px] text-zinc-600 max-w-xs leading-relaxed">
-                              Interactive architecture demo not yet available for this project.
+                              Interactive architecture demo not yet available
+                              for this project.
                             </p>
                           </div>
                           {/* Bottom status bar */}
@@ -435,7 +497,9 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                       <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-sm border border-zinc-700/60 px-3 py-1.5 rounded-md">
                         <Film className="w-3 h-3 text-[#FF4D00]" />
                         <span className="font-mono text-[10px] text-zinc-300 uppercase tracking-widest">
-                          {project.videoUrl && !videoError ? "LIVE PREVIEW" : "SYSTEM DEMO"}
+                          {project.videoUrl && !videoError
+                            ? "LIVE PREVIEW"
+                            : "SYSTEM DEMO"}
                         </span>
                       </div>
                     </div>
@@ -443,45 +507,42 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
 
                   {/* ── DUAL-DIRECTION MARQUEE GALLERY / SINGLE FALLBACK ── */}
                   {galleryImages.length > 1 ? (
-                    <div className="space-y-3 overflow-hidden pt-2">
-                      <style>{`
-                        @keyframes marquee-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-                        @keyframes marquee-rtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-                        .marquee-ltr { animation: marquee-ltr 30s linear infinite; }
-                        .marquee-rtl { animation: marquee-rtl 30s linear infinite; }
-                        .marquee-track:hover .marquee-ltr,
-                        .marquee-track:hover .marquee-rtl { animation-play-state: paused; }
-                      `}</style>
-
+                    <div className="w-full space-y-3 overflow-hidden pt-2">
                       {/* Rail 1 — Left to Right */}
                       <div className="marquee-track w-full overflow-hidden">
-                        <div className="flex gap-3 marquee-ltr" style={{ width: "max-content" }}>
-                          {[...galleryImages, ...galleryImages].map((src, i) => (
-                            <button
-                              key={`ltr-${i}`}
-                              type="button"
-                              onClick={() => setLightboxSrc(src)}
-                              className="shrink-0 w-48 h-28 rounded-lg overflow-hidden border border-zinc-800 hover:border-[#FF4D00]/60 transition-colors cursor-zoom-in focus:outline-none"
-                            >
-                              <img
-                                src={src}
-                                alt={`Preview ${i + 1}`}
-                                onError={(e) => {
-                                  if (e.currentTarget.parentElement) {
-                                    e.currentTarget.parentElement.style.display = "none";
-                                  }
-                                }}
-                                className="w-full h-full object-cover"
-                              />
-                            </button>
-                          ))}
+                        <div className="flex w-max gap-3 animate-marquee-right will-change-transform">
+                          {[...galleryImages, ...galleryImages].map(
+                            (src, i) => (
+                              <button
+                                key={`ltr-${i}`}
+                                type="button"
+                                onClick={() => setLightboxSrc(src)}
+                                className="shrink-0 w-48 h-28 rounded-lg overflow-hidden border border-zinc-800 hover:border-[#FF4D00]/60 transition-colors cursor-zoom-in focus:outline-none"
+                              >
+                                <img
+                                  src={src}
+                                  alt={`Preview ${i + 1}`}
+                                  onError={(e) => {
+                                    if (e.currentTarget.parentElement) {
+                                      e.currentTarget.parentElement.style.display =
+                                        "none";
+                                    }
+                                  }}
+                                  className="w-full h-full object-cover"
+                                />
+                              </button>
+                            ),
+                          )}
                         </div>
                       </div>
 
                       {/* Rail 2 — Right to Left */}
                       <div className="marquee-track w-full overflow-hidden">
-                        <div className="flex gap-3 marquee-rtl" style={{ width: "max-content" }}>
-                          {[...galleryImages.slice().reverse(), ...galleryImages.slice().reverse()].map((src, i) => (
+                        <div className="flex w-max gap-3 animate-marquee-left will-change-transform">
+                          {[
+                            ...galleryImages.slice().reverse(),
+                            ...galleryImages.slice().reverse(),
+                          ].map((src, i) => (
                             <button
                               key={`rtl-${i}`}
                               type="button"
@@ -493,7 +554,8 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                                 alt={`Preview ${i + 1}`}
                                 onError={(e) => {
                                   if (e.currentTarget.parentElement) {
-                                    e.currentTarget.parentElement.style.display = "none";
+                                    e.currentTarget.parentElement.style.display =
+                                      "none";
                                   }
                                 }}
                                 className="w-full h-full object-cover"
@@ -515,7 +577,8 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                           alt="Project Preview"
                           onError={(e) => {
                             if (e.currentTarget.parentElement) {
-                              e.currentTarget.parentElement.style.display = "none";
+                              e.currentTarget.parentElement.style.display =
+                                "none";
                             }
                           }}
                           className="w-full h-full object-cover"
@@ -530,21 +593,31 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.15,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
                     {t.projectDetail.techHighlights}
                   </motion.h3>
                   <ul className="space-y-3 w-full max-w-full">
                     {project.highlights.map((item, idx) => (
-                      <li key={idx} className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3 min-w-0 w-full">
-                        <span className="text-zinc-500 font-mono select-none shrink-0">—</span>
-                        <span className="break-words min-w-0 whitespace-normal">{getLocalized(item, language)}</span>
+                      <li
+                        key={idx}
+                        className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3 min-w-0 w-full"
+                      >
+                        <span className="text-zinc-500 font-mono select-none shrink-0">
+                          —
+                        </span>
+                        <span className="break-words min-w-0 whitespace-normal">
+                          {getLocalized(item, language)}
+                        </span>
                       </li>
                     ))}
                   </ul>
                 </div>
-
               </div>
             </motion.div>
 
@@ -566,14 +639,38 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
             <footer className="w-full border-t border-zinc-800/80 pt-16 pb-8 bg-black text-zinc-400 px-6 md:px-12">
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-16">
                 <div>
-                  <h3 className="text-white font-bold text-sm uppercase tracking-wider">JUAN PARRA</h3>
-                  <p className="text-xs text-zinc-500 mt-1">LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER &amp; ARCHITECT</p>
+                  <h3 className="text-white font-bold text-sm uppercase tracking-wider">
+                    JUAN PARRA
+                  </h3>
+                  <p className="text-xs text-zinc-500 mt-1">
+                    LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER &amp; ARCHITECT
+                  </p>
                 </div>
                 <nav className="flex items-center gap-6 font-sans font-bold text-xs uppercase tracking-widest text-zinc-400">
-                  <button onClick={() => handleNavClick('hero')} className="hover:text-white transition-colors cursor-pointer">HOME</button>
-                  <button onClick={() => handleNavClick('about')} className="hover:text-white transition-colors cursor-pointer">ABOUT</button>
-                  <button onClick={() => handleNavClick('projects')} className="hover:text-white transition-colors cursor-pointer">PROJECTS</button>
-                  <button onClick={() => handleNavClick('contact')} className="hover:text-white transition-colors cursor-pointer">CONTACT</button>
+                  <button
+                    onClick={() => handleNavClick("hero")}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    HOME
+                  </button>
+                  <button
+                    onClick={() => handleNavClick("about")}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    ABOUT
+                  </button>
+                  <button
+                    onClick={() => handleNavClick("projects")}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    PROJECTS
+                  </button>
+                  <button
+                    onClick={() => handleNavClick("contact")}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    CONTACT
+                  </button>
                 </nav>
               </div>
 
@@ -584,7 +681,6 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                 </h1>
               </div>
             </footer>
-
           </motion.div>
 
           {/* ── LIGHTBOX OVERLAY ── */}
@@ -607,7 +703,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project, images
                   className="relative max-w-5xl w-full rounded-2xl overflow-hidden border border-zinc-700 shadow-2xl"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <img src={lightboxSrc} alt="Screenshot enlarged" className="w-full h-auto object-contain" />
+                  <img
+                    src={lightboxSrc}
+                    alt="Screenshot enlarged"
+                    className="w-full h-auto object-contain"
+                  />
                   <button
                     type="button"
                     onClick={() => setLightboxSrc(null)}
