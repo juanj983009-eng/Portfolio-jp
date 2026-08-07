@@ -103,7 +103,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             alt={project.title}
             fill
             priority={true}
-            quality={70}
+            unoptimized
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             onError={() => setImgSrc(`/projects/${project.slug}/cover.jpg`)}
             className="object-cover object-center rounded-2xl transition-transform duration-500 transform-gpu group-hover:scale-105"

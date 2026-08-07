@@ -20,6 +20,7 @@ const CarouselCardImage: React.FC<{ project: Project }> = ({ project }) => {
       src={imgSrc}
       alt={project.title}
       fill
+      unoptimized
       sizes="(max-width: 768px) 350px, 440px"
       onError={() => setImgSrc(`/projects/${project.slug}/cover.jpg`)}
       className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
