@@ -514,9 +514,9 @@ export const PROJECTS: Project[] = [
       ]
     },
     coverImage: "/projects/tienda-catys/cover.jpg",
-    videoUrl: "https://youtu.be/9y-XOab5JzU",
-    demoVideoUrl: "https://youtu.be/9y-XOab5JzU",
-    demoUrl: "https://youtu.be/9y-XOab5JzU",
+    videoUrl: "https://youtu.be/jEqSSWqL214",
+    demoVideoUrl: "https://youtu.be/jEqSSWqL214",
+    demoUrl: "https://youtu.be/jEqSSWqL214",
     githubUrl: "https://github.com/juanj983009-eng/Tienda-Catys-Java",
     screenshots: [
       "/projects/tienda-catys/gallery/Captura de pantalla 2026-07-29 154042.png",
