@@ -1,5 +1,12 @@
 export type MultiLangString = string | { es: string; en: string };
 
+export type ProjectCategory = "featured" | "academic" | "experimental";
+export type ProjectStatus =
+  | "completed"
+  | "prototype"
+  | "in-progress"
+  | "concept";
+
 export function getLocalized(
   field: MultiLangString | null | undefined,
   lang: 'es' | 'en' | string
@@ -38,6 +45,13 @@ export interface ProjectMetrics {
   customMetrics?: MetricItem[];
 }
 
+export interface ProjectLinks {
+  repository?: string;
+  demo?: string;
+  video?: string;
+  live?: string;
+}
+
 export interface SchemaField {
   field: string;
   type: string;
@@ -57,16 +71,24 @@ export interface Project {
   id: string;
   slug: string;
   title: string;
-  category: string;
+  /** Human-readable technical area. It can be localized in future project data. */
+  category?: MultiLangString;
+  /** Honest portfolio grouping, independent from visual prominence. */
+  projectCategory?: ProjectCategory;
+  status?: ProjectStatus;
   tagline?: MultiLangString;
   subtitle?: MultiLangString;
-  role: MultiLangString;
-  summary: MultiLangString;
-  description: MultiLangString;
-  techStack: string[];
-  highlights: MultiLangString[];
-  architectureNodes: ArchitectureNode[];
-  metrics: ProjectMetrics;
+  role?: MultiLangString;
+  summary?: MultiLangString;
+  description?: MultiLangString;
+  contribution?: MultiLangString;
+  learnings?: MultiLangString[];
+  transparencyNote?: MultiLangString;
+  techStack?: string[];
+  highlights?: MultiLangString[];
+  architectureNodes?: ArchitectureNode[];
+  conceptualArchitecture?: MultiLangString;
+  metrics?: ProjectMetrics;
   dataset?: Dataset;
   isFeatured?: boolean;
   coverImage?: string;
@@ -77,5 +99,6 @@ export interface Project {
   demoUrl?: string;
   liveUrl?: string;
   githubUrl?: string;
+  links?: ProjectLinks;
   screenshots?: string[];
 }

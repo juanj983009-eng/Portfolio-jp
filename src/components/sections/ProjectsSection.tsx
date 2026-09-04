@@ -15,6 +15,7 @@ import { Project, getLocalized } from "@/types/portfolio";
 import ProjectDetailModal from "@/components/ui/ProjectDetailModal";
 import { resolveTech } from "@/components/ui/bento-grid";
 import { useLanguage } from "@/context/LanguageContext";
+import { Translations } from "@/data/translations";
 
 // ─── Spring config: low stiffness + high damping = butter smooth, no bounce ───
 const SPRING_CFG = { stiffness: 100, damping: 30, restDelta: 0.001 };
@@ -25,6 +26,7 @@ interface ProjectCardProps {
   index: number;
   total: number;
   language: string;
+  t: Translations;
   onOpen: (project: Project) => void;
   containerRef: React.RefObject<HTMLDivElement | null>;
 }
@@ -34,10 +36,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   index,
   total,
   language,
+  t,
   onOpen,
   containerRef,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const techStack = project.techStack ?? [];
+  const category = getLocalized(project.category, language);
+  const demoLink =
+    project.links?.demo ??
+    project.links?.live ??
+    project.links?.video ??
+    project.demoVideoUrl ??
+    project.demoUrl ??
+    (project.videoUrl?.startsWith("http") ? project.videoUrl : undefined);
+  const repositoryLink = project.links?.repository ?? project.githubUrl;
+  const hasMetrics = Boolean(
+    project.metrics?.throughput || project.metrics?.uptime,
+  );
   const [imgSrc, setImgSrc] = useState(
     project.coverImage || `/projects/${project.slug}/cover.jpg`
   );
@@ -130,9 +146,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {/* TOP BLOCK */}
           <div className="flex-1 flex flex-col gap-4 relative z-10">
             <div className="space-y-3 max-w-[70%]">
-              <span className="inline-block px-3 py-1 rounded-lg bg-zinc-950/80 backdrop-blur-none sm:backdrop-blur-md text-zinc-300 border border-white/10 font-mono text-xs font-medium uppercase tracking-widest">
-                {project.category}
-              </span>
+              {category && (
+                <span className="inline-block px-3 py-1 rounded-lg bg-zinc-950/80 backdrop-blur-none sm:backdrop-blur-md text-zinc-300 border border-white/10 font-mono text-xs font-medium uppercase tracking-widest">
+                  {category}
+                </span>
+              )}
 
               <h3 className="text-2xl sm:text-4xl font-black font-sans text-white uppercase tracking-tight leading-tight drop-shadow-md group-hover:text-[#FF4D00] transition-colors duration-300">
                 {project.title}
@@ -147,8 +165,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             </div>
 
             {/* Tech stack badges */}
+            {techStack.length > 0 && (
             <div className="flex flex-wrap gap-2 w-full min-w-0 max-w-full md:max-w-[75%]">
-              {project.techStack.slice(0, 8).map((tech) => {
+              {techStack.slice(0, 8).map((tech) => {
                 const config = resolveTech(tech);
                 const IconComponent = config.icon;
                 return (
@@ -161,31 +180,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   </span>
                 );
               })}
-              {project.techStack.length > 8 && (
+              {techStack.length > 8 && (
                 <span className="px-2 py-1 text-xs font-mono bg-white/5 border border-white/10 rounded-md text-zinc-400 font-medium inline-flex items-center">
-                  + {project.techStack.length - 8} more
+                  + {techStack.length - 8} more
                 </span>
               )}
             </div>
+            )}
           </div>
 
           {/* BOTTOM BLOCK: Metrics + CTAs */}
           <div className="mt-auto pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 relative z-10">
+            {hasMetrics && (
             <div className="flex items-center space-x-6">
-              {project.metrics.throughput && (
+              {project.metrics?.throughput && (
                 <div>
                   <div className="font-sans font-bold text-[9px] text-zinc-400 uppercase tracking-widest">
-                    Throughput
+                    {t.projectDetail.throughput}
                   </div>
                   <div className="font-mono font-bold text-sm text-white">
                     {project.metrics.throughput}
                   </div>
                 </div>
               )}
-              {project.metrics.uptime && (
+              {project.metrics?.uptime && (
                 <div>
                   <div className="font-sans font-bold text-[9px] text-zinc-400 uppercase tracking-widest">
-                    SLA
+                    {t.projectDetail.availability}
                   </div>
                   <div className="font-mono font-bold text-sm text-zinc-300">
                     {project.metrics.uptime}
@@ -193,32 +214,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 </div>
               )}
             </div>
+            )}
 
             <div className="inline-flex items-center gap-2.5 ml-auto sm:ml-0">
-              {(() => {
-                const demoLink = project.demoVideoUrl || project.demoUrl || (project.videoUrl && project.videoUrl.startsWith("http") ? project.videoUrl : null);
-                if (!demoLink) return null;
-                return (
-                  <a
-                    href={demoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="inline-flex items-center justify-center p-2.5 rounded-full bg-zinc-900/90 text-red-400 hover:text-white border border-zinc-700/80 hover:border-red-500 transition-all duration-300 shadow-xl cursor-pointer"
-                    title="Watch Video Demo"
-                  >
-                    <Video className="w-4 h-4 text-red-500" />
-                  </a>
-                );
-              })()}
-              {project.githubUrl && (
+              {demoLink && (
                 <a
-                  href={project.githubUrl}
+                  href={demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center justify-center p-2.5 rounded-full bg-zinc-900/90 text-red-400 hover:text-white border border-zinc-700/80 hover:border-red-500 transition-all duration-300 shadow-xl cursor-pointer"
+                  title={t.projectDetail.videoDemo}
+                  aria-label={t.projectDetail.videoDemo}
+                >
+                  <Video className="w-4 h-4 text-red-500" />
+                </a>
+              )}
+              {repositoryLink && (
+                <a
+                  href={repositoryLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   className="inline-flex items-center justify-center p-2.5 rounded-full bg-zinc-900/90 text-zinc-300 hover:text-white border border-zinc-700/80 hover:border-[#FF4D00] transition-all duration-300 shadow-xl cursor-pointer"
-                  title="View Repository"
+                  title={t.projectDetail.viewSource}
+                  aria-label={t.projectDetail.viewSource}
                 >
                   <Github className="w-4 h-4" />
                 </a>
@@ -231,7 +251,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 }}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#FF4D00] text-black border border-orange-400/30 font-mono font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl cursor-pointer hover:bg-[#e04400]"
               >
-                <span>VIEW ARCHITECTURE</span>
+                <span>{t.projects.viewDetails}</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </div>
@@ -345,6 +365,7 @@ export const ProjectsSection: React.FC = () => {
                 index={index}
                 total={total}
                 language={language}
+                t={t}
                 onOpen={handleOpenProject}
                 containerRef={containerRef}
               />

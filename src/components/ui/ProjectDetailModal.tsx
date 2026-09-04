@@ -13,22 +13,10 @@ import {
   Github,
   X as XIcon,
 } from "lucide-react";
-import { Project, getLocalized } from "@/types/portfolio";
+import { Project, ProjectStatus, getLocalized } from "@/types/portfolio";
 import { resolveTech } from "@/components/ui/bento-grid";
 import BookACallCard from "@/components/sections/BookACallCard";
 import { useLanguage } from "@/context/LanguageContext";
-
-const CATEGORY_HERO_GRADIENT: Record<string, string> = {
-  "IoT / Real-Time": "from-orange-950 via-zinc-900 to-black",
-  "Production System": "from-blue-950 via-zinc-900 to-black",
-  "Logistics / Port": "from-emerald-950 via-zinc-900 to-black",
-  "Media / Streaming": "from-purple-950 via-zinc-900 to-black",
-  "SaaS / Inventory": "from-cyan-950 via-zinc-900 to-black",
-  "Task Management": "from-amber-950 via-zinc-900 to-black",
-  "Retail / Offline-First": "from-rose-950 via-zinc-900 to-black",
-  "Healthcare / SaaS": "from-teal-950 via-zinc-900 to-black",
-  "Education / Gov": "from-indigo-950 via-zinc-900 to-black",
-};
 
 interface ProjectDetailModalProps {
   project: Project | null;
@@ -128,9 +116,50 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
   if (!mounted || !project) return null;
 
-  const heroBg =
-    CATEGORY_HERO_GRADIENT[project.category] ??
-    "from-zinc-900 via-zinc-950 to-black";
+  const category = getLocalized(project.category, language);
+  const role = getLocalized(project.role, language);
+  const description = getLocalized(project.description, language);
+  const objective = getLocalized(
+    project.summary ?? project.subtitle ?? project.tagline,
+    language,
+  );
+  const contribution = getLocalized(project.contribution, language);
+  const transparencyNote = getLocalized(project.transparencyNote, language);
+  const conceptualArchitecture = getLocalized(
+    project.conceptualArchitecture,
+    language,
+  );
+  const techStack = project.techStack ?? [];
+  const highlights = project.highlights ?? [];
+  const learnings = project.learnings ?? [];
+  const architectureNodes = project.architectureNodes ?? [];
+  const videoUrl = project.links?.video ?? project.videoUrl;
+  const demoUrl =
+    project.links?.demo ??
+    project.links?.live ??
+    project.demoUrl ??
+    project.liveUrl ??
+    project.demoVideoUrl;
+  const repositoryUrl = project.links?.repository ?? project.githubUrl;
+  const hasValidUrl = (url?: string) => Boolean(url && url.trim() && url.trim() !== "#");
+  const statusLabels: Record<ProjectStatus, string> = {
+    completed: language === "en" ? "COMPLETED" : "COMPLETADO",
+    prototype: language === "en" ? "PROTOTYPE" : "PROTOTIPO",
+    "in-progress": language === "en" ? "IN PROGRESS" : "EN DESARROLLO",
+    concept: language === "en" ? "CONCEPT" : "CONCEPTO",
+  };
+  const metadata = [
+    { label: t.projectDetail.participation, value: role },
+    { label: t.projectDetail.category, value: category },
+    {
+      label: t.projectDetail.status,
+      value: project.status ? statusLabels[project.status] : "",
+    },
+    { label: t.projectDetail.throughput, value: project.metrics?.throughput ?? "" },
+    { label: t.projectDetail.latency, value: project.metrics?.latency ?? "" },
+    { label: t.projectDetail.availability, value: project.metrics?.uptime ?? "" },
+  ].filter(({ value }) => Boolean(value));
+  const hasMedia = Boolean(videoUrl || galleryImages.length > 0);
 
   const modalContent = (
     <AnimatePresence mode="wait">
@@ -199,7 +228,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 {/* Animated Scroll Hint Indicator */}
                 <div className="flex items-center space-x-2 font-mono font-bold text-xs text-zinc-400 pt-4 uppercase tracking-widest animate-bounce">
                   <ArrowDown className="w-4 h-4 text-[#FF4D00]" />
-                  <span>SCROLL TO EXPLORE DETAILS</span>
+                  <span>{t.projectDetail.scrollToDetails}</span>
                 </div>
               </div>
             </motion.section>
@@ -226,7 +255,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                   <div className="relative z-10 space-y-6 flex-1">
                     <div>
                       <span className="font-mono font-bold text-xs uppercase tracking-widest text-zinc-500 block mb-1">
-                        PROJECT DETAILS
+                        {t.projectDetail.projectDetails}
                       </span>
                       <h2 className="text-2xl md:text-3xl font-black text-white leading-tight uppercase tracking-tight font-sans">
                         {project.title}
@@ -234,27 +263,9 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     </div>
 
                     {/* Metadata specification table */}
+                    {metadata.length > 0 && (
                     <div className="space-y-0 border-t border-zinc-900 pt-2">
-                      {[
-                        {
-                          label: "ROLE",
-                          value: getLocalized(project.role, language),
-                        },
-                        { label: "RELEASE DATE", value: "Production" },
-                        { label: "SERVICES", value: project.category },
-                        {
-                          label: "THROUGHPUT",
-                          value: project.metrics.throughput ?? "N/A",
-                        },
-                        {
-                          label: "LATENCY",
-                          value: project.metrics.latency ?? "N/A",
-                        },
-                        {
-                          label: "SLA",
-                          value: project.metrics.uptime ?? "99.99%",
-                        },
-                      ].map(({ label, value }) => (
+                      {metadata.map(({ label, value }) => (
                         <div
                           key={label}
                           className="flex justify-between items-center border-b border-zinc-900 py-3.5"
@@ -268,14 +279,16 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         </div>
                       ))}
                     </div>
+                    )}
 
                     {/* Stack pills with official brand icons */}
+                    {techStack.length > 0 && (
                     <div className="space-y-3 pt-2">
                       <span className="font-mono font-bold text-xs uppercase tracking-widest text-zinc-500 block">
-                        STACK SPECIFICATIONS
+                        {t.projectDetail.technologies}
                       </span>
                       <div className="flex flex-wrap gap-2 w-full min-w-0">
-                        {project.techStack.map((tech) => {
+                        {techStack.map((tech) => {
                           const config = resolveTech(tech);
                           const IconComponent = config.icon;
 
@@ -293,52 +306,27 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         })}
                       </div>
                     </div>
+                    )}
                   </div>
 
-                  {/* DUAL CTA: LIVE DEMO + VIEW SOURCE */}
-                  {(() => {
-                    const rawDemoUrl =
-                      project.demoUrl ||
-                      project.liveUrl ||
-                      project.demoVideoUrl;
-                    const hasValidDemo = Boolean(
-                      rawDemoUrl &&
-                      rawDemoUrl.trim() !== "" &&
-                      rawDemoUrl.trim() !== "#",
-                    );
-                    const rawGithubUrl = project.githubUrl;
-                    const hasValidGithub = Boolean(
-                      rawGithubUrl &&
-                      rawGithubUrl.trim() !== "" &&
-                      rawGithubUrl.trim() !== "#",
-                    );
-
-                    return (
-                      <div className="relative z-10 mt-8 flex gap-3">
-                        {hasValidDemo ? (
+                  {/* Optional project links are rendered only when a valid URL exists. */}
+                  {(hasValidUrl(demoUrl) || hasValidUrl(repositoryUrl)) && (
+                    <div className="relative z-10 mt-8 flex gap-3">
+                        {hasValidUrl(demoUrl) && (
                           <a
-                            href={rawDemoUrl}
+                            href={demoUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex-1 bg-[#FF4D00] hover:bg-[#e04400] text-black font-mono font-bold uppercase py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer shadow-lg shadow-[#FF4D00]/10"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
-                            <span>{t.projectDetail.liveDemo}</span>
+                            <span>{t.projectDetail.videoDemo}</span>
                           </a>
-                        ) : (
-                          <button
-                            type="button"
-                            disabled
-                            className="flex-1 bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 cursor-not-allowed opacity-60 shadow-none font-mono font-bold uppercase py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-xs select-none"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                            <span>{t.projectDetail.demoUnavailable}</span>
-                          </button>
                         )}
 
-                        {hasValidGithub ? (
+                        {hasValidUrl(repositoryUrl) && (
                           <a
-                            href={rawGithubUrl}
+                            href={repositoryUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex-1 bg-zinc-900 border border-zinc-700 hover:border-[#FF4D00] text-white font-mono font-bold uppercase py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-2 text-xs cursor-pointer"
@@ -346,25 +334,16 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <Github className="w-3.5 h-3.5" />
                             <span>{t.projectDetail.viewSource}</span>
                           </a>
-                        ) : (
-                          <button
-                            type="button"
-                            disabled
-                            className="flex-1 bg-zinc-800/50 text-zinc-500 border border-zinc-700/50 cursor-not-allowed opacity-60 shadow-none font-mono font-bold uppercase py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-xs select-none"
-                          >
-                            <Github className="w-3.5 h-3.5" />
-                            <span>{t.projectDetail.privateRepo}</span>
-                          </button>
                         )}
-                      </div>
-                    );
-                  })()}
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* ── RIGHT COLUMN: Clean Motion Editorial Overview + Media ── */}
               <div className="w-full min-w-0 overflow-x-hidden space-y-8 text-white">
                 {/* OVERVIEW */}
+                {description && (
                 <div className="border-b border-zinc-800/80 pb-6 mb-6 w-full max-w-full min-w-0">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
@@ -375,11 +354,13 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     {t.projectDetail.overview}
                   </motion.h3>
                   <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
-                    {getLocalized(project.description, language)}
+                    {description}
                   </p>
                 </div>
+                )}
 
                 {/* OBJECTIVE */}
+                {objective && (
                 <div className="border-b border-zinc-800/80 pb-6 mb-6 w-full max-w-full min-w-0">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
@@ -394,14 +375,13 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     {t.projectDetail.objective}
                   </motion.h3>
                   <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
-                    {getLocalized(
-                      project.summary ?? project.subtitle ?? project.tagline,
-                      language,
-                    )}
+                    {objective}
                   </p>
                 </div>
+                )}
 
                 {/* ARCHITECTURE & PIPELINE */}
+                {hasMedia && (
                 <div className="mb-8 space-y-4">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
@@ -417,27 +397,27 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                   </motion.h3>
 
                   {/* ── VIDEO PLAYER / YOUTUBE EMBED (Main Visual) ── */}
-                  {project.videoUrl && isYouTubeUrl(project.videoUrl) ? (
+                  {videoUrl && isYouTubeUrl(videoUrl) ? (
                     <div className="mb-8 w-full">
                       <h3 className="text-xs font-mono tracking-widest text-zinc-400 uppercase mb-3 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-[#FF4D00] animate-pulse" />
-                        SYSTEM DEMONSTRATION &amp; ARCHITECTURE OVERVIEW
+                        {t.projectDetail.videoDemo}
                       </h3>
                       <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-950">
                         <iframe
-                          src={getYouTubeEmbedUrl(project.videoUrl)}
-                          title={`${project.title} Video Demo`}
+                          src={getYouTubeEmbedUrl(videoUrl)}
+                          title={`${project.title} — ${t.projectDetail.videoDemo}`}
                           className="absolute top-0 left-0 w-full h-full border-0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
                         />
                       </div>
                     </div>
-                  ) : (
+                  ) : videoUrl ? (
                     <div className="w-full max-h-[450px] rounded-xl border border-zinc-800 bg-black overflow-hidden aspect-video relative">
-                      {project.videoUrl && !videoError ? (
+                      {!videoError ? (
                         <video
-                          src={project.videoUrl}
+                          src={videoUrl}
                           autoPlay
                           loop
                           muted
@@ -470,7 +450,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <div className="flex items-center gap-2 mb-1">
                               <span className="inline-block w-2 h-2 rounded-full bg-[#FF4D00] animate-pulse" />
                               <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#FF4D00] font-bold">
-                                SYSTEM DEMO
+                                {t.projectDetail.videoDemo}
                               </span>
                             </div>
                             <Film
@@ -478,20 +458,19 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                               strokeWidth={1}
                             />
                             <p className="font-mono font-bold text-sm text-zinc-400 uppercase tracking-widest leading-tight">
-                              Demo Pipeline Offline
+                              {t.projectDetail.demoUnavailable}
                             </p>
                             <p className="font-mono text-[11px] text-zinc-600 max-w-xs leading-relaxed">
-                              Interactive architecture demo not yet available
-                              for this project.
+                              {t.projectDetail.demoUnavailable}
                             </p>
                           </div>
                           {/* Bottom status bar */}
                           <div className="absolute bottom-0 left-0 right-0 border-t border-zinc-800/80 flex items-center justify-between px-4 py-2 z-10">
                             <span className="font-mono text-[9px] text-zinc-600 uppercase tracking-widest">
-                              SYS:PREVIEW — NO SIGNAL
+                              {t.projectDetail.systemDemo}
                             </span>
                             <span className="font-mono text-[9px] text-zinc-700 uppercase tracking-widest">
-                              VIDEO DEMO PENDING
+                              {t.projectDetail.videoDemo}
                             </span>
                           </div>
                         </div>
@@ -500,13 +479,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                       <div className="absolute top-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-sm border border-zinc-700/60 px-3 py-1.5 rounded-md">
                         <Film className="w-3 h-3 text-[#FF4D00]" />
                         <span className="font-mono text-[10px] text-zinc-300 uppercase tracking-widest">
-                          {project.videoUrl && !videoError
-                            ? "LIVE PREVIEW"
-                            : "SYSTEM DEMO"}
+                          {t.projectDetail.videoDemo}
                         </span>
                       </div>
                     </div>
-                  )}
+                  ) : null}
 
                   {/* ── DUAL-DIRECTION MARQUEE GALLERY / SINGLE FALLBACK ── */}
                   {galleryImages.length > 1 ? (
@@ -588,26 +565,11 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         />
                       </button>
                     </div>
-                  ) : (
-                    <div className="pt-2 w-full">
-                      <div className="relative w-full h-48 rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950">
-                        <img
-                          src={
-                            project.coverImage ||
-                            getProjectFallback(project.slug)
-                          }
-                          alt={`${project.title} preview`}
-                          className="w-full h-full object-cover opacity-60"
-                        />
-                        <span className="absolute inset-0 flex items-center justify-center bg-black/35 font-mono text-[10px] uppercase tracking-widest text-zinc-300">
-                          Gallery preview unavailable
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                  ) : null}
                 </div>
+                )}
 
-                {/* TECHNICAL HIGHLIGHTS */}
+                {conceptualArchitecture && (
                 <div className="border-t border-zinc-800/80 pt-6 mt-8">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
@@ -619,17 +581,48 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     }}
                     className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default"
                   >
-                    {t.projectDetail.techHighlights}
+                    {t.projectDetail.conceptualArchitecture}
                   </motion.h3>
+                  <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal mb-4">
+                    {conceptualArchitecture}
+                  </p>
+                  {architectureNodes.length > 0 && (
                   <ul className="space-y-3 w-full max-w-full">
-                    {project.highlights.map((item, idx) => (
+                    {architectureNodes.map((node) => (
                       <li
-                        key={idx}
+                        key={node.id}
                         className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3 min-w-0 w-full"
                       >
                         <span className="text-zinc-500 font-mono select-none shrink-0">
                           —
                         </span>
+                        <span className="break-words min-w-0 whitespace-normal">
+                          {node.label} · {node.tech}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  )}
+                </div>
+                )}
+
+                {highlights.length > 0 && (
+                <div className="border-t border-zinc-800/80 pt-6 mt-8">
+                  <motion.h3
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                    className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default"
+                  >
+                    {t.projectDetail.techHighlights}
+                  </motion.h3>
+                  <ul className="space-y-3 w-full max-w-full">
+                    {highlights.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3 min-w-0 w-full"
+                      >
+                        <span className="text-zinc-500 font-mono select-none shrink-0">—</span>
                         <span className="break-words min-w-0 whitespace-normal">
                           {getLocalized(item, language)}
                         </span>
@@ -637,6 +630,45 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     ))}
                   </ul>
                 </div>
+                )}
+
+                {contribution && (
+                <div className="border-t border-zinc-800/80 pt-6 mt-8">
+                  <h3 className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default">
+                    {t.projectDetail.contribution}
+                  </h3>
+                  <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
+                    {contribution}
+                  </p>
+                </div>
+                )}
+
+                {learnings.length > 0 && (
+                <div className="border-t border-zinc-800/80 pt-6 mt-8">
+                  <h3 className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default">
+                    {t.projectDetail.learnings}
+                  </h3>
+                  <ul className="space-y-3 w-full max-w-full">
+                    {learnings.map((item, idx) => (
+                      <li key={idx} className="text-zinc-300 text-sm leading-relaxed flex items-start gap-3 min-w-0 w-full">
+                        <span className="text-zinc-500 font-mono select-none shrink-0">—</span>
+                        <span className="break-words min-w-0 whitespace-normal">{getLocalized(item, language)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                )}
+
+                {transparencyNote && (
+                <div className="border-t border-zinc-800/80 pt-6 mt-8">
+                  <h3 className="font-sans font-black text-white text-xl uppercase tracking-tight mb-4 select-none hover:text-[#FF4D00] transition-colors cursor-default">
+                    {t.projectDetail.transparencyNote}
+                  </h3>
+                  <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
+                    {transparencyNote}
+                  </p>
+                </div>
+                )}
               </div>
             </motion.div>
 
@@ -662,7 +694,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     JUAN PARRA
                   </h3>
                   <p className="text-xs text-zinc-500 mt-1">
-                    LIMA, PE (UTC-5) • SENIOR LEAD DEVELOPER &amp; ARCHITECT
+                    {t.footer.role}
                   </p>
                 </div>
                 <nav className="flex items-center gap-6 font-sans font-bold text-xs uppercase tracking-widest text-zinc-400">
@@ -670,25 +702,25 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     onClick={() => handleNavClick("hero")}
                     className="hover:text-white transition-colors cursor-pointer"
                   >
-                    HOME
+                    {t.nav.home}
                   </button>
                   <button
                     onClick={() => handleNavClick("about")}
                     className="hover:text-white transition-colors cursor-pointer"
                   >
-                    ABOUT
+                    {t.nav.about}
                   </button>
                   <button
                     onClick={() => handleNavClick("projects")}
                     className="hover:text-white transition-colors cursor-pointer"
                   >
-                    PROJECTS
+                    {t.nav.projects}
                   </button>
                   <button
                     onClick={() => handleNavClick("contact")}
                     className="hover:text-white transition-colors cursor-pointer"
                   >
-                    CONTACT
+                    {t.nav.contact}
                   </button>
                 </nav>
               </div>

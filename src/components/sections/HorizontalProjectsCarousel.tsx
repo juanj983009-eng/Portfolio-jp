@@ -78,7 +78,7 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
             number="02"
             category={t.projects.selectedLabsTag}
             title={t.projects.moreProjectsTitle}
-            count={language === "es" ? "DESLIZA HACIA ABAJO PARA EXPLORAR →" : "SCROLL DOWN TO SLIDE →"}
+            count={`${t.projects.scrollToExplore} →`}
             className="mb-0"
           />
         </div>
@@ -91,6 +91,17 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
             className="flex gap-6 md:gap-8 items-center w-max pr-16"
           >
             {projects.map((project, index) => {
+              const techStack = project.techStack ?? [];
+              const category = getLocalized(project.category, language);
+              const demoLink =
+                project.links?.demo ??
+                project.links?.live ??
+                project.links?.video ??
+                project.demoVideoUrl ??
+                project.demoUrl ??
+                (project.videoUrl?.startsWith("http") ? project.videoUrl : undefined);
+              const repositoryLink = project.links?.repository ?? project.githubUrl;
+
               return (
                 <div
                   key={project.id}
@@ -119,9 +130,11 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                     {/* Top Header info (Category & Index) */}
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono text-zinc-300 bg-zinc-900/90 border border-zinc-700/80 uppercase tracking-wider shadow-sm">
-                          {project.category}
-                        </span>
+                        {category && (
+                          <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono text-zinc-300 bg-zinc-900/90 border border-zinc-700/80 uppercase tracking-wider shadow-sm">
+                            {category}
+                          </span>
+                        )}
                         <span className="text-zinc-400 font-mono text-xs font-bold">
                           #{String(index + 1).padStart(2, "0")}
                         </span>
@@ -134,9 +147,9 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                         {getLocalized(project.subtitle || project.tagline || project.summary, language)}
                       </p>
 
-                      {project.techStack && project.techStack.length > 0 && (
+                      {techStack.length > 0 && (
                         <div className="flex flex-wrap gap-1.5 pt-1">
-                          {project.techStack.slice(0, 8).map((tech: string) => {
+                          {techStack.slice(0, 8).map((tech: string) => {
                             const config = resolveTech(tech);
                             const IconComponent = config.icon;
 
@@ -150,45 +163,45 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                               </span>
                             );
                           })}
-                          {project.techStack.length > 8 && (
+                          {techStack.length > 8 && (
                             <span className="px-2 py-0.5 text-[10px] font-mono bg-white/5 border border-white/10 rounded text-zinc-400 inline-flex items-center">
-                              +{project.techStack.length - 8} more
+                              +{techStack.length - 8} more
                             </span>
                           )}
                         </div>
                       )}
                     </div>
 
-                    {/* Footer / CTA (VIEW ARCHITECTURE & METRICS) */}
+                    {/* Footer / CTA (PROJECT DETAILS & OPTIONAL METRICS) */}
                     <div className="pt-3 mt-auto flex items-center justify-between border-t border-zinc-700/60">
-                      <div className="font-mono font-bold text-[10px] text-zinc-400 uppercase tracking-widest">
-                        {project.metrics?.throughput ?? "SLA 99.99%"}
-                      </div>
+                      {project.metrics?.throughput && (
+                        <div className="font-mono font-bold text-[10px] text-zinc-400 uppercase tracking-widest">
+                          {project.metrics.throughput}
+                        </div>
+                      )}
                       <div className="flex items-center gap-2">
-                        {(() => {
-                          const demoLink = project.demoVideoUrl || project.demoUrl || (project.videoUrl && project.videoUrl.startsWith("http") ? project.videoUrl : null);
-                          if (!demoLink) return null;
-                          return (
-                            <a
-                              href={demoLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="text-red-400 hover:text-white transition-colors"
-                              title="Watch Video Demo"
-                            >
-                              <Video className="w-4 h-4 text-red-500" />
-                            </a>
-                          );
-                        })()}
-                        {project.githubUrl && (
+                        {demoLink && (
                           <a
-                            href={project.githubUrl}
+                            href={demoLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-red-400 hover:text-white transition-colors"
+                            title={t.projectDetail.videoDemo}
+                            aria-label={t.projectDetail.videoDemo}
+                          >
+                            <Video className="w-4 h-4 text-red-500" />
+                          </a>
+                        )}
+                        {repositoryLink && (
+                          <a
+                            href={repositoryLink}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
                             className="text-zinc-400 hover:text-white transition-colors"
-                            title="View Repository"
+                            title={t.projectDetail.viewSource}
+                            aria-label={t.projectDetail.viewSource}
                           >
                             <Github className="w-4 h-4" />
                           </a>
@@ -201,7 +214,7 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                           }}
                           className="text-[#FF4D00] text-xs font-bold font-mono tracking-wider flex items-center gap-1 hover:underline cursor-pointer"
                         >
-                          <span>VIEW ARCHITECTURE</span>
+                          <span>{t.projects.viewDetails}</span>
                           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </button>
                       </div>
@@ -222,7 +235,7 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
             />
           </div>
           <span className="text-[10px] font-mono text-zinc-500 tracking-widest uppercase">
-            SCROLL DOWN TO SLIDE
+            {t.projects.scrollToExplore}
           </span>
         </div>
 

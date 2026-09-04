@@ -129,7 +129,7 @@ export default function ProjectsPage() {
             number="01"
             category="FEATURED SHOWCASE"
             title={t.projects.title}
-            count={`${projects.length} ENTERPRISE SYSTEMS`}
+            count={`${projects.length} ${t.projects.projectCount}`}
           />
 
           {/* Dynamic 3-Column Bento Grid */}
@@ -143,20 +143,23 @@ export default function ProjectsPage() {
                   className={spanClass}
                   title={project.title}
                   description={getLocalized(project.subtitle ?? project.tagline ?? project.summary ?? project.description, language)}
-                  badge={project.category}
+                  badge={getLocalized(project.category, language)}
                   index={`#${String(index + 1).padStart(2, "0")}`}
-                  cta="VIEW ARCHITECTURE"
-                  ctaHref="#"
+                  cta={t.projects.viewDetails}
                   onCtaClick={() => handleOpenProject(project)}
                   header={
                     <ProjectHeader
                       project={project}
                     />
                   }
-                  techStack={project.techStack}
-                  metrics={{
-                    throughput: project.metrics?.throughput,
-                    uptime:     project.metrics?.uptime,
+                  techStack={project.techStack ?? []}
+                  metrics={project.metrics ? {
+                    throughput: project.metrics.throughput,
+                    uptime: project.metrics.uptime,
+                  } : undefined}
+                  metricLabels={{
+                    throughput: t.projectDetail.throughput,
+                    availability: t.projectDetail.availability,
                   }}
                 />
               );

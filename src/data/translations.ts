@@ -79,8 +79,26 @@ export interface Translations {
     demoUnavailable: string;
     privateRepo: string;
     viewProject: string;
+    projectCount: string;
+    viewDetails: string;
+    scrollToExplore: string;
   };
   projectDetail: {
+    projectDetails: string;
+    category: string;
+    status: string;
+    participation: string;
+    technologies: string;
+    throughput: string;
+    latency: string;
+    availability: string;
+    contribution: string;
+    learnings: string;
+    transparencyNote: string;
+    conceptualArchitecture: string;
+    videoDemo: string;
+    gallery: string;
+    scrollToDetails: string;
     overview: string;
     objective: string;
     projectMedia: string;
@@ -275,7 +293,7 @@ export const translations: Record<Language, Translations> = {
         main: "PROYECTOS & ",
         highlight: "ARQUITECTURAS",
       },
-      subtitle: "9 SISTEMAS DE PRODUCCIÓN · DESLIZA PARA EXPLORAR",
+      subtitle: "9 PROYECTOS ACADÉMICOS Y PERSONALES · DESLIZA PARA EXPLORAR",
       selectedLabsTag: "LABORATORIOS SELECCIONADOS",
       moreProjectsTitle: {
         main: "MÁS PROYECTOS & ",
@@ -289,8 +307,26 @@ export const translations: Record<Language, Translations> = {
       demoUnavailable: "DEMO NO DISPONIBLE",
       privateRepo: "REPOSITORIO PRIVADO",
       viewProject: "DETALLES DEL PROYECTO",
+      projectCount: "PROYECTOS DE SOFTWARE Y DATOS",
+      viewDetails: "VER DETALLES",
+      scrollToExplore: "DESLIZA PARA EXPLORAR",
     },
     projectDetail: {
+      projectDetails: "DETALLES DEL PROYECTO",
+      category: "CATEGORÍA",
+      status: "ESTADO",
+      participation: "PARTICIPACIÓN",
+      technologies: "TECNOLOGÍAS",
+      throughput: "RENDIMIENTO",
+      latency: "LATENCIA",
+      availability: "DISPONIBILIDAD",
+      contribution: "MI CONTRIBUCIÓN",
+      learnings: "APRENDIZAJES",
+      transparencyNote: "NOTA DE TRANSPARENCIA",
+      conceptualArchitecture: "ARQUITECTURA CONCEPTUAL",
+      videoDemo: "VIDEO DE DEMOSTRACIÓN",
+      gallery: "GALERÍA DEL PROYECTO",
+      scrollToDetails: "DESLIZA PARA VER DETALLES",
       overview: "RESUMEN GENERAL",
       objective: "OBJETIVO & ALCANCE",
       projectMedia: "MEDIOS & DEMOSTRACIÓN DEL SISTEMA",
@@ -503,7 +539,7 @@ export const translations: Record<Language, Translations> = {
         main: "PROJECTS & ",
         highlight: "ARCHITECTURES",
       },
-      subtitle: "9 PRODUCTION SYSTEMS · SCROLL DOWN TO EXPLORE",
+      subtitle: "9 ACADEMIC AND PERSONAL PROJECTS · SCROLL DOWN TO EXPLORE",
       selectedLabsTag: "SELECTED LABS",
       moreProjectsTitle: {
         main: "MORE PROJECTS & ",
@@ -517,8 +553,26 @@ export const translations: Record<Language, Translations> = {
       demoUnavailable: "DEMO UNAVAILABLE",
       privateRepo: "PRIVATE REPO",
       viewProject: "PROJECT DETAILS",
+      projectCount: "SOFTWARE AND DATA PROJECTS",
+      viewDetails: "VIEW DETAILS",
+      scrollToExplore: "SCROLL TO EXPLORE",
     },
     projectDetail: {
+      projectDetails: "PROJECT DETAILS",
+      category: "CATEGORY",
+      status: "STATUS",
+      participation: "PARTICIPATION",
+      technologies: "TECHNOLOGIES",
+      throughput: "PERFORMANCE",
+      latency: "LATENCY",
+      availability: "AVAILABILITY",
+      contribution: "MY CONTRIBUTION",
+      learnings: "LEARNINGS",
+      transparencyNote: "TRANSPARENCY NOTE",
+      conceptualArchitecture: "CONCEPTUAL ARCHITECTURE",
+      videoDemo: "DEMONSTRATION VIDEO",
+      gallery: "PROJECT GALLERY",
+      scrollToDetails: "SCROLL TO VIEW DETAILS",
       overview: "OVERVIEW",
       objective: "OBJECTIVE & SCOPE",
       projectMedia: "PROJECT MEDIA & SYSTEM DEMO",

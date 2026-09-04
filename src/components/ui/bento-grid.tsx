@@ -224,8 +224,8 @@ export const BentoGrid: React.FC<{
 interface BentoGridItemProps {
   className?: string;
   title: string;
-  description: string;
-  badge: string;
+  description?: string;
+  badge?: string;
   index: string;
   cta?: string;
   ctaHref?: string;
@@ -235,6 +235,10 @@ interface BentoGridItemProps {
   metrics?: {
     throughput?: string;
     uptime?: string;
+  };
+  metricLabels?: {
+    throughput: string;
+    availability: string;
   };
 }
 
@@ -250,6 +254,7 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
   header,
   techStack,
   metrics,
+  metricLabels,
 }) => (
   <motion.div
     variants={itemVariants}
@@ -274,6 +279,7 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
       <div className="space-y-3">
         {/* Badge de categoría monolítico sobrio + ID */}
         <div className="flex items-center justify-between">
+          {badge && (
           <motion.span
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -282,6 +288,7 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
             <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
             {badge}
           </motion.span>
+          )}
           <span className="font-mono text-xs font-bold text-zinc-500">{index}</span>
         </div>
 
@@ -291,9 +298,11 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
         </h3>
 
         {/* Descripción */}
-        <p className="font-sans font-medium text-xs text-zinc-400 leading-relaxed line-clamp-2">
-          {description}
-        </p>
+        {description && (
+          <p className="font-sans font-medium text-xs text-zinc-400 leading-relaxed line-clamp-2">
+            {description}
+          </p>
+        )}
 
         {/* Pills de tech stack con íconos oficiales a color y hover inteligente */}
         {techStack && techStack.length > 0 && (
@@ -327,26 +336,25 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
           <div className="flex items-center gap-4">
             {metrics.throughput && (
               <div>
-                <p className="font-sans font-bold text-[8px] uppercase tracking-widest text-zinc-500">Throughput</p>
+                <p className="font-sans font-bold text-[8px] uppercase tracking-widest text-zinc-500">{metricLabels?.throughput ?? "THROUGHPUT"}</p>
                 <p className="font-mono font-bold text-xs text-white">{metrics.throughput}</p>
               </div>
             )}
             {metrics.uptime && (
               <div>
-                <p className="font-sans font-bold text-[8px] uppercase tracking-widest text-zinc-500">SLA</p>
+                <p className="font-sans font-bold text-[8px] uppercase tracking-widest text-zinc-500">{metricLabels?.availability ?? "AVAILABILITY"}</p>
                 <p className="font-sans font-bold text-xs text-zinc-300">{metrics.uptime}</p>
               </div>
             )}
           </div>
         ) : <div />}
 
-        {cta && (
-          <a
-            href={ctaHref ?? "#"}
+        {cta && onCtaClick ? (
+          <button
+            type="button"
             onClick={(e) => {
-              e.preventDefault();
               e.stopPropagation();
-              onCtaClick?.();
+              onCtaClick();
             }}
             className="
               inline-flex items-center gap-1.5 ml-auto
@@ -359,8 +367,23 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
             <span className="transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-1">
               ↗
             </span>
+          </button>
+        ) : cta && ctaHref ? (
+          <a
+            href={ctaHref}
+            className="
+              inline-flex items-center gap-1.5 ml-auto
+              font-sans font-bold text-xs uppercase tracking-wider
+              text-[#FF4D00] hover:text-orange-400
+              transition-colors duration-200 group/cta
+            "
+          >
+            <span>{cta}</span>
+            <span className="transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-1">
+              ↗
+            </span>
           </a>
-        )}
+        ) : null}
       </div>
     </div>
   </motion.div>
