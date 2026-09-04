@@ -24,9 +24,12 @@ export interface Translations {
   hero: {
     badge: string;
     heroRole: string;
+    marquee: string;
+    profileFocus: string;
     heroTitle: TitleWithHighlight;
     description: string;
     ctaProjects: string;
+    ctaResume: string;
     ctaContact: string;
     status: string;
   };
@@ -34,15 +37,21 @@ export interface Translations {
     executiveSummaryTitle: string;
     heroStatement: string;
     metric1Label: string;
+    metric1Value: string;
     metric2Label: string;
+    metric2Value: string;
     metric3Label: string;
+    metric3Value: string;
     moreAboutMeBtn: string;
     biographyTag: string;
     biographyLead: string;
     biographyBody: string;
     yearsExp: string;
+    educationBadgeValue: string;
     prodSystems: string;
+    meritBadgeValue: string;
     careerTitle: TitleWithHighlight;
+    careerTag: string;
     careerDesc: string;
     architectureMilestones: ArchitectureMilestone[];
   };
@@ -162,62 +171,72 @@ export const translations: Record<Language, Translations> = {
       lab: "LABORATORIO",
     },
     hero: {
-      badge: "INGENIERO DE SOFTWARE Y DATOS | SISTEMAS EMPRESARIALES",
-      heroRole: "INGENIERO DE SOFTWARE Y DATA ENGINEER",
+      badge: "DESARROLLO DE SOFTWARE Y ANÁLISIS DE DATOS",
+      heroRole: "DESARROLLO DE SOFTWARE Y ANÁLISIS DE DATOS",
+      marquee:
+        "JUAN PARRA — DESARROLLO DE SOFTWARE Y ANÁLISIS DE DATOS — PORTAFOLIO —",
+      profileFocus: "PROYECTOS ACADÉMICOS Y PERSONALES",
       heroTitle: {
-        main: "INGENIERÍA DE SISTEMAS ",
-        highlight: "DISTRIBUIDOS & ESCALABLES",
+        main: "DATOS COMO DIRECCIÓN. ",
+        highlight: "SOFTWARE COMO BASE.",
       },
       description:
-        "ESPECIALIZADO EN ARQUITECTURAS E2E, PROCESAMIENTO DISTRIBUIDO EN TIEMPO REAL, PERSISTENCIA POLÍGLOTA Y MICROSERVICIOS RESILIENTES.",
-      ctaProjects: "EXPLORAR PROYECTOS DE PRODUCCIÓN",
-      ctaContact: "AGENDAR CONSULTORÍA",
-      status: "DISPONIBLE PARA ROLES LEAD & CONSULTORÍA DE ARQUITECTURA",
+        "Desarrollo aplicaciones y proyectos orientados a datos utilizando Java, Python, React y bases de datos SQL y NoSQL. Actualmente fortalezco mis conocimientos en SQL, Power BI e ingeniería de datos.",
+      ctaProjects: "EXPLORAR PROYECTOS",
+      ctaResume: "DESCARGAR CV",
+      ctaContact: "CONTACTARME",
+      status: "ABIERTO A PRÁCTICAS Y OPORTUNIDADES JUNIOR",
     },
     about: {
-      executiveSummaryTitle: "// RESUMEN EJECUTIVO Y ARQUITECTURA CORE",
+      executiveSummaryTitle: "// RESUMEN PROFESIONAL",
       heroStatement:
-        "SOY UN INGENIERO DE SOFTWARE Y DATA ENGINEER ESPECIALIZADO EN ARQUITECTURAS LIMPIAS, PERSISTENCIA POLÍGLOTA Y EL DESPLIEGUE DE SOLUCIONES ENTERPRISE DE EXTREMO A EXTREMO (E2E).",
-      metric1Label: "RESILIENCIA BAJO CARGA TRANSACCIONAL",
-      metric2Label: "CONCURRENCIA EN MOTORES TRANSACCIONALES",
-      metric3Label: "SQL, NOSQL Y PROCESAMIENTO DISTRIBUIDO",
+        "DESARROLLO PROYECTOS ACADÉMICOS Y PERSONALES DE SOFTWARE Y DATOS, MIENTRAS FORTALEZCO MIS CONOCIMIENTOS EN ANÁLISIS E INGENIERÍA DE DATOS.",
+      metric1Label: "BASE TÉCNICA",
+      metric1Value: "Desarrollo de software",
+      metric2Label: "DATOS",
+      metric2Value: "SQL, Python y Power BI",
+      metric3Label: "EXPERIENCIA",
+      metric3Value: "Procesos industriales y CNC",
       moreAboutMeBtn: "MÁS SOBRE MÍ",
       biographyTag: "// BIOGRAFÍA",
       biographyLead:
-        "Soy un Ingeniero de Software y Data Engineer enfocado en el diseño, construcción y despliegue de soluciones enterprise de extremo a extremo (E2E).",
+        "Desarrollo proyectos académicos y personales de software y datos con el objetivo de crecer profesionalmente en análisis de datos e ingeniería de datos.",
       biographyBody:
-        "Con base en Lima, Perú (UTC-5), combino ingeniería backend robusta (Java Spring Boot, Python) con interfaces cliente reactivas (React, Vite, Tailwind CSS), procesamiento distribuido de datos (Apache Spark, PySpark) e infraestructura contenerizada (Docker). Aplico la disciplina analítica de la certificación Lean Six Sigma (Green Belt) para auditar sistemas, eliminar cuellos de botella y garantizar alta disponibilidad bajo carga transaccional.",
-      yearsExp: "AÑOS DE EXPERIENCIA",
-      prodSystems: "PROYECTOS E2E",
+        "Curso el séptimo ciclo de Ingeniería de Sistemas en la UTP y pertenezco al tercio superior. He desarrollado proyectos académicos y personales con Java, Python, React, SQL Server, PostgreSQL y MongoDB. Actualmente fortalezco mis conocimientos en SQL, Power BI y análisis e ingeniería de datos. Mi experiencia operando máquinas convencionales y CNC me aportó disciplina, precisión, análisis de procesos y una mirada cercana al entorno industrial.",
+      yearsExp: "INGENIERÍA DE SISTEMAS · VII CICLO",
+      educationBadgeValue: "UTP",
+      prodSystems: "SUPERIOR",
+      meritBadgeValue: "TERCIO",
       careerTitle: {
-        main: "HITOS DE ",
-        highlight: "ARQUITECTURA",
+        main: "APRENDIZAJE ",
+        highlight: "APLICADO",
       },
+      careerTag: "// APRENDIZAJE Y PROYECTOS",
       careerDesc:
-        "Historial comprobado diseñando arquitecturas E2E, motores transaccionales y procesamiento distribuido.",
+        "Proyectos académicos y personales para practicar desarrollo de software, bases de datos y análisis de procesos.",
       architectureMilestones: [
         {
-          badge: "SISTEMAS INDUSTRIALES Y RETAIL E2E",
-          role: "LEAD FULL STACK DEVELOPER",
+          badge: "PROYECTOS ACADÉMICOS Y PERSONALES",
+          role: "PROYECTOS DE SOFTWARE",
           title: "Meca-PRO MES, Catys Enterprise & SaaS Bodegas",
           description:
-            "Arquitectura de soluciones comerciales e industriales. Optimización de acceso a datos, esquemas evolutivos con Flyway, orquestación en Docker Compose y desarrollo de sistemas de diseño de interfaces interactivas.",
+            "Proyectos orientados a practicar aplicaciones de gestión, interfaces interactivas, bases de datos y flujos de trabajo para contextos comerciales e industriales.",
           tech: ["Java Spring Boot", "React", "PostgreSQL", "Docker", "Flyway"],
         },
         {
-          badge: "ARQUITECTURA TRANSACCIONAL Y LOGÍSTICA",
-          role: "ARCHITECT & FULL STACK DEVELOPER",
+          badge: "PROYECTOS DE SOFTWARE Y DATOS",
+          role: "DESARROLLO Y BASES DE DATOS",
           title: "Testigo Oculto, LogiCore & SmartFleet V2",
           description:
-            "Construcción de motores backend asegurados con JWT y simuladores de tráfico logístico. Validación de resiliencia mediante pruebas de estrés inyectando 500 solicitudes concurrentes sin degradación del servicio.",
+            "Proyectos para explorar APIs, autenticación, modelado de datos y visualización de información en contextos de logística y gestión.",
           tech: ["Spring Security", "SQL Server", "PostgreSQL", "React"],
         },
         {
-          badge: "PLATAFORMAS DE SALUD, GESTIÓN Y DATOS",
-          role: "SYSTEMS ARCHITECT & DATA ENGINEER",
+          badge: "EXPLORACIÓN TÉCNICA",
+          role: "APRENDIZAJE APLICADO",
           title: "ClinicaV2, Biblioteca Digital & Olimpiadas PERÚ",
           description:
-            "Desarrollo de plataformas con gestión de identidad centralizada (Keycloak), almacenamiento en caché (Redis) e infraestructura para la ingesta y procesamiento distribuido de datos en tiempo real.",
+            "Proyectos para conocer herramientas de gestión, persistencia de datos, seguridad e integración de componentes en aplicaciones web.",
           tech: ["Keycloak", "Redis", "Apache Spark", "Tomcat", "Java EE"],
         },
       ],
@@ -309,60 +328,59 @@ export const translations: Record<Language, Translations> = {
     },
     contact: {
       title: {
-        main: "¿LISTO PARA TRANSFORMAR ",
-        highlight: "TU VISIÓN?",
+        main: "HABLEMOS DE ",
+        highlight: "OPORTUNIDADES",
       },
       description:
-        "DISCUTAMOS TUS REQUERIMIENTOS DE SISTEMA, METAS DE ARQUITECTURA O PIPELINES DISTRIBUIDOS ESCALABLES.",
-      directInquiries: "CONSULTAS DIRECTAS",
-      responseTime: "TIEMPO DE RESPUESTA: < 24HRS (UTC-5)",
-      scheduleCallTitle: "AGENDAR LLAMADA",
+        "Estoy abierto a oportunidades de prácticas, posiciones junior en datos y colaboraciones tecnológicas donde pueda aportar y continuar aprendiendo.",
+      directInquiries: "CONTACTO DIRECTO",
+      responseTime: "LIMA, PE (UTC-5)",
+      scheduleCallTitle: "OPORTUNIDADES PROFESIONALES",
       scheduleCallDesc:
-        "¿Prefieres una conversación directa? Agenda una llamada de consulta técnica de 30 minutos.",
-      bookCallBtn: "AGENDAR LLAMADA",
-      formTitle: "TRANSMITIR ESPECIFICACIONES",
+        "Puedes escribirme para conversar sobre prácticas, posiciones junior en datos o colaboraciones tecnológicas.",
+      bookCallBtn: "CONTACTARME",
+      formTitle: "ENVIAR MENSAJE",
       nameLabel: "NOMBRE",
       namePlaceholder: "Alex Morgan",
       emailLabel: "CORREO ELECTRÓNICO",
       emailPlaceholder: "alex@empresa.com",
-      subjectLabel: "ASUNTO DEL PROYECTO",
-      subjectPlaceholder: "Arquitectura de Telemetría Distribuida",
-      messageLabel: "MENSAJE & ESPECIFICACIONES",
+      subjectLabel: "ASUNTO",
+      subjectPlaceholder: "Oportunidad de prácticas o posición junior",
+      messageLabel: "MENSAJE",
       messagePlaceholder:
-        "Describe tus requerimientos de sistema, línea de tiempo o metas de arquitectura...",
-      submitBtn: "TRANSMITIR CONSULTA",
-      submittingBtn: "TRANSMITIENDO...",
-      successTitle: "CONSULTA TRANSMITIDA",
+        "Cuéntame sobre la oportunidad, posición o colaboración...",
+      submitBtn: "ENVIAR MENSAJE",
+      submittingBtn: "ENVIANDO...",
+      successTitle: "MENSAJE ENVIADO",
       successDesc:
-        "GRACIAS POR CONTACTAR. TU TRANSMISIÓN HA SIDO ENVIADA A MI ESPACIO DE TRABAJO.",
-      transmitAnother: "TRANSMITIR OTRO MENSAJE",
+        "Gracias por contactarme. Tu mensaje fue enviado correctamente.",
+      transmitAnother: "ENVIAR OTRO MENSAJE",
       errorMessage:
         "ERROR DE TRANSMISIÓN. POR FAVOR INTENTA DE NUEVO O ESCRIBE DIRECTAMENTE A JUANJ983009@GMAIL.COM",
     },
     bookModal: {
-      tag: "// AGENDAR LLAMADA",
+      tag: "// CONTACTO",
       title: {
-        main: "CONSTRUYAMOS ",
-        highlight: "ALGO INCREÍBLE",
+        main: "HABLEMOS DE ",
+        highlight: "OPORTUNIDADES",
       },
       subtitle:
-        "Disponible para roles Lead, consultoría de arquitectura y contratos Senior Fullstack.",
+        "Estoy abierto a oportunidades de prácticas, posiciones junior en datos y colaboraciones tecnológicas donde pueda aportar y continuar aprendiendo.",
       sendEmail: "ENVIAR CORREO",
       copyEmail: "COPIAR DIRECCIÓN DE CORREO",
       copiedEmail: "COPIADO AL PORTAPAPELES",
       done: "HECHO",
-      responseTime:
-        "Tiempo de respuesta: En menos de 24 horas · Lima, PE (UTC-5)",
-      bookCallBtn: "AGENDAR LLAMADA",
+      responseTime: "Lima, PE (UTC-5)",
+      bookCallBtn: "CONTACTARME",
       readyTitle: {
-        main: "¿LISTO PARA TRANSFORMAR ",
-        highlight: "TU VISIÓN?",
+        main: "HABLEMOS DE ",
+        highlight: "OPORTUNIDADES",
       },
       readyDesc:
-        "Hablemos de cómo dar vida a tu arquitectura distribuida o pipeline de ingeniería de datos.",
+        "Conversemos sobre oportunidades de prácticas, posiciones junior en datos o colaboraciones tecnológicas.",
     },
     footer: {
-      role: "SOFTWARE & DATA ENGINEER · LIMA, PE (UTC-5)",
+      role: "DESARROLLO DE SOFTWARE Y ANÁLISIS DE DATOS · LIMA, PE (UTC-5)",
       home: "INICIO",
       about: "SOBRE MÍ",
       projects: "PROYECTOS",
@@ -381,62 +399,72 @@ export const translations: Record<Language, Translations> = {
       lab: "LABORATORY",
     },
     hero: {
-      badge: "SOFTWARE & DATA ENGINEER | ENTERPRISE SYSTEMS",
-      heroRole: "SOFTWARE ENGINEER & DATA ENGINEER",
+      badge: "SOFTWARE DEVELOPMENT & DATA ANALYSIS",
+      heroRole: "SOFTWARE DEVELOPMENT & DATA ANALYSIS",
+      marquee:
+        "JUAN PARRA — SOFTWARE DEVELOPMENT & DATA ANALYSIS — PORTFOLIO —",
+      profileFocus: "ACADEMIC AND PERSONAL PROJECTS",
       heroTitle: {
-        main: "DISTRIBUTED & SCALABLE ",
-        highlight: "SYSTEMS ENGINEERING",
+        main: "DATA AS DIRECTION. ",
+        highlight: "SOFTWARE AS A FOUNDATION.",
       },
       description:
-        "Specializing in high-throughput data architecture, real-time IoT telemetry, polyglot persistence, and resilient microservices.",
-      ctaProjects: "EXPLORE PRODUCTION PROJECTS",
-      ctaContact: "SCHEDULE CONSULTATION",
-      status: "AVAILABLE FOR LEAD ROLES & ARCHITECTURE CONSULTING",
+        "I build data-oriented applications and projects using Java, Python, React, and SQL and NoSQL databases. I am currently strengthening my skills in SQL, Power BI, and data engineering.",
+      ctaProjects: "EXPLORE PROJECTS",
+      ctaResume: "DOWNLOAD CV",
+      ctaContact: "CONTACT ME",
+      status: "OPEN TO INTERNSHIPS AND JUNIOR OPPORTUNITIES",
     },
     about: {
-      executiveSummaryTitle: "// EXECUTIVE SUMMARY & CORE ARCHITECTURE",
+      executiveSummaryTitle: "// PROFESSIONAL SUMMARY",
       heroStatement:
-        "I AM A SENIOR FULLSTACK ARCHITECT & DATA ENGINEER SPECIALIZING IN HIGH-THROUGHPUT DISTRIBUTED SYSTEMS, REAL-TIME TELEMETRY, AND SCALABLE EVENT-DRIVEN PIPELINES.",
-      metric1Label: "UPTIME SLA GUARANTEED",
-      metric2Label: "TELEMETRY THROUGHPUT",
-      metric3Label: "DISTRIBUTED MULTI-CLOUD ARCHITECTURES",
+        "I BUILD ACADEMIC AND PERSONAL SOFTWARE AND DATA PROJECTS WHILE STRENGTHENING MY SKILLS IN DATA ANALYSIS AND DATA ENGINEERING.",
+      metric1Label: "TECHNICAL FOUNDATION",
+      metric1Value: "Software development",
+      metric2Label: "DATA",
+      metric2Value: "SQL, Python, and Power BI",
+      metric3Label: "EXPERIENCE",
+      metric3Value: "Industrial processes and CNC",
       moreAboutMeBtn: "MORE ABOUT ME",
       biographyTag: "// BIOGRAPHY",
       biographyLead:
-        "I am a Software Engineer and Data Engineer focused on designing, building, and deploying end-to-end enterprise solutions.",
+        "I build academic and personal software and data projects with the goal of growing professionally in data analysis and data engineering.",
       biographyBody:
-        "Based in Lima, Peru (UTC-5), I combine robust backend engineering (Java Spring Boot, Python) with reactive client interfaces (React, Vite, Tailwind CSS), distributed data processing (Apache Spark, PySpark), and containerized infrastructure (Docker). I apply the analytical discipline of Lean Six Sigma Green Belt certification to audit systems, remove bottlenecks, and ensure high availability under transactional load.",
-      yearsExp: "YEARS EXPERIENCE",
-      prodSystems: "E2E PROJECTS",
+        "I am in the seventh term of Systems Engineering at UTP and rank in the top third of my class. I have developed academic and personal projects with Java, Python, React, SQL Server, PostgreSQL, and MongoDB. I am currently strengthening my skills in SQL, Power BI, data analysis, and data engineering. My experience operating conventional and CNC machines has given me discipline, precision, process-analysis skills, and a close perspective on industrial environments.",
+      yearsExp: "SYSTEMS ENGINEERING · 7TH TERM",
+      educationBadgeValue: "UTP",
+      prodSystems: "TOP THIRD",
+      meritBadgeValue: "TOP",
       careerTitle: {
-        main: "ARCHITECTURE ",
-        highlight: "MILESTONES",
+        main: "APPLIED ",
+        highlight: "LEARNING",
       },
+      careerTag: "// LEARNING AND PROJECTS",
       careerDesc:
-        "Proven track record designing E2E architectures, transactional engines, and distributed processing.",
+        "Academic and personal projects to practice software development, databases, and process analysis.",
       architectureMilestones: [
         {
-          badge: "E2E INDUSTRIAL AND RETAIL SYSTEMS",
-          role: "LEAD FULL STACK DEVELOPER",
+          badge: "ACADEMIC AND PERSONAL PROJECTS",
+          role: "FULL-STACK DEVELOPMENT",
           title: "Meca-PRO MES, Catys Enterprise & SaaS Bodegas",
           description:
-            "Architecture for commercial and industrial solutions. Data-access optimization, evolutionary schemas with Flyway, Docker Compose orchestration, and interactive interface design systems.",
+            "Projects to practice management applications, interactive interfaces, databases, and workflows for commercial and industrial contexts.",
           tech: ["Java Spring Boot", "React", "PostgreSQL", "Docker", "Flyway"],
         },
         {
-          badge: "TRANSACTIONAL AND LOGISTICS ARCHITECTURE",
-          role: "ARCHITECT & FULL STACK DEVELOPER",
+          badge: "SOFTWARE AND DATA PROJECTS",
+          role: "DEVELOPMENT AND DATABASES",
           title: "Testigo Oculto, LogiCore & SmartFleet V2",
           description:
-            "Built JWT-secured backend engines and logistics traffic simulators. Validated resilience through stress tests injecting 500 concurrent requests without service degradation.",
+            "Projects to explore APIs, authentication, data modeling, and information visualization in logistics and management contexts.",
           tech: ["Spring Security", "SQL Server", "PostgreSQL", "React"],
         },
         {
-          badge: "HEALTH, MANAGEMENT, AND DATA PLATFORMS",
-          role: "SYSTEMS ARCHITECT & DATA ENGINEER",
+          badge: "TECHNICAL EXPLORATION",
+          role: "APPLIED LEARNING",
           title: "ClinicaV2, Biblioteca Digital & Olimpiadas PERÚ",
           description:
-            "Developed platforms with centralized identity management (Keycloak), caching (Redis), and infrastructure for real-time distributed data ingestion and processing.",
+            "Projects to learn management tools, data persistence, security, and component integration in web applications.",
           tech: ["Keycloak", "Redis", "Apache Spark", "Tomcat", "Java EE"],
         },
       ],
@@ -528,59 +556,59 @@ export const translations: Record<Language, Translations> = {
     },
     contact: {
       title: {
-        main: "READY TO TRANSFORM ",
-        highlight: "YOUR VISION?",
+        main: "LET'S TALK ABOUT ",
+        highlight: "OPPORTUNITIES",
       },
       description:
-        "LET'S DISCUSS YOUR SYSTEM REQUIREMENTS, ARCHITECTURE GOALS, OR SCALABLE DISTRIBUTED PIPELINES.",
-      directInquiries: "DIRECT INQUIRIES",
-      responseTime: "RESPONSE TIME: < 24HRS (UTC-5)",
-      scheduleCallTitle: "SCHEDULE CALL",
+        "I am open to internship opportunities, junior data roles, and technology collaborations where I can contribute and continue learning.",
+      directInquiries: "DIRECT CONTACT",
+      responseTime: "LIMA, PE (UTC-5)",
+      scheduleCallTitle: "CAREER OPPORTUNITIES",
       scheduleCallDesc:
-        "Prefer a direct conversation? Book a 30-minute technical roadmap consultation call.",
-      bookCallBtn: "BOOK A CALL",
-      formTitle: "TRANSMIT SPECIFICATIONS",
+        "Feel free to write to me about internships, junior data roles, or technology collaborations.",
+      bookCallBtn: "CONTACT ME",
+      formTitle: "SEND A MESSAGE",
       nameLabel: "NAME",
       namePlaceholder: "Alex Morgan",
       emailLabel: "EMAIL ADDRESS",
       emailPlaceholder: "alex@company.com",
-      subjectLabel: "PROJECT SUBJECT",
-      subjectPlaceholder: "Distributed Telemetry Architecture",
-      messageLabel: "MESSAGE & SPECIFICATIONS",
+      subjectLabel: "SUBJECT",
+      subjectPlaceholder: "Internship opportunity or junior role",
+      messageLabel: "MESSAGE",
       messagePlaceholder:
-        "Describe your system requirements, timeline, or architecture goals...",
-      submitBtn: "TRANSMIT INQUIRY",
-      submittingBtn: "TRANSMITTING...",
-      successTitle: "INQUIRY TRANSMITTED",
+        "Tell me about the opportunity, role, or collaboration...",
+      submitBtn: "SEND MESSAGE",
+      submittingBtn: "SENDING...",
+      successTitle: "MESSAGE SENT",
       successDesc:
-        "THANK YOU FOR REACHING OUT. YOUR TRANSMISSION HAS BEEN ROUTED TO MY WORKSPACE.",
-      transmitAnother: "TRANSMIT ANOTHER MESSAGE",
+        "Thank you for getting in touch. Your message was sent successfully.",
+      transmitAnother: "SEND ANOTHER MESSAGE",
       errorMessage:
         "TRANSMISSION ERROR. PLEASE TRY AGAIN OR WRITE DIRECTLY TO JUANJ983009@GMAIL.COM",
     },
     bookModal: {
-      tag: "// BOOK A CALL",
+      tag: "// CONTACT",
       title: {
-        main: "LET'S BUILD ",
-        highlight: "SOMETHING GREAT",
+        main: "LET'S TALK ABOUT ",
+        highlight: "OPPORTUNITIES",
       },
       subtitle:
-        "Available for Lead Roles, Architecture Consulting & Senior Fullstack contracts.",
+        "I am open to internship opportunities, junior data roles, and technology collaborations where I can contribute and continue learning.",
       sendEmail: "SEND EMAIL",
       copyEmail: "COPY EMAIL ADDRESS",
       copiedEmail: "COPIED TO CLIPBOARD",
       done: "DONE",
-      responseTime: "Response time: Within 24 hours · Lima, PE (UTC-5)",
-      bookCallBtn: "BOOK A CALL",
+      responseTime: "Lima, PE (UTC-5)",
+      bookCallBtn: "CONTACT ME",
       readyTitle: {
-        main: "READY TO TRANSFORM ",
-        highlight: "YOUR VISION?",
+        main: "LET'S TALK ABOUT ",
+        highlight: "OPPORTUNITIES",
       },
       readyDesc:
-        "Let's discuss how we can bring your distributed architecture or data engineering pipeline to life.",
+        "Let’s discuss internship opportunities, junior data roles, or technology collaborations.",
     },
     footer: {
-      role: "SOFTWARE & DATA ENGINEER · LIMA, PE (UTC-5)",
+      role: "SOFTWARE DEVELOPMENT & DATA ANALYSIS · LIMA, PE (UTC-5)",
       home: "HOME",
       about: "ABOUT",
       projects: "PROJECTS",

@@ -21,12 +21,12 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio — Juan Parra",
+  title: "Juan Parra | Desarrollo de software y análisis de datos",
   description:
-    "Senior Lead Developer & Software Architect. Specializing in real-time telemetry, IoT ingestion, microservices, and distributed systems.",
+    "Portafolio de Juan Parra: proyectos académicos y personales de desarrollo de software, bases de datos y análisis de datos.",
   keywords: [
-    "Senior Fullstack Engineer",
-    "Data Systems Architect",
+    "Desarrollo de software",
+    "Análisis de datos",
     "TypeScript",
     "IoT",
     "Microservices",

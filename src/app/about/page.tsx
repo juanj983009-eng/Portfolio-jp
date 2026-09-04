@@ -40,7 +40,7 @@ const AboutProfileCard: React.FC = () => {
       {/* 4. Bottom Typography */}
       <div className="mt-auto space-y-2 relative z-20 text-left">
         <p className="font-mono text-xs text-[#FF4D00] font-bold uppercase tracking-widest">
-          SOFTWARE & DATA PROFILE
+          {t.hero.profileFocus}
         </p>
         <h3 className="text-white font-bold text-3xl md:text-4xl uppercase tracking-tight font-sans drop-shadow-md">
           JUAN PARRA
@@ -89,11 +89,15 @@ export default function AboutPage() {
             {/* Industrial Terminal Metric Badges */}
             <div className="flex flex-wrap gap-3 mt-8">
               <div className="flex items-center gap-2 px-3.5 py-2 bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 uppercase tracking-wider rounded-md">
-                <span className="text-[#FF4D00] font-bold">2+</span>
+                <span className="text-[#FF4D00] font-bold">
+                  {t.about.educationBadgeValue}
+                </span>
                 <span>{t.about.yearsExp}</span>
               </div>
               <div className="flex items-center gap-2 px-3.5 py-2 bg-zinc-900 border border-zinc-800 font-mono text-xs text-zinc-300 uppercase tracking-wider rounded-md">
-                <span className="text-[#FF4D00] font-bold">09</span>
+                <span className="text-[#FF4D00] font-bold">
+                  {t.about.meritBadgeValue}
+                </span>
                 <span>{t.about.prodSystems}</span>
               </div>
             </div>
@@ -112,7 +116,7 @@ export default function AboutPage() {
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-36 space-y-4">
               <span className="font-mono text-xs text-[#FF4D00] uppercase font-bold tracking-widest block">
-                // EXPERIENCE &amp; TRACK RECORD
+                {t.about.careerTag}
               </span>
               <h2 className="text-3xl md:text-5xl font-black uppercase text-white font-sans tracking-tight leading-none">
                 <span>{t.about.careerTitle.main}</span>

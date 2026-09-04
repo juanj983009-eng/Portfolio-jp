@@ -115,10 +115,10 @@ export const Hero: React.FC = () => {
             className="flex gap-8 whitespace-nowrap items-center"
           >
             <span className="text-[13vw] font-black tracking-tighter text-zinc-800/80 uppercase select-none">
-              JUAN PARRA — SOFTWARE & DATA ENGINEER — PORTFOLIO —
+              {t.hero.marquee}
             </span>
             <span className="text-[13vw] font-black tracking-tighter text-zinc-800/80 uppercase select-none">
-              JUAN PARRA — SOFTWARE & DATA ENGINEER — PORTFOLIO —
+              {t.hero.marquee}
             </span>
           </motion.div>
         </div>
@@ -197,7 +197,7 @@ export const Hero: React.FC = () => {
             {!avatarError ? (
               <Image
                 src="/profile/avatar.jpg"
-                alt="Juan Parra — Software & Data Engineer"
+                alt={`Juan Parra — ${t.hero.heroRole}`}
                 fill
                 priority
                 sizes="(max-width: 768px) 290px, 350px"
@@ -219,13 +219,13 @@ export const Hero: React.FC = () => {
             {/* HIGH-CONTRAST OVERLAY TYPOGRAPHY (Layer z-20, translateZ: 20px pop) */}
             <div className="relative z-20 flex flex-col justify-end h-full p-6 text-left space-y-1 select-none [transform-style:preserve-3d] [transform:translateZ(20px)]">
               <span className="font-mono text-[10px] text-[#FF4D00] uppercase tracking-widest font-bold block">
-                // SOFTWARE & DATA ENGINEER
+                // {t.hero.heroRole}
               </span>
               <h2 className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight uppercase leading-none drop-shadow-md">
                 JUAN PARRA
               </h2>
               <p className="font-mono text-xs text-zinc-300 tracking-wider uppercase font-medium">
-                ENTERPRISE SYSTEMS &amp; ANALYTICS
+                {t.hero.profileFocus}
               </p>
             </div>
           </motion.div>
@@ -267,7 +267,7 @@ export const Hero: React.FC = () => {
               <span className="text-[#FF4D00] group-hover:translate-y-0.5 transition-transform duration-200">
                 ↓
               </span>
-              <span>DOWNLOAD CV</span>
+              <span>{t.hero.ctaResume}</span>
               <span className="text-[10px] text-zinc-500 font-normal group-hover:text-zinc-400">
                 [PDF]
               </span>

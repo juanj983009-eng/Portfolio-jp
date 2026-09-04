@@ -25,7 +25,7 @@ const Word: React.FC<WordProps> = ({ children, progress, range }) => {
 
 export default function AboutManifesto() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -34,7 +34,10 @@ export default function AboutManifesto() {
 
   const text = t.about.heroStatement;
   const words = text.split(" ");
-  const highlightedPhrase = "INGENIERO DE SOFTWARE Y DATA ENGINEER";
+  const highlightedPhrase =
+    language === "es"
+      ? "ANÁLISIS E INGENIERÍA DE DATOS."
+      : "DATA ANALYSIS AND DATA ENGINEERING.";
   const highlightedWords = highlightedPhrase.split(" ");
   const highlightedStart = words.findIndex(
     (_, index) =>
@@ -94,7 +97,7 @@ export default function AboutManifesto() {
                     const highlightedIndex = i + offset;
                     return (
                       <Word
-                        key={highlightedWord}
+                        key={`${highlightedWord}-${i}`}
                         progress={scrollYProgress}
                         range={[
                           highlightedIndex / words.length,
@@ -127,7 +130,7 @@ export default function AboutManifesto() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8 border-t border-zinc-800/80 mb-10">
           <div className="text-center">
             <p className="font-mono text-2xl font-black text-white">
-              Alta Disponibilidad
+              {t.about.metric1Value}
             </p>
             <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
               {t.about.metric1Label}
@@ -135,7 +138,7 @@ export default function AboutManifesto() {
           </div>
           <div className="text-center md:border-x md:border-zinc-800/80">
             <p className="font-mono text-2xl font-black text-white">
-              500+ req/s
+              {t.about.metric2Value}
             </p>
             <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
               {t.about.metric2Label}
@@ -143,7 +146,7 @@ export default function AboutManifesto() {
           </div>
           <div className="text-center">
             <p className="font-mono text-2xl font-black text-white">
-              Persistencia Políglota
+              {t.about.metric3Value}
             </p>
             <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
               {t.about.metric3Label}

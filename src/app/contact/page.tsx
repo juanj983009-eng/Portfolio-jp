@@ -42,24 +42,30 @@ export default function ContactPage() {
 
     try {
       await emailjs.send(
-        'service_li4bzan',
-        'template_s2zyxun',
+        "service_li4bzan",
+        "template_s2zyxun",
         {
           name: formData.name,
           reply_to: formData.email,
-          subject: formData.subject || 'Consulta desde Portafolio Web',
-          message: formData.subject 
-            ? `[Asunto: ${formData.subject}]\n\n${formData.message}` 
-            : formData.message
+          subject: formData.subject || "Consulta desde Portafolio Web",
+          message: formData.subject
+            ? `[Asunto: ${formData.subject}]\n\n${formData.message}`
+            : formData.message,
         },
-        'rCRMkHpFPZalCLQgT'
+        "rCRMkHpFPZalCLQgT",
       );
 
       // Éxito: reinicia formulario y activa pantalla de confirmación
-      setFormData({ name: "", email: "", subject: "", message: "", _hp_website: "" });
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+        _hp_website: "",
+      });
       setSubmitted(true);
     } catch (error: unknown) {
-      console.error('[EMAILJS_TRANSPORT_ERROR]:', error);
+      console.error("[EMAILJS_TRANSPORT_ERROR]:", error);
       setErrorMessage(t.contact.errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -72,19 +78,19 @@ export default function ContactPage() {
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-6 md:px-12 py-28 w-full flex flex-col justify-center relative">
-        
         {/* Ambient Glow */}
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[#FF4D00]/10 rounded-full blur-[160px] pointer-events-none" />
 
         {/* 2-Column Editorial Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start relative z-10">
-          
           {/* ── LEFT COLUMN: INFO & BOOK A CALL ── */}
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <h1 className="font-sans font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-tight break-normal text-balance max-w-full px-2">
                 <span>{t.contact.title.main}</span>
-                <span className="text-[#FF4D00] block sm:inline">{t.contact.title.highlight}</span>
+                <span className="text-[#FF4D00] block sm:inline">
+                  {t.contact.title.highlight}
+                </span>
               </h1>
               <p className="font-mono text-xs text-zinc-400 leading-relaxed uppercase tracking-wider">
                 {t.contact.description}
@@ -187,7 +193,9 @@ export default function ContactPage() {
                         type="text"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
                         placeholder={t.contact.namePlaceholder}
                         className="bg-transparent text-white placeholder-zinc-600 focus:outline-none font-mono text-sm w-full py-3 px-4"
                       />
@@ -204,7 +212,9 @@ export default function ContactPage() {
                         type="email"
                         required
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, email: e.target.value })
+                        }
                         placeholder={t.contact.emailPlaceholder}
                         className="bg-transparent text-white placeholder-zinc-600 focus:outline-none font-mono text-sm w-full py-3 px-4"
                       />
@@ -222,7 +232,9 @@ export default function ContactPage() {
                       type="text"
                       required
                       value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, subject: e.target.value })
+                      }
                       placeholder={t.contact.subjectPlaceholder}
                       className="bg-transparent text-white placeholder-zinc-600 focus:outline-none font-mono text-sm w-full py-3 px-4"
                     />
@@ -239,7 +251,9 @@ export default function ContactPage() {
                       rows={4}
                       required
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, message: e.target.value })
+                      }
                       placeholder={t.contact.messagePlaceholder}
                       className="bg-transparent text-white placeholder-zinc-600 focus:outline-none font-mono text-sm w-full py-3 px-4 resize-none"
                     />
@@ -274,9 +288,7 @@ export default function ContactPage() {
               </form>
             )}
           </div>
-
         </div>
-
       </main>
 
       {/* Global Brutalist Footer */}

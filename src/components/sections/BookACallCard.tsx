@@ -2,19 +2,29 @@
 
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar, Mail, Copy, CheckCheck, X, ExternalLink, Clock } from "lucide-react";
+import {
+  Calendar,
+  Mail,
+  Copy,
+  CheckCheck,
+  X,
+  ExternalLink,
+  Clock,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { SITE_CONFIG } from "@/config/site";
 import { useLanguage } from "@/context/LanguageContext";
 
 /* ─── BOOK A CALL MODAL ─────────────────────────────────────── */
-export const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+export const BookACallModal: React.FC<{ onClose: () => void }> = ({
+  onClose,
+}) => {
   const [copied, setCopied] = useState(false);
   const pathname = usePathname();
   const { t } = useLanguage();
 
   const email = SITE_CONFIG.email;
-  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Technical%20Consultation%20Inquiry`;
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=Portfolio%20Contact`;
 
   const handleCopy = async () => {
     try {
@@ -37,7 +47,9 @@ export const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) =
     if (pathname === "/contact" || pathname?.startsWith("/contact")) {
       onClose();
       setTimeout(() => {
-        const nameInput = document.getElementById("contact-name-input") || document.querySelector('form input[type="text"]');
+        const nameInput =
+          document.getElementById("contact-name-input") ||
+          document.querySelector('form input[type="text"]');
         if (nameInput instanceof HTMLElement) {
           nameInput.focus();
           nameInput.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -106,8 +118,12 @@ export const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) =
             <div className="flex items-center gap-3">
               <Mail className="w-5 h-5 text-white shrink-0" />
               <div>
-                <p className="font-sans font-bold text-xs text-white uppercase tracking-widest">{t.bookModal.sendEmail}</p>
-                <p className="font-sans text-[10px] text-orange-200 mt-0.5">{email}</p>
+                <p className="font-sans font-bold text-xs text-white uppercase tracking-widest">
+                  {t.bookModal.sendEmail}
+                </p>
+                <p className="font-sans text-[10px] text-orange-200 mt-0.5">
+                  {email}
+                </p>
               </div>
             </div>
             <ExternalLink className="w-4 h-4 text-white/70 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
@@ -144,7 +160,9 @@ export const BookACallModal: React.FC<{ onClose: () => void }> = ({ onClose }) =
                 <p className="font-sans font-bold text-xs text-white uppercase tracking-widest">
                   {copied ? t.bookModal.copiedEmail : t.bookModal.copyEmail}
                 </p>
-                <p className="font-sans text-[10px] text-zinc-500 mt-0.5">{email}</p>
+                <p className="font-sans text-[10px] text-zinc-500 mt-0.5">
+                  {email}
+                </p>
               </div>
             </div>
             <AnimatePresence mode="wait">
@@ -204,7 +222,9 @@ export const BookACallCard: React.FC = () => {
           </span>
           <h2 className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight mb-6 leading-tight relative z-10 font-sans break-words max-w-full px-2">
             <span>{t.bookModal.readyTitle.main}</span>
-            <span className="text-[#FF4D00] block sm:inline">{t.bookModal.readyTitle.highlight}</span>
+            <span className="text-[#FF4D00] block sm:inline">
+              {t.bookModal.readyTitle.highlight}
+            </span>
           </h2>
           <p className="text-zinc-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-8 relative z-10 font-sans font-medium">
             {t.bookModal.readyDesc}
@@ -227,7 +247,9 @@ export const BookACallCard: React.FC = () => {
 
       {/* Cinematic Fullscreen Modal */}
       <AnimatePresence>
-        {isModalOpen && <BookACallModal onClose={() => setIsModalOpen(false)} />}
+        {isModalOpen && (
+          <BookACallModal onClose={() => setIsModalOpen(false)} />
+        )}
       </AnimatePresence>
     </>
   );

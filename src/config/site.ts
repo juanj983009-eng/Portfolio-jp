@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
   name: "Juan Parra",
-  role: "Lead Software Architect",
-  subrole: "Data Systems & IoT Telemetry",
+  role: "Desarrollo de software y análisis de datos",
+  subrole: "Software development and data analysis",
   location: "Lima, PE (UTC-5)",
   email: "juanj983009@gmail.com",
   accentColor: "#FF4D00",
