@@ -205,7 +205,7 @@ export const translations: Record<Language, Translations> = {
       ctaProjects: "EXPLORAR PROYECTOS",
       ctaResume: "DESCARGAR CV",
       ctaContact: "CONTACTARME",
-      status: "ABIERTO A PRÁCTICAS Y OPORTUNIDADES JUNIOR",
+      status: "DISPONIBLE PARA OPORTUNIDADES PROFESIONALES",
     },
     about: {
       executiveSummaryTitle: "// RESUMEN PROFESIONAL",
@@ -228,10 +228,10 @@ export const translations: Record<Language, Translations> = {
       prodSystems: "SUPERIOR",
       meritBadgeValue: "TERCIO",
       careerTitle: {
-        main: "APRENDIZAJE ",
+        main: "PROYECTOS ",
         highlight: "APLICADO",
       },
-      careerTag: "// APRENDIZAJE Y PROYECTOS",
+      careerTag: "// PROYECTOS Y DESARROLLO",
       careerDesc:
         "Proyectos académicos y personales para practicar desarrollo de software, bases de datos y análisis de procesos.",
       architectureMilestones: [
@@ -253,7 +253,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           badge: "EXPLORACIÓN TÉCNICA",
-          role: "APRENDIZAJE APLICADO",
+          role: "DESARROLLO APLICADO",
           title: "ClinicaV2, Biblioteca Digital & Olimpiadas PERÚ",
           description:
             "Proyectos para conocer herramientas de gestión, persistencia de datos, seguridad e integración de componentes en aplicaciones web.",
@@ -373,12 +373,12 @@ export const translations: Record<Language, Translations> = {
         highlight: "OPORTUNIDADES",
       },
       description:
-        "Estoy abierto a oportunidades de prácticas, posiciones junior en datos y colaboraciones tecnológicas donde pueda aportar y continuar aprendiendo.",
-      directInquiries: "CONTACTO DIRECTO",
+        "Estoy disponible para conversar sobre oportunidades en análisis de datos, desarrollo de software y proyectos tecnológicos.",
+      directInquiries: "CONTACTO",
       responseTime: "LIMA, PE (UTC-5)",
-      scheduleCallTitle: "OPORTUNIDADES PROFESIONALES",
+      scheduleCallTitle: "CONTACTO",
       scheduleCallDesc:
-        "Puedes escribirme para conversar sobre prácticas, posiciones junior en datos o colaboraciones tecnológicas.",
+        "Estoy disponible para conversar sobre oportunidades en análisis de datos, desarrollo de software y proyectos tecnológicos.",
       bookCallBtn: "CONTACTARME",
       formTitle: "ENVIAR MENSAJE",
       nameLabel: "NOMBRE",
@@ -386,7 +386,7 @@ export const translations: Record<Language, Translations> = {
       emailLabel: "CORREO ELECTRÓNICO",
       emailPlaceholder: "alex@empresa.com",
       subjectLabel: "ASUNTO",
-      subjectPlaceholder: "Oportunidad de prácticas o posición junior",
+      subjectPlaceholder: "Oportunidad profesional o proyecto tecnológico",
       messageLabel: "MENSAJE",
       messagePlaceholder:
         "Cuéntame sobre la oportunidad, posición o colaboración...",
@@ -400,13 +400,13 @@ export const translations: Record<Language, Translations> = {
         "ERROR DE TRANSMISIÓN. POR FAVOR INTENTA DE NUEVO O ESCRIBE DIRECTAMENTE A JUANJ983009@GMAIL.COM",
     },
     bookModal: {
-      tag: "// CONTACTO",
+      tag: "CONTACTO",
       title: {
         main: "HABLEMOS DE ",
         highlight: "OPORTUNIDADES",
       },
       subtitle:
-        "Estoy abierto a oportunidades de prácticas, posiciones junior en datos y colaboraciones tecnológicas donde pueda aportar y continuar aprendiendo.",
+        "Estoy disponible para conversar sobre oportunidades en análisis de datos, desarrollo de software y proyectos tecnológicos.",
       sendEmail: "ENVIAR CORREO",
       copyEmail: "COPIAR DIRECCIÓN DE CORREO",
       copiedEmail: "COPIADO AL PORTAPAPELES",
@@ -418,7 +418,7 @@ export const translations: Record<Language, Translations> = {
         highlight: "OPORTUNIDADES",
       },
       readyDesc:
-        "Conversemos sobre oportunidades de prácticas, posiciones junior en datos o colaboraciones tecnológicas.",
+        "Estoy disponible para conversar sobre oportunidades en análisis de datos, desarrollo de software y proyectos tecnológicos.",
     },
     footer: {
       role: "DESARROLLO DE SOFTWARE Y ANÁLISIS DE DATOS · LIMA, PE (UTC-5)",
@@ -454,7 +454,7 @@ export const translations: Record<Language, Translations> = {
       ctaProjects: "EXPLORE PROJECTS",
       ctaResume: "DOWNLOAD CV",
       ctaContact: "CONTACT ME",
-      status: "OPEN TO INTERNSHIPS AND JUNIOR OPPORTUNITIES",
+      status: "AVAILABLE FOR PROFESSIONAL OPPORTUNITIES",
     },
     about: {
       executiveSummaryTitle: "// PROFESSIONAL SUMMARY",
@@ -478,9 +478,9 @@ export const translations: Record<Language, Translations> = {
       meritBadgeValue: "TOP",
       careerTitle: {
         main: "APPLIED ",
-        highlight: "LEARNING",
+        highlight: "PROJECTS",
       },
-      careerTag: "// LEARNING AND PROJECTS",
+      careerTag: "// PROJECTS AND DEVELOPMENT",
       careerDesc:
         "Academic and personal projects to practice software development, databases, and process analysis.",
       architectureMilestones: [
@@ -502,7 +502,7 @@ export const translations: Record<Language, Translations> = {
         },
         {
           badge: "TECHNICAL EXPLORATION",
-          role: "APPLIED LEARNING",
+          role: "APPLIED DEVELOPMENT",
           title: "ClinicaV2, Biblioteca Digital & Olimpiadas PERÚ",
           description:
             "Projects to learn management tools, data persistence, security, and component integration in web applications.",
@@ -622,12 +622,12 @@ export const translations: Record<Language, Translations> = {
         highlight: "OPPORTUNITIES",
       },
       description:
-        "I am open to internship opportunities, junior data roles, and technology collaborations where I can contribute and continue learning.",
-      directInquiries: "DIRECT CONTACT",
+        "I'm available to discuss opportunities in data analysis, software development, and technology projects.",
+      directInquiries: "CONTACT",
       responseTime: "LIMA, PE (UTC-5)",
-      scheduleCallTitle: "CAREER OPPORTUNITIES",
+      scheduleCallTitle: "CONTACT",
       scheduleCallDesc:
-        "Feel free to write to me about internships, junior data roles, or technology collaborations.",
+        "I'm available to discuss opportunities in data analysis, software development, and technology projects.",
       bookCallBtn: "CONTACT ME",
       formTitle: "SEND A MESSAGE",
       nameLabel: "NAME",
@@ -635,7 +635,7 @@ export const translations: Record<Language, Translations> = {
       emailLabel: "EMAIL ADDRESS",
       emailPlaceholder: "alex@company.com",
       subjectLabel: "SUBJECT",
-      subjectPlaceholder: "Internship opportunity or junior role",
+      subjectPlaceholder: "Professional opportunity or technology project",
       messageLabel: "MESSAGE",
       messagePlaceholder:
         "Tell me about the opportunity, role, or collaboration...",
@@ -649,13 +649,13 @@ export const translations: Record<Language, Translations> = {
         "TRANSMISSION ERROR. PLEASE TRY AGAIN OR WRITE DIRECTLY TO JUANJ983009@GMAIL.COM",
     },
     bookModal: {
-      tag: "// CONTACT",
+      tag: "CONTACT",
       title: {
         main: "LET'S TALK ABOUT ",
         highlight: "OPPORTUNITIES",
       },
       subtitle:
-        "I am open to internship opportunities, junior data roles, and technology collaborations where I can contribute and continue learning.",
+        "I'm available to discuss opportunities in data analysis, software development, and technology projects.",
       sendEmail: "SEND EMAIL",
       copyEmail: "COPY EMAIL ADDRESS",
       copiedEmail: "COPIED TO CLIPBOARD",
@@ -667,7 +667,7 @@ export const translations: Record<Language, Translations> = {
         highlight: "OPPORTUNITIES",
       },
       readyDesc:
-        "Let’s discuss internship opportunities, junior data roles, or technology collaborations.",
+        "I'm available to discuss opportunities in data analysis, software development, and technology projects.",
     },
     footer: {
       role: "SOFTWARE DEVELOPMENT & DATA ANALYSIS · LIMA, PE (UTC-5)",
