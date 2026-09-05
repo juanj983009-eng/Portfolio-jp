@@ -132,10 +132,6 @@ export default function ProjectsPage() {
             count={`${projects.length} ${t.projects.projectCount}`}
           />
 
-          <p className="max-w-3xl font-sans text-sm leading-relaxed text-zinc-500">
-            {t.projects.aiTransparencyNote}
-          </p>
-
           {/* Dynamic 3-Column Bento Grid */}
           <BentoGrid>
             {projects.map((project, index) => {
@@ -146,7 +142,7 @@ export default function ProjectsPage() {
                   key={project.id}
                   className={spanClass}
                   title={project.title}
-                  description={getLocalized(project.subtitle ?? project.tagline ?? project.summary ?? project.description, language)}
+                  description={getLocalized(project.description ?? project.subtitle ?? project.tagline ?? project.summary, language)}
                   badge={getLocalized(project.category, language)}
                   index={`#${String(index + 1).padStart(2, "0")}`}
                   cta={t.projects.viewDetails}
@@ -182,6 +178,17 @@ export default function ProjectsPage() {
 
         {/* ── PRE-FOOTER BOOK A CALL CARD ── */}
         <BookACallCard />
+
+        <section className="max-w-7xl mx-auto px-4 md:px-6 pb-4">
+          <div className="border-t border-zinc-900 pt-8 max-w-3xl">
+            <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">
+              {t.projects.aiTransparencyTitle}
+            </h2>
+            <p className="font-sans text-sm leading-relaxed text-zinc-500">
+              {t.projects.aiTransparencyNote}
+            </p>
+          </div>
+        </section>
 
         {/* ── BRUTALIST FOOTER ── */}
         <Footer />

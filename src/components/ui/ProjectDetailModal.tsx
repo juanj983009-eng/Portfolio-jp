@@ -118,7 +118,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
   const category = getLocalized(project.category, language);
   const role = getLocalized(project.role, language);
-  const description = getLocalized(project.description, language);
+  const details = getLocalized(project.details, language);
   const objective = getLocalized(project.summary, language);
   const contribution = getLocalized(project.contribution, language);
   const transparencyNote = getLocalized(project.transparencyNote, language);
@@ -141,6 +141,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   const hasValidUrl = (url?: string) => Boolean(url && url.trim() && url.trim() !== "#");
   const statusLabels: Record<ProjectStatus, string> = {
     completed: language === "en" ? "COMPLETED" : "COMPLETADO",
+    functional: language === "en" ? "FUNCTIONAL PROJECT" : "PROYECTO FUNCIONAL",
     prototype: language === "en" ? "PROTOTYPE" : "PROTOTIPO",
     "in-progress": language === "en" ? "IN PROGRESS" : "EN DESARROLLO",
     concept: language === "en" ? "CONCEPT" : "CONCEPTO",
@@ -219,7 +220,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
                 {/* Tagline Description */}
                 <p className="font-sans font-medium text-zinc-300 text-sm md:text-base leading-relaxed max-w-2xl drop-shadow-md break-words">
-                  {getLocalized(project.tagline || project.subtitle, language)}
+                  {getLocalized(project.description ?? project.subtitle ?? project.tagline, language)}
                 </p>
 
                 {/* Animated Scroll Hint Indicator */}
@@ -259,25 +260,6 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                       </h2>
                     </div>
 
-                    {/* Metadata specification table */}
-                    {metadata.length > 0 && (
-                    <div className="space-y-0 border-t border-zinc-900 pt-2">
-                      {metadata.map(({ label, value }) => (
-                        <div
-                          key={label}
-                          className="flex justify-between items-center border-b border-zinc-900 py-3.5"
-                        >
-                          <span className="font-mono font-medium text-xs uppercase tracking-wider text-zinc-400 shrink-0">
-                            {label}
-                          </span>
-                          <span className="text-right font-mono font-bold text-sm text-white max-w-[55%] leading-tight truncate">
-                            {value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    )}
-
                     {/* Stack pills with official brand icons */}
                     {techStack.length > 0 && (
                     <div className="space-y-3 pt-2">
@@ -302,6 +284,25 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                           );
                         })}
                       </div>
+                    </div>
+                    )}
+
+                    {/* Category and status remain secondary to the project stack. */}
+                    {metadata.length > 0 && (
+                    <div className="space-y-0 border-t border-zinc-900 pt-2">
+                      {metadata.map(({ label, value }) => (
+                        <div
+                          key={label}
+                          className="flex justify-between items-center border-b border-zinc-900 py-3.5"
+                        >
+                          <span className="font-mono font-medium text-xs uppercase tracking-wider text-zinc-400 shrink-0">
+                            {label}
+                          </span>
+                          <span className="text-right font-mono font-bold text-sm text-white max-w-[55%] leading-tight truncate">
+                            {value}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                     )}
                   </div>
@@ -340,7 +341,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
               {/* ── RIGHT COLUMN: Clean Motion Editorial Overview + Media ── */}
               <div className="w-full min-w-0 overflow-x-hidden space-y-8 text-white">
                 {/* OVERVIEW */}
-                {description && (
+                {details && (
                 <div className="border-b border-zinc-800/80 pb-6 mb-6 w-full max-w-full min-w-0">
                   <motion.h3
                     initial={{ opacity: 0, y: 12 }}
@@ -351,7 +352,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     {t.projectDetail.overview}
                   </motion.h3>
                   <p className="text-zinc-300 text-sm leading-relaxed font-sans w-full min-w-0 break-words whitespace-normal">
-                    {description}
+                    {details}
                   </p>
                 </div>
                 )}

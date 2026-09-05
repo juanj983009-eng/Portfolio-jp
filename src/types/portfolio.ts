@@ -6,6 +6,7 @@ export type ProjectCategory =
   | "experimental";
 export type ProjectStatus =
   | "completed"
+  | "functional"
   | "prototype"
   | "in-progress"
   | "concept";
@@ -84,6 +85,8 @@ export interface Project {
   role?: MultiLangString;
   summary?: MultiLangString;
   description?: MultiLangString;
+  /** Expanded explanation rendered in the project detail modal when available. */
+  details?: MultiLangString;
   contribution?: MultiLangString;
   learnings?: MultiLangString[];
   transparencyNote?: MultiLangString;

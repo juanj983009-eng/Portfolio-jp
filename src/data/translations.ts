@@ -82,6 +82,7 @@ export interface Translations {
     projectCount: string;
     viewDetails: string;
     scrollToExplore: string;
+    aiTransparencyTitle: string;
     aiTransparencyNote: string;
   };
   projectDetail: {
@@ -311,8 +312,9 @@ export const translations: Record<Language, Translations> = {
       projectCount: "PROYECTOS DE SOFTWARE Y DATOS",
       viewDetails: "VER DETALLES",
       scrollToExplore: "DESLIZA PARA EXPLORAR",
+      aiTransparencyTitle: "METODOLOGÍA DE DESARROLLO",
       aiTransparencyNote:
-        "Estos proyectos fueron desarrollados con fines académicos y personales. Utilicé herramientas de IA como apoyo durante partes del proceso; revisé, integré, probé y comprendí las soluciones presentadas.",
+        "Integré herramientas de IA como apoyo para investigación, análisis y depuración. Revisé, probé y validé cada solución presentada.",
     },
     projectDetail: {
       projectDetails: "DETALLES DEL PROYECTO",
@@ -324,7 +326,7 @@ export const translations: Record<Language, Translations> = {
       latency: "LATENCIA",
       availability: "DISPONIBILIDAD",
       contribution: "MI CONTRIBUCIÓN",
-      learnings: "APRENDIZAJES",
+      learnings: "CAPACIDADES DEMOSTRADAS",
       transparencyNote: "NOTA DE TRANSPARENCIA",
       conceptualArchitecture: "ARQUITECTURA CONCEPTUAL",
       videoDemo: "VIDEO DE DEMOSTRACIÓN",
@@ -559,8 +561,9 @@ export const translations: Record<Language, Translations> = {
       projectCount: "SOFTWARE AND DATA PROJECTS",
       viewDetails: "VIEW DETAILS",
       scrollToExplore: "SCROLL TO EXPLORE",
+      aiTransparencyTitle: "DEVELOPMENT METHODOLOGY",
       aiTransparencyNote:
-        "These projects were developed for academic and personal purposes. I used AI tools to support parts of the process, while reviewing, integrating, testing, and understanding the solutions presented.",
+        "I incorporated AI tools to support research, analysis, and debugging. I reviewed, tested, and validated each solution presented.",
     },
     projectDetail: {
       projectDetails: "PROJECT DETAILS",
@@ -572,7 +575,7 @@ export const translations: Record<Language, Translations> = {
       latency: "LATENCY",
       availability: "AVAILABILITY",
       contribution: "MY CONTRIBUTION",
-      learnings: "LEARNINGS",
+      learnings: "DEMONSTRATED CAPABILITIES",
       transparencyNote: "TRANSPARENCY NOTE",
       conceptualArchitecture: "CONCEPTUAL ARCHITECTURE",
       videoDemo: "DEMONSTRATION VIDEO",

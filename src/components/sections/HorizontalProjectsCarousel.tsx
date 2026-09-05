@@ -144,7 +144,7 @@ export const HorizontalProjectsCarousel: React.FC<HorizontalProjectsCarouselProp
                         {project.title}
                       </h3>
                       <p className="text-xs text-zinc-300 line-clamp-2 leading-relaxed font-sans font-normal mb-3">
-                        {getLocalized(project.subtitle || project.tagline || project.summary, language)}
+                        {getLocalized(project.description || project.subtitle || project.tagline || project.summary, language)}
                       </p>
 
                       {techStack.length > 0 && (

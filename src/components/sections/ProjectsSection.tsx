@@ -158,7 +158,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
               <p className="font-sans font-medium text-zinc-300 text-sm leading-relaxed max-w-xl drop-shadow-md line-clamp-2">
                 {getLocalized(
-                  project.subtitle || project.tagline || project.summary || project.description,
+                  project.description || project.subtitle || project.tagline || project.summary,
                   language
                 )}
               </p>
