@@ -21,18 +21,34 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Juan Parra | Desarrollo de software y análisis de datos",
+  title: "Juan Parra | Analista de Datos y Desarrollador de Software",
   description:
-    "Portafolio de Juan Parra: proyectos académicos y personales de desarrollo de software, bases de datos y análisis de datos.",
+    "Portafolio de Juan Parra: análisis de datos con SQL, Python y Power BI, junto con desarrollo de software para resolver flujos operativos y de negocio.",
   keywords: [
-    "Desarrollo de software",
     "Análisis de datos",
-    "TypeScript",
-    "IoT",
-    "Microservices",
-    "Editorial Portfolio",
-    "Next.js",
+    "Analista de datos",
+    "Desarrollador de software",
+    "Python",
+    "SQL",
+    "Power BI",
+    "Java",
+    "React",
+    "PostgreSQL",
   ],
+  openGraph: {
+    title: "Juan Parra | Analista de Datos y Desarrollador de Software",
+    description:
+      "Análisis de datos con SQL, Python y Power BI, junto con desarrollo de software para resolver flujos operativos y de negocio.",
+    locale: "es_PE",
+    alternateLocale: ["en_US"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Juan Parra | Analista de Datos y Desarrollador de Software",
+    description:
+      "Análisis de datos con SQL, Python y Power BI, junto con desarrollo de software para resolver flujos operativos y de negocio.",
+  },
   icons: {
     icon: "/icon.svg",
     shortcut: "/icon.svg",

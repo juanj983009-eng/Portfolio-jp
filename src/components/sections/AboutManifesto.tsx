@@ -36,7 +36,7 @@ export default function AboutManifesto() {
   const words = text.split(" ");
   const highlightedPhrase =
     language === "es"
-      ? "ANÁLISIS E INGENIERÍA DE DATOS."
+      ? "CONOCIMIENTOS EN ANÁLISIS E INGENIERÍA DE DATOS."
       : "DATA ANALYSIS AND DATA ENGINEERING.";
   const highlightedWords = highlightedPhrase.split(" ");
   const highlightedStart = words.findIndex(
@@ -72,32 +72,28 @@ export default function AboutManifesto() {
           <span>{t.about.executiveSummaryTitle}</span>
         </div>
 
-        {/* Main Manifesto Word Reveal Statement */}
+        {/* Main manifesto with the original word-reveal motion. */}
         <h2 className="font-sans font-black text-2xl md:text-4xl lg:text-5xl leading-snug tracking-tight uppercase text-center text-balance max-w-5xl mx-auto mb-12">
-          {words.map((word, i) => {
-            const start = i / words.length;
+          {words.map((word, index) => {
+            const start = index / words.length;
             const end = start + 1 / words.length;
-            const isHighlight =
-              word.includes("FULLSTACK") ||
-              word.includes("ARCHITECT") ||
-              word.includes("ARQUITECTO");
 
             if (
               highlightedStart !== -1 &&
-              i > highlightedStart &&
-              i < highlightedStart + highlightedWords.length
+              index > highlightedStart &&
+              index < highlightedStart + highlightedWords.length
             ) {
               return null;
             }
 
-            if (i === highlightedStart) {
+            if (index === highlightedStart) {
               return (
                 <span key={highlightedPhrase} className="text-[#FF4D00]">
                   {highlightedWords.map((highlightedWord, offset) => {
-                    const highlightedIndex = i + offset;
+                    const highlightedIndex = index + offset;
                     return (
                       <Word
-                        key={`${highlightedWord}-${i}`}
+                        key={`${highlightedWord}-${highlightedIndex}`}
                         progress={scrollYProgress}
                         range={[
                           highlightedIndex / words.length,
@@ -115,41 +111,37 @@ export default function AboutManifesto() {
             }
 
             return (
-              <Word key={i} progress={scrollYProgress} range={[start, end]}>
-                {isHighlight ? (
-                  <span className="text-[#FF4D00]">{word}</span>
-                ) : (
-                  word
-                )}
+              <Word key={`${word}-${index}`} progress={scrollYProgress} range={[start, end]}>
+                {word}
               </Word>
             );
           })}
         </h2>
 
         {/* Key Technical Metrics Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto pt-8 border-t border-zinc-800/80 mb-10">
-          <div className="text-center">
-            <p className="font-mono text-2xl font-black text-white">
-              {t.about.metric1Value}
-            </p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 max-w-4xl mx-auto border-y border-zinc-800/80 mb-8">
+          <div className="text-center py-5">
+            <p className="font-mono text-sm font-black text-white uppercase tracking-wider">
               {t.about.metric1Label}
             </p>
-          </div>
-          <div className="text-center md:border-x md:border-zinc-800/80">
-            <p className="font-mono text-2xl font-black text-white">
-              {t.about.metric2Value}
+            <p className="font-mono text-xs text-zinc-500 tracking-wide mt-2">
+              {t.about.metric1Value}
             </p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
+          </div>
+          <div className="text-center py-5 border-t md:border-t-0 md:border-l border-zinc-800/80">
+            <p className="font-mono text-sm font-black text-white uppercase tracking-wider">
               {t.about.metric2Label}
             </p>
-          </div>
-          <div className="text-center">
-            <p className="font-mono text-2xl font-black text-white">
-              {t.about.metric3Value}
+            <p className="font-mono text-xs text-zinc-500 tracking-wide mt-2">
+              {t.about.metric2Value}
             </p>
-            <p className="font-mono text-xs text-zinc-500 uppercase tracking-wider mt-1">
+          </div>
+          <div className="text-center py-5 border-t md:border-t-0 md:border-l border-zinc-800/80">
+            <p className="font-mono text-sm font-black text-white uppercase tracking-wider">
               {t.about.metric3Label}
+            </p>
+            <p className="font-mono text-xs text-zinc-500 tracking-wide mt-2">
+              {t.about.metric3Value}
             </p>
           </div>
         </div>

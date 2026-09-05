@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, PanInfo, useScroll, useTransform } from "framer-motion";
 import { FaAws } from "react-icons/fa6";
 import {
@@ -136,63 +136,99 @@ const CertDock: React.FC<{
   certs: Cert[];
   activeIndex: number;
   onSelect: (i: number) => void;
-}> = ({ certs, activeIndex, onSelect }) => (
-  <div className="flex flex-col items-center gap-3 mt-14">
-    <div className="flex items-center gap-4 bg-zinc-950/80 border border-zinc-800/60 backdrop-blur-2xl px-6 py-4 rounded-2xl">
-      {certs.map((cert, i) => {
-        const isActive = i === activeIndex;
-        return (
-          <div
-            key={cert.id}
-            className="relative flex flex-col items-center gap-2"
-          >
-            {/* Floating label — visible on active */}
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none">
-              <motion.div
-                initial={{ opacity: 0, y: 5 }}
-                animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 5 }}
-                transition={{ duration: 0.22, ease: "easeOut" }}
+}> = ({ certs, activeIndex, onSelect }) => {
+  const dockRef = useRef<HTMLDivElement>(null);
+
+  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+    const dock = dockRef.current;
+    if (!dock || dock.scrollWidth <= dock.clientWidth) return;
+
+    const movingRight = event.deltaY > 0;
+    const atStart = dock.scrollLeft <= 0;
+    const atEnd = dock.scrollLeft + dock.clientWidth >= dock.scrollWidth - 1;
+
+    if ((movingRight && atEnd) || (!movingRight && atStart)) return;
+
+    event.preventDefault();
+    dock.scrollBy({ left: event.deltaY, behavior: "smooth" });
+  };
+
+  return (
+    <div className="flex w-full flex-col items-center gap-3 mt-10 sm:mt-14 px-4">
+      <div
+        ref={dockRef}
+        onWheel={handleWheel}
+        tabIndex={0}
+        aria-label="Certification roadmap navigation"
+        className="w-full max-w-[calc(100vw-2rem)] overflow-x-auto pt-10 scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <div className="mx-auto flex w-max items-center gap-4 rounded-2xl border border-zinc-800/60 bg-zinc-950/80 px-4 py-3 backdrop-blur-2xl sm:px-6 sm:py-4">
+          {certs.map((cert, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <div
+                key={cert.id}
+                className="relative flex shrink-0 snap-center flex-col items-center gap-2"
               >
-                <span className="block font-sans font-bold text-[9px] uppercase tracking-widest bg-zinc-900 border border-zinc-700/60 text-zinc-200 px-3 py-1 rounded-md whitespace-nowrap">
-                  {cert.dockLabel}
-                </span>
-              </motion.div>
-            </div>
+                {/* Floating label — visible on active */}
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none">
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={
+                      isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 5 }
+                    }
+                    transition={{ duration: 0.22, ease: "easeOut" }}
+                  >
+                    <span className="block font-sans font-bold text-[9px] uppercase tracking-widest bg-zinc-900 border border-zinc-700/60 text-zinc-200 px-3 py-1 rounded-md whitespace-nowrap">
+                      {cert.dockLabel}
+                    </span>
+                  </motion.div>
+                </div>
 
-            {/* Interactive roadmap marker */}
-            <motion.button
-              onClick={() => onSelect(i)}
-              aria-label={cert.dockLabel}
-              animate={{ scale: isActive ? 1.2 : 1, opacity: 1 }}
-              whileHover={!isActive ? { scale: 1.1, opacity: 1 } : {}}
-              transition={{ type: "spring", stiffness: 340, damping: 26 }}
-              className="relative w-14 h-14 rounded-2xl bg-zinc-950 flex items-center justify-center focus:outline-none overflow-hidden cursor-pointer"
-            >
-              {/* Logo — always on top */}
-              <span className="relative z-20">{cert.dockIcon}</span>
-            </motion.button>
+                {/* Interactive roadmap marker */}
+                <motion.button
+                  onClick={() => onSelect(i)}
+                  aria-label={cert.dockLabel}
+                  animate={{ scale: isActive ? 1.2 : 1, opacity: 1 }}
+                  whileHover={!isActive ? { scale: 1.1, opacity: 1 } : {}}
+                  transition={{ type: "spring", stiffness: 340, damping: 26 }}
+                  className="relative h-11 w-11 rounded-xl bg-zinc-950 flex items-center justify-center focus:outline-none overflow-hidden cursor-pointer sm:h-14 sm:w-14 sm:rounded-2xl"
+                >
+                  {/* Logo — always on top */}
+                  <span className="relative z-20">{cert.dockIcon}</span>
+                </motion.button>
 
-            {/* Active indicator line */}
-            <motion.span
-              animate={{
-                opacity: isActive ? 1 : 0.4,
-                scaleX: isActive ? 1 : 0.6,
-                backgroundColor: cert.brandColor,
-              }}
-              transition={{ duration: 0.25 }}
-              className="block h-[2px] w-5 rounded-full"
-            />
-          </div>
-        );
-      })}
+                {/* Active indicator line */}
+                <motion.span
+                  animate={{
+                    opacity: isActive ? 1 : 0.4,
+                    scaleX: isActive ? 1 : 0.6,
+                    backgroundColor: cert.brandColor,
+                  }}
+                  transition={{ duration: 0.25 }}
+                  className="block h-[2px] w-5 rounded-full"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ─────────────────────────────────────────────────────────────
    PER-OFFSET TRANSFORMS
 ───────────────────────────────────────────────────────────── */
-function getCardProps(offset: number) {
+function getCardProps(offset: number, isCompact: boolean) {
+  if (isCompact) {
+    return offset === 0
+      ? { x: 0, scale: 1, opacity: 1, rotateY: 0, zIndex: 30, blur: 0 }
+      : { x: 0, scale: 0.97, opacity: 0, rotateY: 0, zIndex: 0, blur: 0 };
+  }
+
   const abs = Math.abs(offset);
   if (abs === 0)
     return { x: 0, scale: 1, opacity: 1, rotateY: 0, zIndex: 30, blur: 0 };
@@ -227,8 +263,15 @@ function getCardProps(offset: number) {
 /* ─────────────────────────────────────────────────────────────
    SEAL — decorative wax-seal SVG in orange
 ───────────────────────────────────────────────────────────── */
-const WaxSeal: React.FC<{ id: string }> = ({ id }) => (
-  <div className="relative w-14 h-14 flex-shrink-0">
+const WaxSeal: React.FC<{ id: string; isCompact: boolean }> = ({
+  id,
+  isCompact,
+}) => (
+  <div
+    className={`relative flex-shrink-0 ${
+      isCompact ? "h-10 w-10" : "h-14 w-14"
+    }`}
+  >
     <svg viewBox="0 0 56 56" className="w-full h-full" aria-hidden="true">
       {/* Outer ring */}
       <circle
@@ -278,8 +321,12 @@ const DiplomaCard: React.FC<{
   cert: Cert;
   offset: number;
   onClick: () => void;
-}> = ({ cert, offset, onClick }) => {
-  const { x, scale, opacity, rotateY, zIndex, blur } = getCardProps(offset);
+  isCompact: boolean;
+}> = ({ cert, offset, onClick, isCompact }) => {
+  const { x, scale, opacity, rotateY, zIndex, blur } = getCardProps(
+    offset,
+    isCompact,
+  );
   const isActive = offset === 0;
 
   return (
@@ -292,13 +339,15 @@ const DiplomaCard: React.FC<{
         filter: blur > 0 ? `blur(${blur}px)` : "none",
         transformStyle: "preserve-3d",
         position: "absolute",
-        width: CARD_W,
+        width: isCompact ? "calc(100vw - 2rem)" : CARD_W,
+        maxWidth: "100%",
         left: "50%",
-        marginLeft: -(CARD_W / 2),
+        marginLeft: isCompact ? "calc((2rem - 100vw) / 2)" : -(CARD_W / 2),
         cursor: isActive ? "default" : "pointer",
+        pointerEvents: isCompact && !isActive ? "none" : "auto",
       }}
     >
-      <span className="absolute top-4 right-4 z-30 bg-zinc-900 text-white border border-zinc-700 px-2.5 py-1 rounded-md font-mono text-[9px] font-bold uppercase tracking-widest">
+      <span className="absolute top-3 right-3 z-30 rounded-md border border-zinc-700 bg-zinc-900 px-2 py-0.5 font-mono text-[8px] font-bold uppercase tracking-widest text-white sm:top-4 sm:right-4 sm:px-2.5 sm:py-1 sm:text-[9px]">
         PRÓXIMAMENTE
       </span>
       {/*
@@ -310,18 +359,18 @@ const DiplomaCard: React.FC<{
           relative overflow-hidden rounded-xl
           bg-stone-50 text-zinc-900
           shadow-[0_32px_80px_rgba(0,0,0,0.55)]
-          border-[6px] border-stone-200
+          border-[4px] border-stone-200 sm:border-[6px]
           grayscale opacity-70
         "
-        style={{ height: 340 }}
+        style={{ height: isCompact ? "auto" : 340 }}
       >
         {/* Decorative corner filigree lines */}
-        <div className="absolute inset-[10px] border border-stone-300/60 rounded-lg pointer-events-none" />
-        <div className="absolute inset-[14px] border border-stone-200/40 rounded-md pointer-events-none" />
+        <div className="absolute inset-[7px] rounded-lg border border-stone-300/60 pointer-events-none sm:inset-[10px]" />
+        <div className="absolute inset-[11px] rounded-md border border-stone-200/40 pointer-events-none sm:inset-[14px]" />
 
         {/* Subtle watermark logo behind content */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.035]">
-          <span className="font-sans font-black text-[110px] text-zinc-900 uppercase tracking-tighter leading-none">
+          <span className="font-sans font-black text-[72px] text-zinc-900 uppercase tracking-tighter leading-none sm:text-[110px]">
             JP
           </span>
         </div>
@@ -330,12 +379,12 @@ const DiplomaCard: React.FC<{
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#FF4D00]" />
 
         {/* Main content padding */}
-        <div className="relative z-10 h-full flex flex-col justify-between px-8 md:px-10 pt-7 pb-6">
+        <div className="relative z-10 flex min-h-[300px] flex-col justify-between px-5 pt-5 pb-5 sm:h-full sm:min-h-0 sm:px-8 sm:pt-7 sm:pb-6 md:px-10">
           {/* ── HEADER ── */}
           <div className="flex items-start justify-between">
             <div className="flex-1">
               {/* Institution label */}
-              <p className="font-sans font-bold text-[9px] uppercase tracking-[0.22em] text-zinc-400 text-center">
+              <p className="font-sans font-bold text-[8px] uppercase tracking-[0.14em] text-zinc-400 text-center sm:text-[9px] sm:tracking-[0.22em]">
                 CERTIFICATION ROADMAP (TARGETS)
               </p>
               {/* Thin rule */}
@@ -346,18 +395,18 @@ const DiplomaCard: React.FC<{
               </div>
             </div>
             {/* Wax seal */}
-            <WaxSeal id={cert.id} />
+            <WaxSeal id={cert.id} isCompact={isCompact} />
           </div>
 
           {/* ── BODY ── */}
           <div className="text-center space-y-1 -mt-1">
-            <p className="font-sans font-bold text-[9px] uppercase tracking-[0.18em] text-zinc-400">
+            <p className="font-sans font-bold text-[8px] uppercase tracking-[0.14em] text-zinc-400 sm:text-[9px] sm:tracking-[0.18em]">
               CANDIDATE ROADMAP FOR
             </p>
-            <p className="font-sans font-black text-base md:text-lg uppercase tracking-tight text-[#FF4D00] leading-tight">
+            <p className="font-sans font-black text-[13px] uppercase tracking-tight text-[#FF4D00] leading-tight sm:text-base md:text-lg">
               {cert.title}
             </p>
-            <p className="font-sans font-medium text-[11px] text-zinc-500 leading-relaxed max-w-md mx-auto pt-1">
+            <p className="font-sans font-medium text-[10px] text-zinc-500 leading-relaxed max-w-md mx-auto pt-1 sm:text-[11px]">
               {cert.validationText}
             </p>
           </div>
@@ -365,22 +414,22 @@ const DiplomaCard: React.FC<{
           {/* ── FOOTER / SIGNATURES ── */}
           <div>
             {/* Divider */}
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <span className="h-px flex-1 bg-stone-300/80" />
-              <span className="font-sans font-bold text-[8px] uppercase tracking-[0.2em] text-zinc-400 whitespace-nowrap">
+              <span className="font-sans font-bold text-[7px] uppercase tracking-[0.12em] text-center text-zinc-400 sm:text-[8px] sm:tracking-[0.2em]">
                 VERIFIED HASH: {cert.hash} &nbsp;·&nbsp; ISSUED {cert.issued}
               </span>
               <span className="h-px flex-1 bg-stone-300/80" />
             </div>
 
             {/* Two signature blocks */}
-            <div className="flex items-end justify-between">
-              <div className="text-left space-y-0.5">
+            <div className="flex items-end justify-between gap-2">
+              <div className="min-w-0 flex-1 text-left space-y-0.5">
                 {/* Simulated signature stroke */}
-                <div className="w-24 border-b border-zinc-400/60 pb-0.5 mb-1">
+                <div className="w-16 border-b border-zinc-400/60 pb-0.5 mb-1 sm:w-24">
                   <svg
                     viewBox="0 0 96 18"
-                    className="w-24 h-4 text-zinc-500"
+                    className="h-3 w-16 text-zinc-500 sm:h-4 sm:w-24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.2"
@@ -389,16 +438,16 @@ const DiplomaCard: React.FC<{
                     <path d="M4 14 C12 4, 20 16, 30 10 C38 4, 44 16, 56 8 C64 2, 72 14, 84 10 L92 9" />
                   </svg>
                 </div>
-                <p className="font-sans font-bold text-[8px] uppercase tracking-[0.18em] text-zinc-500">
+                <p className="font-sans font-bold text-[7px] uppercase tracking-[0.1em] text-zinc-500 sm:text-[8px] sm:tracking-[0.18em]">
                   ISSUING AUTHORITY
                 </p>
-                <p className="font-sans font-bold text-[9px] uppercase tracking-tight text-zinc-700">
+                <p className="font-sans font-bold text-[8px] uppercase tracking-tight text-zinc-700 sm:text-[9px]">
                   {cert.authority}
                 </p>
               </div>
 
               {/* Centre badge */}
-              <div className="text-center space-y-0.5">
+              <div className="shrink-0 text-center space-y-0.5">
                 <div
                   className="w-8 h-8 rounded-full bg-[#FF4D00] flex items-center justify-center mx-auto"
                   aria-hidden="true"
@@ -412,11 +461,11 @@ const DiplomaCard: React.FC<{
                 </p>
               </div>
 
-              <div className="text-right space-y-0.5">
-                <div className="w-24 ml-auto border-b border-zinc-400/60 pb-0.5 mb-1">
+              <div className="min-w-0 flex-1 text-right space-y-0.5">
+                <div className="w-16 ml-auto border-b border-zinc-400/60 pb-0.5 mb-1 sm:w-24">
                   <svg
                     viewBox="0 0 96 18"
-                    className="w-24 h-4 text-zinc-500"
+                    className="h-3 w-16 text-zinc-500 sm:h-4 sm:w-24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.2"
@@ -425,10 +474,10 @@ const DiplomaCard: React.FC<{
                     <path d="M4 10 C14 2, 22 16, 34 8 C44 2, 52 16, 64 6 C72 0, 80 14, 92 10" />
                   </svg>
                 </div>
-                <p className="font-sans font-bold text-[8px] uppercase tracking-[0.18em] text-zinc-500">
+                <p className="font-sans font-bold text-[7px] uppercase tracking-[0.1em] text-zinc-500 sm:text-[8px] sm:tracking-[0.18em]">
                   REVIEW BOARD
                 </p>
-                <p className="font-sans font-bold text-[9px] uppercase tracking-tight text-zinc-700">
+                <p className="font-sans font-bold text-[8px] uppercase tracking-tight text-zinc-700 sm:text-[9px]">
                   {cert.board}
                 </p>
               </div>
@@ -447,8 +496,18 @@ const DiplomaCard: React.FC<{
 ───────────────────────────────────────────────────────────── */
 const CertificationsSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isCompact, setIsCompact] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const updateCompactLayout = () => setIsCompact(mediaQuery.matches);
+
+    updateCompactLayout();
+    mediaQuery.addEventListener("change", updateCompactLayout);
+    return () => mediaQuery.removeEventListener("change", updateCompactLayout);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -474,7 +533,7 @@ const CertificationsSection: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-black py-28 border-t border-zinc-900 select-none"
+      className="relative w-full overflow-visible bg-black py-16 sm:py-28 border-t border-zinc-900 select-none md:overflow-hidden"
     >
       {/* Watermark */}
       <motion.div
@@ -488,7 +547,7 @@ const CertificationsSection: React.FC = () => {
       </motion.div>
 
       {/* Section label */}
-      <div className="relative z-10 flex items-center gap-3 max-w-7xl mx-auto px-6 md:px-12 mb-20">
+      <div className="relative z-10 flex items-center gap-3 max-w-7xl mx-auto px-6 md:px-12 mb-10 sm:mb-20">
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-[#FF4D00]">
           {t.certifications.tag}
         </span>
@@ -500,11 +559,11 @@ const CertificationsSection: React.FC = () => {
 
       {/* Stage */}
       <div className="relative z-10">
-        <div style={{ height: 400 }} className="relative">
+        <div style={{ height: isCompact ? 330 : 400 }} className="relative">
           {/* Ambient glow — warm ivory/orange */}
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-72 rounded-full bg-[#FF4D00]/10 blur-[130px] pointer-events-none -z-10"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-56 w-[calc(100vw-2rem)] max-w-[640px] rounded-full bg-[#FF4D00]/10 blur-[100px] pointer-events-none -z-10 sm:h-72 sm:blur-[130px]"
           />
 
           <motion.div
@@ -522,6 +581,7 @@ const CertificationsSection: React.FC = () => {
                 cert={cert}
                 offset={index - activeIndex}
                 onClick={() => setActiveIndex(index)}
+                isCompact={isCompact}
               />
             ))}
           </motion.div>
