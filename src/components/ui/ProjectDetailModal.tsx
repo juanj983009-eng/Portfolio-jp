@@ -119,10 +119,7 @@ const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
   const category = getLocalized(project.category, language);
   const role = getLocalized(project.role, language);
   const description = getLocalized(project.description, language);
-  const objective = getLocalized(
-    project.summary ?? project.subtitle ?? project.tagline,
-    language,
-  );
+  const objective = getLocalized(project.summary, language);
   const contribution = getLocalized(project.contribution, language);
   const transparencyNote = getLocalized(project.transparencyNote, language);
   const conceptualArchitecture = getLocalized(

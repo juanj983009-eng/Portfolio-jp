@@ -1,6 +1,9 @@
 export type MultiLangString = string | { es: string; en: string };
 
-export type ProjectCategory = "featured" | "academic" | "experimental";
+export type ProjectCategory =
+  | "personal"
+  | "academic"
+  | "experimental";
 export type ProjectStatus =
   | "completed"
   | "prototype"

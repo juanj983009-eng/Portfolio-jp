@@ -82,6 +82,7 @@ export interface Translations {
     projectCount: string;
     viewDetails: string;
     scrollToExplore: string;
+    aiTransparencyNote: string;
   };
   projectDetail: {
     projectDetails: string;
@@ -310,6 +311,8 @@ export const translations: Record<Language, Translations> = {
       projectCount: "PROYECTOS DE SOFTWARE Y DATOS",
       viewDetails: "VER DETALLES",
       scrollToExplore: "DESLIZA PARA EXPLORAR",
+      aiTransparencyNote:
+        "Estos proyectos fueron desarrollados con fines académicos y personales. Utilicé herramientas de IA como apoyo durante partes del proceso; revisé, integré, probé y comprendí las soluciones presentadas.",
     },
     projectDetail: {
       projectDetails: "DETALLES DEL PROYECTO",
@@ -556,6 +559,8 @@ export const translations: Record<Language, Translations> = {
       projectCount: "SOFTWARE AND DATA PROJECTS",
       viewDetails: "VIEW DETAILS",
       scrollToExplore: "SCROLL TO EXPLORE",
+      aiTransparencyNote:
+        "These projects were developed for academic and personal purposes. I used AI tools to support parts of the process, while reviewing, integrating, testing, and understanding the solutions presented.",
     },
     projectDetail: {
       projectDetails: "PROJECT DETAILS",

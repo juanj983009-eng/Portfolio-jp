@@ -5,89 +5,36 @@ export const PROJECTS: Project[] = [
     id: "smartfleet-v2",
     slug: "smartfleet-v2",
     title: "SMARTFLEET V2",
-    category: "IOT / POLYGLOT PERSISTENCE",
+    category: { es: "PROYECTO PERSONAL", en: "PERSONAL PROJECT" },
+    projectCategory: "personal",
+    status: "prototype",
     subtitle: {
-      es: "Pipeline de Telemetría y GPS de Alto Rendimiento con Arquitectura Políglota",
-      en: "High-Throughput GPS & Telemetry Pipeline with Polyglot Storage Architecture",
+      es: "Prototipo personal para registrar, consultar y visualizar datos simulados de telemetría de flotas, explorando alternativas de persistencia relacional y NoSQL.",
+      en: "Personal prototype for recording, querying, and visualizing simulated fleet telemetry data while exploring relational and NoSQL persistence alternatives.",
     },
     tagline: {
-      es: "Pipeline de Telemetría y GPS de Alto Rendimiento con Arquitectura Políglota",
-      en: "High-Throughput GPS & Telemetry Pipeline with Polyglot Storage Architecture",
-    },
-    role: {
-      es: "Arquitecto Principal de Software & Desarrollador Fullstack",
-      en: "Lead Software Architect & Fullstack Developer",
-    },
-    summary: {
-      es: "Sistema distribuido de telemetría IoT capaz de ingerir datos GPS de alta frecuencia y códigos de diagnóstico vehicular en estructuras de series de tiempo columnares con cumplimiento ACID.",
-      en: "Distributed IoT telemetry system capable of ingesting high-frequency GPS pings and vehicle diagnostic codes, storing metrics in optimized columnar time-series structures while guaranteeing ACID compliance.",
+      es: "Prototipo personal para registrar, consultar y visualizar datos simulados de telemetría de flotas, explorando alternativas de persistencia relacional y NoSQL.",
+      en: "Personal prototype for recording, querying, and visualizing simulated fleet telemetry data while exploring relational and NoSQL persistence alternatives.",
     },
     description: {
-      es: "Diseño y despliegue de una plataforma de telemetría de flotas multidatabase estructurada para resolver desafíos de escalabilidad de escritura e integridad de datos. Integra una capa de persistencia políglota combinando PostgreSQL para datos maestros transaccionales, Apache Cassandra para registro de GPS en series de tiempo de alto rendimiento y MongoDB para auditoría de incidentes no estructurados, orquestados mediante redes de contenedores Docker.",
-      en: "Architected and deployed a multi-database fleet telemetry platform designed to solve write-scalability and data integrity challenges. Integrated a polyglot persistence layer combining PostgreSQL for transactional master data, Apache Cassandra for high-throughput time-series GPS logging, and MongoDB for unstructured incident auditing, fully orchestrated via Docker container networks.",
+      es: "Prototipo personal para registrar, consultar y visualizar datos simulados de telemetría de flotas, explorando alternativas de persistencia relacional y NoSQL.",
+      en: "Personal prototype for recording, querying, and visualizing simulated fleet telemetry data while exploring relational and NoSQL persistence alternatives.",
     },
+    contribution: {
+      es: "Definí el alcance funcional, integré los componentes del prototipo, realicé pruebas y corregí su comportamiento.",
+      en: "I defined the functional scope, integrated the prototype components, tested its workflows, and corrected its behavior.",
+    },
+    learnings: [
+      { es: "Modelado de datos de telemetría.", en: "Telemetry data modeling." },
+      { es: "Comparación entre persistencia relacional y NoSQL.", en: "Comparison of relational and NoSQL persistence." },
+      { es: "Integración entre interfaz, servicios y almacenamiento.", en: "Integration between interface, services, and storage." },
+    ],
     techStack: ["React", "Spring Boot", "PostgreSQL", "Apache Cassandra", "MongoDB", "Docker", "Tailwind CSS"],
-    highlights: [
-      {
-        es: "Capa de Persistencia Políglota: Cargas de trabajo segmentadas asignando PostgreSQL a datos maestros ACID, Cassandra a telemetría columnar de series de tiempo y MongoDB a registros de auditoría polimórficos.",
-        en: "Polyglot Persistence Layer: Segmented query workloads by assigning PostgreSQL to ACID relational master data, Cassandra to wide-column time-series telemetry, and MongoDB to polymorphic audit logs.",
-      },
-      {
-        es: "Optimización de Series de Tiempo: Claves de partición Cassandra modeladas por vehicle_id y claves de agrupamiento por timestamp (descendente) garantizando lecturas O(1) en tiempo real.",
-        en: "Time-Series Optimization: Modeled Cassandra partition keys by vehicle_id and clustering keys by timestamp (descending) to ensure constant-time O(1) reads for real-time tracking.",
-      },
-      {
-        es: "Registro Polimórfico de Incidentes: Colección MongoDB sin esquema diseñada para auditar más de 79,000 eventos heterogéneos de alertas vehiculares sin migraciones relacionales.",
-        en: "Polymorphic Incident Logging: Designed a schema-less MongoDB collection to audit over 79,000 heterogeneous vehicle alert events without requiring structural relational migrations.",
-      },
-      {
-        es: "Infraestructura Contenedorizada: Servicios backend, bases de datos políglotas y clientes frontend orquestados en redes puente aisladas con descubrimiento automatizado.",
-        en: "Containerized Infrastructure: Orchestrated backend services, polyglot databases, and frontend clients over isolated bridge networks with automated service discovery.",
-      },
-    ],
-    architectureNodes: [
-      { id: "node-1", label: "Fleet Vehicle IoT Devices", type: "iot", tech: "REST / HTTP", status: "active", description: "Transmits GPS coordinates, speed, and engine diagnostics to the Spring Boot ingestion API." },
-      { id: "node-2", label: "Spring Boot Ingestion API", type: "backend", tech: "Spring Boot / Java", status: "active", description: "Receives telemetry payloads, validates data contracts, and routes records to the appropriate persistence layer." },
-      { id: "node-3", label: "PostgreSQL Master DB", type: "database", tech: "PostgreSQL", status: "active", description: "Stores ACID-compliant master data: fleets, vehicles, drivers, and operational configurations." },
-      { id: "node-4", label: "Apache Cassandra Cluster", type: "database", tech: "Apache Cassandra", status: "active", description: "Wide-column time-series store partitioned by vehicle_id, clustered by timestamp DESC for O(1) real-time reads." },
-      { id: "node-5", label: "MongoDB Audit Store", type: "database", tech: "MongoDB", status: "active", description: "Schema-less document store capturing 79,000+ polymorphic vehicle incident and alert audit events." },
-      { id: "node-6", label: "React Fleet Dashboard", type: "frontend", tech: "React / Tailwind CSS", status: "active", description: "Interactive fleet monitoring UI consuming the Spring Boot REST API with real-time telemetry visualizations." }
-    ],
-    metrics: {
-      throughput: "79,318+ Records",
-      latency: "< 45ms",
-      uptime: "99.95%",
-      customMetrics: [
-        { label: "Incident Events Audited", value: "79,318+" },
-        { label: "Persistence Strategy", value: "Polyglot (3 DBs)" },
-        { label: "Infrastructure", value: "Docker Compose" }
-      ]
-    },
-    dataset: {
-      name: "fleet_telemetry_sample",
-      recordsCount: 150000,
-      sizeFormatted: "24.5 MB",
-      description: "High-density vehicle telemetry events containing spatial coordinates, speed, RPM, and engine fault codes.",
-      schema: [
-        { field: "device_id", type: "VARCHAR", description: "Unique hardware identifier" },
-        { field: "timestamp", type: "TIMESTAMP", description: "UTC timestamp of reading" },
-        { field: "latitude", type: "DOUBLE", description: "WGS84 Latitude" },
-        { field: "longitude", type: "DOUBLE", description: "WGS84 Longitude" },
-        { field: "speed_kmh", type: "FLOAT", description: "Vehicle ground speed" },
-        { field: "rpm", type: "INTEGER", description: "Engine revolutions per minute" },
-        { field: "fuel_level_pct", type: "FLOAT", description: "Tank fuel percentage" }
-      ],
-      sampleData: [
-        { device_id: "VEH-8942-FL", timestamp: "2026-07-23T14:22:01.002Z", latitude: -12.046374, longitude: -77.042793, speed_kmh: 68.4, rpm: 2150, fuel_level_pct: 78.5 },
-        { device_id: "VEH-8942-FL", timestamp: "2026-07-23T14:22:01.503Z", latitude: -12.046412, longitude: -77.042851, speed_kmh: 69.1, rpm: 2180, fuel_level_pct: 78.5 },
-        { device_id: "VEH-3109-TX", timestamp: "2026-07-23T14:22:01.110Z", latitude: -12.089201, longitude: -77.012390, speed_kmh: 0.0, rpm: 800, fuel_level_pct: 42.1 }
-      ]
-    },
     coverImage: "/projects/smartfleet-v2/cover.jpg",
-    githubUrl: "https://github.com/juanj983009-eng/SMARTFLEET_V2",
-    videoUrl: "https://youtu.be/GWb8TBxducY",
-    demoVideoUrl: "https://youtu.be/GWb8TBxducY",
-    demoUrl: "https://youtu.be/GWb8TBxducY",
+    links: {
+      repository: "https://github.com/juanj983009-eng/SMARTFLEET_V2",
+      video: "https://youtu.be/GWb8TBxducY",
+    },
     screenshots: [
       "/projects/smartfleet-v2/gallery/captura-de-pantalla-2026-07-28-232338.png",
       "/projects/smartfleet-v2/gallery/captura-de-pantalla-2026-07-28-232352.png",
@@ -106,87 +53,36 @@ export const PROJECTS: Project[] = [
     id: "controller-production",
     slug: "controller-production",
     title: "Meca-PRO MES",
-    category: "MANUFACTURING EXECUTION SYSTEM / INDUSTRIAL HMI",
+    category: { es: "PROYECTO PERSONAL", en: "PERSONAL PROJECT" },
+    projectCategory: "personal",
+    status: "prototype",
     subtitle: {
-      es: "Sistema MES de Alta Disponibilidad con HMI Reactiva y Seguridad JWT Criptográfica",
-      en: "High-Availability Manufacturing Execution System with Reactive HMI & Cryptographic JWT Security",
+      es: "Prototipo personal inspirado en procesos industriales para registrar órdenes, operaciones y avances de producción en un entorno simulado.",
+      en: "Personal prototype inspired by industrial processes for recording production orders, operations, and progress in a simulated environment.",
     },
     tagline: {
-      es: "Sistema MES de Alta Disponibilidad con HMI Reactiva y Seguridad JWT Criptográfica",
-      en: "High-Availability Manufacturing Execution System with Reactive HMI & Cryptographic JWT Security",
-    },
-    role: {
-      es: "Arquitecto Principal de Software & Desarrollador Fullstack",
-      en: "Lead Software Architect & Fullstack Developer",
-    },
-    summary: {
-      es: "Sistema de control de producción industrial en tiempo real con monitoreo HMI de alta visibilidad, cálculo de métricas en memoria JVM y autenticación segura para pantallas de fábrica.",
-      en: "Enterprise-grade MES application executing shop-floor tracking, JVM-cached metrics, and high-contrast HMI for industrial floor screens.",
+      es: "Prototipo personal inspirado en procesos industriales para registrar órdenes, operaciones y avances de producción en un entorno simulado.",
+      en: "Personal prototype inspired by industrial processes for recording production orders, operations, and progress in a simulated environment.",
     },
     description: {
-      es: "Meca-PRO MES es un sistema de ejecución de fabricación de grado empresarial diseñado para digitalizar y monitorear operaciones en planta en entornos industriales de alta exigencia. Construido con una arquitectura Spring Boot por capas y un SPA de React de alto contraste, el sistema ofrece seguimiento en tiempo real de hojas de proceso (HPs), cronómetros de mano de obra de operadores, registros de tiempo de inactividad de maquinaria y asignación de recursos en terminales táctiles industriales.",
-      en: "Meca-PRO MES is an enterprise-grade Manufacturing Execution System designed to digitize and monitor shop-floor operations in heavy manufacturing environments. Built with a layered Spring Boot architecture and a high-contrast React SPA, the system delivers real-time tracking of process sheets (HPs), operator labor timers, machinery downtime logs, and resource allocation (EPPs and tools) across industrial touch terminals.",
+      es: "Prototipo personal inspirado en procesos industriales para registrar órdenes, operaciones y avances de producción en un entorno simulado.",
+      en: "Personal prototype inspired by industrial processes for recording production orders, operations, and progress in a simulated environment.",
     },
+    contribution: {
+      es: "Convertí flujos industriales conocidos en requisitos y pantallas de software, integré los componentes y validé el funcionamiento del prototipo.",
+      en: "I translated familiar industrial workflows into software requirements and interfaces, integrated the components, and validated the prototype.",
+    },
+    learnings: [
+      { es: "Traducción de procesos industriales a flujos de software.", en: "Translating industrial processes into software workflows." },
+      { es: "Modelado relacional de órdenes y operaciones.", en: "Relational modeling of orders and operations." },
+      { es: "Diseño de interfaces para seguimiento operativo.", en: "Interface design for operational tracking." },
+    ],
     techStack: ["Java 17", "Spring Boot 3.3.5", "PostgreSQL 16", "Flyway DB", "React 19", "Zustand 5.0", "Docker", "Docker Compose", "Nginx", "Tailwind CSS", "JWT (HS256)", "Maven"],
-    highlights: [
-      {
-        es: "Optimización de Lógica de Negocio en Memoria: Transiciones de hojas de proceso y agregaciones de tiempo refactorizadas a cálculos en memoria JVM sin bloqueos, reduciendo latencias a menos de 15ms.",
-        en: "In-Memory Business Logic Optimization: Refactored critical process-sheet state transitions and labor time aggregations from legacy synchronous JPA cycles into non-blocking JVM computations under 15ms.",
-      },
-      {
-        es: "Arquitectura SOLID Desacoplada: Capa de servicio abstraída utilizando proyecciones DTO paginadas (Page<DTO>), eliminando sobrecargas de serialización profunda sobre endpoints REST.",
-        en: "Decoupled SOLID Architecture & Paginated Data Contracts: Re-architected controller dependencies into an abstracted Service-Oriented Layer using clean DTO projections (Page<DTO>).",
-      },
-      {
-        es: "Autenticación Criptográfica JWT Segura: Claves externas mediante variables de entorno (JWT_SECRET) con firmas HS256 de alta entropía y sesiones de 30 minutos para evitar desvíos en planta.",
-        en: "Hardened JWT Cryptographic Authentication: Replaced hardcoded JWT secrets with externalized runtime environment variables (JWT_SECRET) enforcing high-entropy HS256 signatures.",
-      },
-      {
-        es: "Ergonomía Industrial Multi-Tema: Estado centralizado Zustand con tokens CSS ([data-theme]) para cambio dinámico entre modo Industrial, Claro reflectivo y Oscuro estándar.",
-        en: "Adaptive Industrial Multi-Theme Ergonomics: Integrated a centralized Zustand state store paired with custom CSS color tokens ([data-theme]) for dynamic runtime mode switching.",
-      },
-    ],
-    architectureNodes: [
-      { id: "cp-1", label: "Factory Touch Terminals", type: "iot", tech: "React 19 / Tailwind CSS", status: "active", description: "Industrial-grade tablets running the React SPA HMI with multi-theme support for shop-floor ambient conditions." },
-      { id: "cp-2", label: "React 19 SPA (HMI)", type: "frontend", tech: "React 19 / Zustand 5.0", status: "active", description: "High-contrast reactive dashboard tracking process sheets, labor timers, and downtime logs with sub-second UI updates." },
-      { id: "cp-3", label: "Nginx Reverse Proxy", type: "gateway", tech: "Nginx", status: "active", description: "Terminates HTTPS, routes API requests to the Spring Boot backend, and serves the React SPA static bundle." },
-      { id: "cp-4", label: "Spring Boot 3.3.5 API", type: "backend", tech: "Java 17 / Spring Boot 3.3.5", status: "active", description: "Layered REST API performing JVM-cached business logic for process-sheet transitions and labor aggregations at sub-15ms latency." },
-      { id: "cp-5", label: "JWT Auth Layer", type: "backend", tech: "JWT (HS256)", status: "active", description: "Cryptographic session management with 30-minute validity and externalized JWT_SECRET environment variable to prevent terminal session hijacking." },
-      { id: "cp-6", label: "PostgreSQL 16 + Flyway", type: "database", tech: "PostgreSQL 16 / Flyway DB", status: "active", description: "Relational schema managed via Flyway versioned migrations, enforcing ACID compliance for operational and HR production records." }
-    ],
-    metrics: {
-      throughput: "156.77 kB JS / Sub-15ms",
-      latency: "< 15ms",
-      uptime: "100% JWT / Zero Bottlenecks",
-      customMetrics: [
-        { label: "API Endpoint Latency", value: "< 15ms" },
-        { label: "JWT Session Window", value: "30 minutes" },
-        { label: "JS Bundle Size", value: "156.77 kB" }
-      ]
-    },
-    dataset: {
-      name: "factory_oee_metrics",
-      recordsCount: 85000,
-      sizeFormatted: "18.2 MB",
-      description: "Hourly aggregated factory machine metrics including shift IDs, cycle counts, micro-stoppages, and OEE percentages.",
-      schema: [
-        { field: "line_id", type: "VARCHAR", description: "Assembly line identifier" },
-        { field: "shift_code", type: "VARCHAR", description: "Operational shift code (e.g. S1, S2)" },
-        { field: "availability_pct", type: "FLOAT", description: "Equipment uptime percentage" },
-        { field: "performance_pct", type: "FLOAT", description: "Actual speed vs target speed percentage" },
-        { field: "quality_pct", type: "FLOAT", description: "Good units vs total units percentage" },
-        { field: "oee_score", type: "FLOAT", description: "Overall Equipment Effectiveness" }
-      ],
-      sampleData: [
-        { line_id: "LINE-01-STAMPING", shift_code: "2026-07-23-S1", availability_pct: 94.2, performance_pct: 88.5, quality_pct: 99.1, oee_score: 82.6 },
-        { line_id: "LINE-02-ASSEMBLY", shift_code: "2026-07-23-S1", availability_pct: 91.0, performance_pct: 95.2, quality_pct: 98.7, oee_score: 85.5 }
-      ]
-    },
     coverImage: "/projects/controller-production/cover.jpg",
-    githubUrl: "https://github.com/juanj983009-eng/Mecapro-mes-V1",
-    videoUrl: "https://youtu.be/V4FemFCJsPg",
-    demoVideoUrl: "https://youtu.be/V4FemFCJsPg",
-    demoUrl: "https://youtu.be/V4FemFCJsPg",
+    links: {
+      repository: "https://github.com/juanj983009-eng/Mecapro-mes-V1",
+      video: "https://youtu.be/V4FemFCJsPg",
+    },
     screenshots: [
       "/projects/controller-production/gallery/captura-de-pantalla-2026-07-29-082302.png",
       "/projects/controller-production/gallery/captura-de-pantalla-2026-07-29-082803.png",
@@ -285,7 +181,7 @@ export const PROJECTS: Project[] = [
       "/projects/logicore-port-control/gallery/captura-de-pantalla-2026-07-29-085909.png",
       "/projects/logicore-port-control/gallery/captura-de-pantalla-2026-07-29-085916.png",
     ],
-    isFeatured: true
+    isFeatured: false
   },
   {
     id: "podcast-streaming-app",
@@ -450,74 +346,42 @@ export const PROJECTS: Project[] = [
       "/projects/saas-bodegas-pos/gallery/captura-de-pantalla-2026-07-29-104534.png",
       "/projects/saas-bodegas-pos/gallery/captura-de-pantalla-2026-07-29-104546.png",
     ],
-    isFeatured: true
+    isFeatured: false
   },
   {
     id: "tienda-catys",
     slug: "tienda-catys",
     title: "Tienda Catys",
-    category: "FULL-STACK ENTERPRISE SYSTEM / RESTAURANT ERP & POS",
+    category: { es: "PROYECTO ACADÉMICO", en: "ACADEMIC PROJECT" },
+    projectCategory: "academic",
+    status: "prototype",
     subtitle: {
-      es: "ERP y Punto de Venta Gastronómico con Facturación Electrónica y Control de Comandas",
-      en: "Restaurant ERP & Kitchen POS with Multi-Station Order Control & Electronic Invoicing",
+      es: "Prototipo académico de gestión gastronómica y punto de venta para practicar flujos de pedidos, productos e inventario.",
+      en: "Academic restaurant-management and point-of-sale prototype for practicing order, product, and inventory workflows.",
     },
     tagline: {
-      es: "ERP y Punto de Venta Gastronómico con Facturación Electrónica y Control de Comandas",
-      en: "Restaurant ERP & Kitchen POS with Multi-Station Order Control & Electronic Invoicing",
-    },
-    role: {
-      es: "Arquitecto Enterprise Full-Stack",
-      en: "Full-Stack Enterprise Architect",
-    },
-    summary: {
-      es: "ERP y punto de venta gastronómico con pantalla KDS Kanban para cocina, control Kardex de inventario y optimización de consultas JPA.",
-      en: "Restaurant ERP & POS solution unifying table management, kitchen Kanban execution, customer loyalty tiering, and Kardex inventory.",
+      es: "Prototipo académico de gestión gastronómica y punto de venta para practicar flujos de pedidos, productos e inventario.",
+      en: "Academic restaurant-management and point-of-sale prototype for practicing order, product, and inventory workflows.",
     },
     description: {
-      es: "Tienda Catys es una solución de ERP y Punto de Venta (POS) de nivel empresarial diseñada para agilizar operaciones gastronómicas, comandas en cocina y reportes financieros. Basada en Spring Boot 3 y una aplicación React 19, unifica la gestión de mesas, el ciclo de pedidos mediante un tablero Kanban en cocina, la fidelización de clientes y el control de inventario mediante métricas Kardex.",
-      en: "Tienda Catys is an enterprise-grade ERP and Point of Sale (POS) solution designed to streamline restaurant operations, kitchen execution, and financial reporting. Built on a robust Spring Boot 3 architecture and a modern React 19 single-page application, the system unifies table management, order lifecycle tracking via a real-time kitchen Kanban, automated customer loyalty tiering, and multi-tier Kardex inventory tracking.",
+      es: "Prototipo académico de gestión gastronómica y punto de venta para practicar flujos de pedidos, productos e inventario.",
+      en: "Academic restaurant-management and point-of-sale prototype for practicing order, product, and inventory workflows.",
     },
+    contribution: {
+      es: "Trabajé en la definición de los flujos, integración de la aplicación, pruebas funcionales y corrección del prototipo.",
+      en: "I worked on workflow definition, application integration, functional testing, and prototype corrections.",
+    },
+    learnings: [
+      { es: "Modelado de pedidos, productos e inventario.", en: "Modeling orders, products, and inventory." },
+      { es: "Persistencia de información con SQL Server.", en: "Data persistence with SQL Server." },
+      { es: "Comunicación entre la interfaz y la lógica de la aplicación.", en: "Communication between the interface and application logic." },
+    ],
     techStack: ["Java 17", "Spring Boot 3.2.5", "Spring Data JPA", "MS SQL Server 2022", "Hibernate ORM", "React 19.2", "Vite 8.0", "Tailwind CSS v4.0", "Lucide React", "Docker", "Docker Compose", "Maven", "RESTful APIs"],
-    highlights: [
-      {
-        es: "Orquestación Transaccional Atómica de POS: Pipeline de caja unificado que sincroniza entidades JPA transaccionales sin discrepancias entre registros de venta, fidelización e inventario.",
-        en: "Atomic Transactional POS Orchestration: Refactored the checkout pipeline by unifying relational JPA entities to guarantee zero data drift between sales, loyalty, and stock decrements.",
-      },
-      {
-        es: "Arquitectura N-Capas Desacoplada: Diseño estricto N-Tier en Spring Boot 3 utilizando DTOs inmutables, patrón Strategy para descuentos promocionales y aislamiento de dominio.",
-        en: "Decoupled N-Tier System Architecture: Designed a strict N-tier backend architecture using Spring Boot 3 record DTOs and Strategy Pattern for promotional discounts.",
-      },
-      {
-        es: "Optimización de Consultas & Reducción de N+1: Consultas SQL optimizadas en Hibernate ORM que redujeron en un 65% la carga de la base de datos durante picos de ocupación.",
-        en: "Optimized Data Pipeline & Reduced N+1 Bottlenecks: Streamlined SQL queries and ORM mappings across order endpoints, reducing database access overhead by 65% during peak occupancy.",
-      },
-      {
-        es: "Infraestructura Dockerizada: Entorno con Docker Compose integrando MS SQL Server 2022, API Java REST multi-etapa y frontend React optimizado con Vite.",
-        en: "Containerized Docker Infrastructure: Engineered a multi-container Docker Compose deployment isolating MS SQL Server 2022, Java REST API, and Vite-optimized React frontend.",
-      },
-    ],
-    architectureNodes: [
-      { id: "cat-1", label: "React 19.2 SPA (POS/KDS)", type: "frontend", tech: "React 19.2 / Vite 8.0 / Tailwind CSS v4", status: "active", description: "Customer-facing POS terminal and Kitchen Display System (KDS) Kanban board with real-time order lifecycle tracking and loyalty tier UI." },
-      { id: "cat-2", label: "Nginx Reverse Proxy", type: "gateway", tech: "Nginx", status: "active", description: "Terminates HTTPS, routes API calls to the Spring Boot backend, and serves the Vite-compiled React SPA static bundle." },
-      { id: "cat-3", label: "Spring Boot 3.2.5 REST API", type: "backend", tech: "Java 17 / Spring Boot 3.2.5", status: "active", description: "N-tier REST API managing POS checkout orchestration, kitchen order dispatching, loyalty increments, and Kardex inventory tracking with Strategy Pattern discount evaluation." },
-      { id: "cat-4", label: "Hibernate ORM + Spring Data JPA", type: "backend", tech: "Hibernate ORM / Spring Data JPA", status: "active", description: "ORM layer with optimized join-fetch queries and transactional boundary controls eliminating N+1 bottlenecks across order and inventory endpoints." },
-      { id: "cat-5", label: "MS SQL Server 2022 (Dockerized)", type: "database", tech: "MS SQL Server 2022", status: "active", description: "Primary enterprise relational store for sales ledgers, table state, customer loyalty records, Kardex inventory history, and kitchen fulfillment logs." }
-    ],
-    metrics: {
-      throughput: "~1,200 req/sec Peak Capacity",
-      latency: "< 45ms Sub-second API Response",
-      uptime: "99.95% Availability (Dockerized)",
-      customMetrics: [
-        { label: "DB Overhead Reduction", value: "- 65%" },
-        { label: "API Response Latency", value: "< 45ms" },
-        { label: "Deployment Parity", value: "100% Docker" }
-      ]
-    },
     coverImage: "/projects/tienda-catys/cover.jpg",
-    videoUrl: "https://youtu.be/jEqSSWqL214",
-    demoVideoUrl: "https://youtu.be/jEqSSWqL214",
-    demoUrl: "https://youtu.be/jEqSSWqL214",
-    githubUrl: "https://github.com/juanj983009-eng/Tienda-Catys-Java",
+    links: {
+      repository: "https://github.com/juanj983009-eng/Tienda-Catys-Java",
+      video: "https://youtu.be/jEqSSWqL214",
+    },
     screenshots: [
       "/projects/tienda-catys/gallery/captura-de-pantalla-2026-08-07-151919.png",
       "/projects/tienda-catys/gallery/captura-de-pantalla-2026-08-07-151957.png",
@@ -535,7 +399,7 @@ export const PROJECTS: Project[] = [
       "/projects/tienda-catys/gallery/captura-de-pantalla-2026-08-07-152141.png",
       "/projects/tienda-catys/gallery/captura-de-pantalla-2026-08-07-152150.png"
     ],
-    isFeatured: false
+    isFeatured: true
   },
   {
     id: "biblioteca-digital",
@@ -633,7 +497,7 @@ export const PROJECTS: Project[] = [
       "/projects/biblioteca-digital/gallery/captura-de-pantalla-2026-07-29-160256.png",
       "/projects/biblioteca-digital/gallery/captura-de-pantalla-2026-07-29-160302.png"
     ],
-    isFeatured: true
+    isFeatured: false
   },
   {
     id: "clinicav2-stack",

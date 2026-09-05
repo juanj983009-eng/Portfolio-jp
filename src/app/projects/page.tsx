@@ -132,6 +132,10 @@ export default function ProjectsPage() {
             count={`${projects.length} ${t.projects.projectCount}`}
           />
 
+          <p className="max-w-3xl font-sans text-sm leading-relaxed text-zinc-500">
+            {t.projects.aiTransparencyNote}
+          </p>
+
           {/* Dynamic 3-Column Bento Grid */}
           <BentoGrid>
             {projects.map((project, index) => {
